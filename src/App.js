@@ -1,25 +1,67 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
+
+// Components
+import Login from './Components/Login';
+
+// Firebase
+import firebase from './firebase';
+import 'firebase/auth';
+
+
+
+// Assets
 import './App.css';
+import UserDashboard from "./Views/UserDashboard";
+import axios from "axios";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [user, setUser] = useState(null);
+    let userData = null;
+
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged(user => {
+            setUser(user);
+        })
+    }, [])
+
+
+
+    // If User Signed in Display Correct View
+    if (user) {
+        // If User Load Data for Database
+        if (user) {
+            // Make API call to web server
+            axios.post('http://localhost:8900/getUserData', {
+                uid: user.uid
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        // Format Data
+        userData = {
+            uid: user.uid,
+            email: user.email,
+            username: user.displayName, //temp
+            firstName: null,
+            lastName: null,
+            profileImgID: null
+        }
+
+        return <UserDashboard userData={userData}/>;
+    }
+
+    // If not signed in this is what renders
+    return (
+        <div className="app">
+            <h1>IfyIfy</h1>
+            <Login />
+        </div>
+    );
 }
 
 export default App;
