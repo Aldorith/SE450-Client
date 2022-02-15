@@ -31,7 +31,7 @@ function App() {
         // If User Load Data for Database
         if (user) {
             // Make API call to web server
-            axios.post('http://localhost:8900/getUserData', {
+            axios.post((process.env.SERVER_ADDRESS +'/getUserData'), {
                 uid: user.uid
             })
                 .then(function (response) {
