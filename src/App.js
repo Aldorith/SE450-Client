@@ -10,8 +10,10 @@ import 'firebase/auth';
 
 // Assets
 import './App.css';
-import UserDashboard from "./Views/UserDashboard";
 import axios from "axios";
+
+// Components
+import UserDashboard from "./Views/UserDashboard";
 
 function App() {
     const [user, setUser] = useState(null);
