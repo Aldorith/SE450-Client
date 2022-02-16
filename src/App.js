@@ -8,7 +8,6 @@ import firebase from './firebase';
 import 'firebase/auth';
 
 
-
 // Assets
 import './App.css';
 import UserDashboard from "./Views/UserDashboard";
