@@ -7,7 +7,7 @@ import {
 
 // Import Main App
 import App from "./App";
-
+import UserDashboard from "./Views/UserDashboard.js";
 
 // Redux
 import store from './store'

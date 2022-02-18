@@ -38,10 +38,10 @@ function App() {
                 username: user.displayName, //temp
                 firstName: null,
                 lastName: null,
-                profileImgID: null
+                profileImgID: null,
             })
                 .then(function (response) {
-                    console.log(response);
+                    console.log(response.data[0]);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -55,7 +55,8 @@ function App() {
             username: user.displayName, //temp
             firstName: null,
             lastName: null,
-            profileImgID: null
+            profileImgID: null,
+            communities: []
         }
 
         return <UserDashboard userData={userData}/>;
