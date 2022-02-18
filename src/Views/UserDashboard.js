@@ -1,4 +1,5 @@
 import React from "react";
+import LogOut from "../Components/LogOut";
 
 
 class userDashboard extends React.Component {
@@ -15,6 +16,7 @@ class userDashboard extends React.Component {
             <div>
                 <h2>User Dashboard</h2>
                 <p>{this.props.userData.username}</p>
+                <LogOut />
             </div>
         );
     }
