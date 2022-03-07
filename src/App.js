@@ -59,7 +59,10 @@ function App() {
             communities: []
         }
 
-        return <UserDashboard userData={userData}/>;
+        if(userData.communities.length)
+            return <UserDashboard userData={userData}/>;
+        else
+            return <UserDashboard userData={userData}/>;
     }
 
     // If not signed in this is what renders
