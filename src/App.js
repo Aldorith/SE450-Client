@@ -12,7 +12,7 @@ import 'firebase/auth';
 import './App.css';
 import axios from "axios";
 
-// Components
+// Views
 import UserDashboard from "./Views/UserDashboard";
 
 function App() {
@@ -65,7 +65,7 @@ function App() {
     // If not signed in this is what renders
     return (
         <div className="app">
-            <h1>IfyIfy</h1>
+            <h1>IfyIf</h1>
             <Login />
         </div>
     );
