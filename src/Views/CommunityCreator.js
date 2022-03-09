@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 
 class CommunityCreator extends React.Component {
@@ -29,8 +29,7 @@ class CommunityCreator extends React.Component {
             </div>
         )
         axios.post(('http://localhost:8900/getUserData'), {
-            communityID: community.ID,
-            communityDesc: community.Desc
+
         });
     }
 }
