@@ -15,12 +15,15 @@ class userDashboard extends React.Component {
 
     render() {
         return (
-            <div className="userDash">
-                <h2>User Dashboard</h2>
-                <p>{this.props.userData.username}</p>
-                <LogOut />
-                <br/>
-                <CreateCommunity />
+            <div>
+                <div className="userDash">
+                    <h2>User Dashboard</h2>
+                    <p>{this.props.userData.username}</p>
+                    <LogOut />
+
+                    <br/>
+                    <CreateCommunity />
+                </div>
             </div>
         );
     }

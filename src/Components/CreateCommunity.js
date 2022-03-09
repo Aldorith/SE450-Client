@@ -1,4 +1,3 @@
-
 import '../App.css';
 import CommunityCreator from "../Views/CommunityCreator";
 import UserDashboard from "../Views/UserDashboard";
@@ -6,8 +5,8 @@ import communityCreator from "../Views/CommunityCreator";
 
 const CreateCommunity = () => {
     function createCommunity () {
-              return <communityCreator />;
-          }
+        return <communityCreator />;
+      }
 
     return (
         <div>

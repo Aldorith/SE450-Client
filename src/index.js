@@ -8,6 +8,7 @@ import {
 // Import Main App
 import App from "./App";
 import UserDashboard from "./Views/UserDashboard.js";
+import CommunityCreator from  "./Views/CommunityCreator";
 
 // Redux
 import store from './store'
@@ -19,6 +20,7 @@ render(
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<App />} />
+                <Route path="/createCommunity" element={<CommunityCreator />} />
             </Routes>
         </BrowserRouter>
     </Provider>,
