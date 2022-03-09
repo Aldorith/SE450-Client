@@ -1,6 +1,6 @@
 import React from "react";
 import LogOut from "../Components/LogOut";
-import CreateCommunity from "../Components/CreateCommunity";
+import ToCommunityCreator from "../Components/ToCommunityCreator";
 import '../Assets/userDash.css';
 
 class userDashboard extends React.Component {
@@ -22,7 +22,7 @@ class userDashboard extends React.Component {
                     <LogOut />
 
                     <br/>
-                    <CreateCommunity />
+                    <ToCommunityCreator />
                 </div>
             </div>
         );
