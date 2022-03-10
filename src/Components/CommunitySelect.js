@@ -12,6 +12,24 @@ class CommunitySelect extends React.Component {
         return <CommunityCreator userData={this.props.userData}/>;
     }
 
+    JoinCommunity() {
+
+    }
+
+    EnterCommunity(){
+
+    }
+
+    CommunityButtonList(userData) {
+        const communities = userData.communities;
+        const communityListItems = communities.map((communities) =>
+            <li key = {communities.name}> <button type="button" onClick={this.EnterCommunity(communities.id)}>{communities.name}</button></li>
+        );
+        return(
+            <ul>{communityListItems}</ul>
+        );
+    }
+
     render() {
         if (this.props.userData.communities.length)
             return (
@@ -21,7 +39,7 @@ class CommunitySelect extends React.Component {
                     <br/>
                     <ul>
                         <li>
-                            <button type="button" onClick="joinCommunity()"> Join a Community</button>
+                            <button type="button" onClick={this.JoinCommunity}> Join a Community</button>
                         </li>
                         <li>
                             <button type="button" onClick={this.CreateCommunity}> Create a Community</button>
@@ -34,10 +52,10 @@ class CommunitySelect extends React.Component {
                 <div>
                     <ul>
                         <li>
-                            <button type="button" onClick="JoinCommunity()"> Join a Community</button>
+                            <button type="button" onClick={this.JoinCommunity}> Join a Community</button>
                         </li>
                         <li>
-                            <button type="button" onClick="CreateCommunity()"> Create a Community</button>
+                            <button type="button" onClick={this.CreateCommunity}> Create a Community</button>
                         </li>
                     </ul>
                 </div>
@@ -45,21 +63,5 @@ class CommunitySelect extends React.Component {
     }
 }
 
-function CommunityButtonList(userData) {
-    const communities = userData.communities;
-    const communityListItems = communities.map((communities) =>
-        <li key = {communities.name}> <button type="button" onClick={EnterCommunity(communities.id)}>{communities.name}</button></li>
-    );
-    return(
-        <ul>{communityListItems}</ul>
-    );
-}
-
-function JoinCommunity() {
-
-}
-function EnterCommunity(){
-
-}
 
 export default CommunitySelect;
