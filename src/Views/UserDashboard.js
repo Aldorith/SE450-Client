@@ -23,21 +23,33 @@ class userDashboard extends React.Component {
         this.setState({showCommunityCreator: true});
     }
 
+    UserDash (props) {
+        return (
+            <div>
+                <h2>User Dashboard</h2>
+                <p>{this.props.userData.username}</p>
+                <LogOut />
+
+                <br/>
+                <button onClick={this.loadCommunityCreator}>Create Community</button>
+            </div>
+        )
+    }
+
     render() {
+        let componentToRender;
+
+        if (this.state.showCommunityCreator) {
+            componentToRender = <CommunityCreator userData={this.props.userData} />;
+        } else {
+            componentToRender = this.UserDash();
+        }
+
         return (
             <div className="rootUserDashDiv">
                 <VertNavBar userData={this.props.userData} />
                 <div className="userDash">
-                    <h2>User Dashboard</h2>
-                    <p>{this.props.userData.username}</p>
-                    <LogOut />
-
-                    <br/>
-                    <button onClick={this.loadCommunityCreator}>Create Community</button>
-
-                    {this.state.showCommunityCreator &&
-                        <CommunityCreator userData={this.props.userData} />
-                    }
+                    {componentToRender}
                 </div>
             </div>
         );

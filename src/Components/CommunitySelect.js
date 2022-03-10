@@ -1,7 +1,17 @@
-import '../App.css';
+import React from "react";
 import CommunityCreator from "../Views/CommunityCreator";
 
 class CommunitySelect extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.CreateCommunity = this.CreateCommunity.bind(this);
+    }
+
+    CreateCommunity(){
+        return <CommunityCreator userData={this.props.userData}/>;
+    }
+
     render() {
         if (this.props.userData.communities.length)
             return (
@@ -14,7 +24,7 @@ class CommunitySelect extends React.Component {
                             <button type="button" onClick="joinCommunity()"> Join a Community</button>
                         </li>
                         <li>
-                            <button type="button" onClick="createCommunity()"> Create a Community</button>
+                            <button type="button" onClick={this.CreateCommunity}> Create a Community</button>
                         </li>
                     </ul>
                 </div>
@@ -47,9 +57,6 @@ function CommunityButtonList(userData) {
 
 function JoinCommunity() {
 
-}
-function CreateCommunity(){
-    return <CommunityCreator userData={userData}/>;
 }
 function EnterCommunity(){
 
