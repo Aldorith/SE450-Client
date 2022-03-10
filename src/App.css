@@ -1,7 +1,32 @@
+html {
+  background-color: #282c34;
+  color: white;
+  font-family: sans-serif;
+  margin:0;
+}
+
 .App {
   text-align: center;
 }
 
+body {
+  margin: 0;
+}
+
+a:hover {
+  cursor:pointer;
+}
+
+button:hover {
+  cursor:pointer;
+}
+
+button {
+  border-radius: 5px;
+  border-style: none;
+  padding: 0.7em;
+  font-weight: 500;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

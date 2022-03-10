@@ -2,6 +2,7 @@ import React from "react";
 import LogOut from "../Components/LogOut";
 import '../Assets/userDash.css';
 import CommunityCreator from "./CommunityCreator";
+import VertNavBar from "../Components/VertNavBar";
 
 class userDashboard extends React.Component {
     constructor(props) {
@@ -24,7 +25,8 @@ class userDashboard extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="rootUserDashDiv">
+                <VertNavBar userData={this.props.userData} />
                 <div className="userDash">
                     <h2>User Dashboard</h2>
                     <p>{this.props.userData.username}</p>
