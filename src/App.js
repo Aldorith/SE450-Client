@@ -58,8 +58,10 @@ function App() {
             profileImgID: null,
             communities: []
         }
-
-        return <CommunitySelect userData={userData}/>;
+        //Might need to change this back to loading the User Dashboard...JUST in case someone is wondering why
+        //...it isn't loading, the line below is it.
+        return <div><UserDashboard userData={userData}/>
+        </div>;
     }
 
     // If not signed in this is what renders
