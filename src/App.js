@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 // Components
 import Login from './Components/Login';
+import CommunitySelect from './Components/CommunitySelect';
 
 // Firebase
 import firebase from './firebase';
@@ -58,10 +59,7 @@ function App() {
             communities: []
         }
 
-        if(userData.communities.length)
-            return <UserDashboard userData={userData}/>;
-        else
-            return <UserDashboard userData={userData}/>;
+        return <CommunitySelect userData={userData}/>;
     }
 
     // If not signed in this is what renders
