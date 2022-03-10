@@ -38,7 +38,7 @@ class CommunitySelect extends React.Component {
 function CommunityButtonList(userData) {
     const communities = userData.communities;
     const communityListItems = communities.map((communities) =>
-        <li key = {communities.name}> <button type="button" onClick={EnterCommunity(key)}>{communities.name}</button></li>
+        <li key = {communities.name}> <button type="button" onClick={EnterCommunity(communities.id)}>{communities.name}</button></li>
     );
     return(
         <ul>{communityListItems}</ul>
