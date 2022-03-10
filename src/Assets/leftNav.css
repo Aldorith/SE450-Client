@@ -1,0 +1,21 @@
+.vertNavBar {
+    height: 100%;
+    background-color: #444e5c;
+}
+.vertNavBar ul {
+    margin: 0;
+    padding-left: 0;
+    text-align: center;
+}
+.vertNavBar li {
+    padding-bottom: 1em;
+}
+.vertNavBar img {
+    max-width: 50%;
+    border-radius: 2em;
+    border-style: solid;
+    border-color: white;
+}
+.vertNavBar h2 {
+    margin: 0.5em;
+}

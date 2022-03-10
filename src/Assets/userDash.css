@@ -1,3 +1,10 @@
-.userDash {
+/*Setup Grid for UserDash and Left Hand Nav Bar*/
+.rootUserDashDiv {
+    display: grid;
+    grid-template-columns: 10em auto;
+}
 
+.userDash {
+    margin-left:2em;
+    margin-right:2em;
 }

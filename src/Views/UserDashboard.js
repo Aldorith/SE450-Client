@@ -1,11 +1,17 @@
 import React from "react";
 import LogOut from "../Components/LogOut";
-import CreateCommunity from "../Components/CreateCommunity";
 import '../Assets/userDash.css';
+import CommunityCreator from "./CommunityCreator";
+import VertNavBar from "../Components/VertNavBar";
 
 class userDashboard extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showCommunityCreator: false
+        }
+
+        this.loadCommunityCreator = this.loadCommunityCreator.bind(this);
     }
 
     componentDidMount() {
@@ -13,14 +19,26 @@ class userDashboard extends React.Component {
         console.log(this.props.userData.communities)
     }
 
+    loadCommunityCreator() {
+        this.setState({showCommunityCreator: true});
+    }
+
     render() {
         return (
-            <div className="userDash">
-                <h2>User Dashboard</h2>
-                <p>{this.props.userData.username}</p>
-                <LogOut />
-                <br/>
-                <CreateCommunity />
+            <div className="rootUserDashDiv">
+                <VertNavBar userData={this.props.userData} />
+                <div className="userDash">
+                    <h2>User Dashboard</h2>
+                    <p>{this.props.userData.username}</p>
+                    <LogOut />
+
+                    <br/>
+                    <button onClick={this.loadCommunityCreator}>Create Community</button>
+
+                    {this.state.showCommunityCreator &&
+                        <CommunityCreator userData={this.props.userData} />
+                    }
+                </div>
             </div>
         );
     }

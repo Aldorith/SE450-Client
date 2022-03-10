@@ -39,13 +39,12 @@ function App() {
                 firstName: null,
                 lastName: null,
                 profileImgID: null,
+            }).then(function (response) {
+                console.log(response.data[0]);
             })
-                .then(function (response) {
-                    console.log(response.data[0]);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            .catch(function (error) {
+                console.log(error);
+            });
         }
 
         // Format Data
