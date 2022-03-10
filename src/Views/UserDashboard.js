@@ -1,16 +1,25 @@
 import React from "react";
 import LogOut from "../Components/LogOut";
-import ToCommunityCreator from "../Components/ToCommunityCreator";
 import '../Assets/userDash.css';
+import CommunityCreator from "./CommunityCreator";
 
 class userDashboard extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showCommunityCreator: false
+        }
+
+        this.loadCommunityCreator = this.loadCommunityCreator.bind(this);
     }
 
     componentDidMount() {
         console.log(this.props.userData);
         console.log(this.props.userData.communities)
+    }
+
+    loadCommunityCreator() {
+        this.setState({showCommunityCreator: true});
     }
 
     render() {
@@ -22,7 +31,11 @@ class userDashboard extends React.Component {
                     <LogOut />
 
                     <br/>
-                    <ToCommunityCreator />
+                    <button onClick={this.loadCommunityCreator}>Create Community</button>
+
+                    {this.state.showCommunityCreator &&
+                        <CommunityCreator userData={this.props.userData} />
+                    }
                 </div>
             </div>
         );
