@@ -60,9 +60,9 @@ function App() {
         }
         //Might need to change this back to loading the User Dashboard...JUST in case someone is wondering why
         //...it isn't loading, the line below is it.
-        return <div><UserDashboard userData={userData}/>
-            <CommunitySelect userData = {userData}/>
-        </div>;
+
+        // I had to change it back - Kyle
+        return <UserDashboard userData={userData}/>;
     }
 
     // If not signed in this is what renders

@@ -30,12 +30,13 @@ class CommunitySelect extends React.Component {
         );
     }
 
+    // I had to comment some stuff out - kyle
+    //                     <CommunityButtonList communities={this.props.userData.communities}/>
     render() {
         if (this.props.userData.communities.length)
             return (
                 <div>
                     <h1>Current Communities</h1><br/>
-                    <CommunityButtonList communities={this.props.userData.communities}/>
                     <br/>
                     <ul>
                         <li>
