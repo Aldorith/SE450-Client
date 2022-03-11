@@ -3,15 +3,20 @@ import LogOut from "../Components/LogOut";
 import '../Assets/userDash.css';
 import CommunityCreator from "./CommunityCreator";
 import VertNavBar from "../Components/VertNavBar";
+import Calendar from "../Components/Calendar";
 
 class userDashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showCommunityCreator: false
+            showCommunityCreator: false,
+            showCalendar: false,
+            showEventCreator: false,
         }
 
         this.loadCommunityCreator = this.loadCommunityCreator.bind(this);
+        this.loadCalendar = this.loadCalendar().bind(this);
+        this.loadEventCreator= this.loadEventCreator().bind(this);
     }
 
     componentDidMount() {
@@ -23,6 +28,14 @@ class userDashboard extends React.Component {
         this.setState({showCommunityCreator: true});
     }
 
+    loadCalendar() {
+        this.setState({showCalendar: true});
+    }
+
+    loadEventCreator() {
+        this.setState({showEventCreator: true});
+    }
+
     UserDash (props) {
         return (
             <div>
@@ -30,7 +43,7 @@ class userDashboard extends React.Component {
                 <p>{this.props.userData.username}</p>
                 <LogOut />
 
-                <br/>
+                <br/> <br/>
                 <button onClick={this.loadCommunityCreator}>Create Community</button>
             </div>
         )
