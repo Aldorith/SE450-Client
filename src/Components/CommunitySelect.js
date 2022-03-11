@@ -6,6 +6,8 @@ class CommunitySelect extends React.Component {
         super(props);
 
         this.CreateCommunity = this.CreateCommunity.bind(this);
+        this.JoinCommunity = this.JoinCommunity.bind(this);
+        this.EnterCommunity = this.EnterCommunity.bind(this);
     }
 
     CreateCommunity(){
