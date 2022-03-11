@@ -4,6 +4,7 @@ import '../Assets/userDash.css';
 import CommunityCreator from "./CommunityCreator";
 import VertNavBar from "../Components/VertNavBar";
 import Calendar from "../Components/Calendar";
+import ProfileImageUpload from "../Components/ImageUpload/ProfileImageUpload";
 
 class userDashboard extends React.Component {
     constructor(props) {
@@ -12,11 +13,13 @@ class userDashboard extends React.Component {
             showCommunityCreator: false,
             showCalendar: false,
             showEventCreator: false,
+            showTestImageUpload: false
         }
 
         this.loadCommunityCreator = this.loadCommunityCreator.bind(this);
-        this.loadCalendar = this.loadCalendar().bind(this);
-        this.loadEventCreator= this.loadEventCreator().bind(this);
+        this.loadCalendar = this.loadCalendar.bind(this);
+        this.loadEventCreator= this.loadEventCreator.bind(this);
+        this.showTestImageUpload = this.showTestImageUpload.bind(this);
     }
 
     componentDidMount() {
@@ -36,6 +39,10 @@ class userDashboard extends React.Component {
         this.setState({showEventCreator: true});
     }
 
+    showTestImageUpload() {
+        this.setState({showTestImageUpload: true});
+    }
+
     UserDash (props) {
         return (
             <div>
@@ -45,6 +52,8 @@ class userDashboard extends React.Component {
 
                 <br/> <br/>
                 <button onClick={this.loadCommunityCreator}>Create Community</button>
+                <br/> <br/>
+                <button onClick={this.showTestImageUpload}>Test Image Upload</button>
             </div>
         )
     }
@@ -54,6 +63,8 @@ class userDashboard extends React.Component {
 
         if (this.state.showCommunityCreator) {
             componentToRender = <CommunityCreator userData={this.props.userData} />;
+        } else if (this.state.showTestImageUpload) {
+            componentToRender = <ProfileImageUpload userData={this.props.userData} />;
         } else {
             componentToRender = this.UserDash();
         }

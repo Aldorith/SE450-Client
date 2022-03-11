@@ -2,6 +2,7 @@
 .rootUserDashDiv {
     display: grid;
     grid-template-columns: 10em auto;
+    height: 100vh;
 }
 
 .userDash {
