@@ -5,6 +5,7 @@ import CommunityCreator from "./CommunityCreator";
 import VertNavBar from "../Components/VertNavBar";
 import Calendar from "../Components/Calendar";
 import ProfileImageUpload from "../Components/ImageUpload/ProfileImageUpload";
+import Chat from "../Components/Chat";
 
 class userDashboard extends React.Component {
     constructor(props) {
@@ -74,6 +75,7 @@ class userDashboard extends React.Component {
                 <VertNavBar userData={this.props.userData} />
                 <div className="userDash">
                     {componentToRender}
+                    <Chat userData={this.props.userData.uid} />
                 </div>
             </div>
         );
