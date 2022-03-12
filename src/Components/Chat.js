@@ -46,9 +46,9 @@ class Chat extends React.Component {
         return(
             <div>
                 <ul>
-                    {this.state.messages.map((index) =>
-                        <li key={index.toString()}>
-                            <p>{this.state.messages[index].MessageText}</p>
+                    {this.state.messages.map((message) =>
+                        <li key={message.uniqueID.toString()}>
+                            <p>{message.MessageText}</p>
                         </li>
                     )}
                 </ul>
