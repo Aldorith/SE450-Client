@@ -5,23 +5,26 @@ class CommunitySelect extends React.Component {
     constructor(props) {
         super(props);
 
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
         this.CreateCommunity = this.CreateCommunity.bind(this);
-        this.JoinCommunity = this.JoinCommunity.bind(this);
-        this.EnterCommunity = this.EnterCommunity.bind(this);
+/*        this.JoinCommunity = this.JoinCommunity.bind(this);
+        this.EnterCommunity = this.EnterCommunity.bind(this);*/
+    }
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+    }
+    handleSubmit(event) {
+        //Enter Code appropriate to initiating the joining of the community here
+        event.preventDefault();
     }
 
     CreateCommunity(){
         return <CommunityCreator userData={this.props.userData}/>;
     }
-
-    JoinCommunity() {
-
-    }
-
-    EnterCommunity(){
-
-    }
-
+/*
     CommunityButtonList(userData) {
         const communities = userData.communities;
         const communityListItems = communities.map((communities) =>
@@ -31,10 +34,10 @@ class CommunitySelect extends React.Component {
             <ul>{communityListItems}</ul>
         );
     }
-
+*/
     // I had to comment some stuff out - kyle
     //                     <CommunityButtonList communities={this.props.userData.communities}/>
-    render() {
+    render() {/*
         if (this.props.userData.communities.length)
             return (
                 <div>
@@ -50,15 +53,29 @@ class CommunitySelect extends React.Component {
                     </ul>
                 </div>
             )
-        else
+        else*/
             return (
                 <div>
-                    <ul>
+                    <h1>Looks like you aren't a part of any communities yet!</h1>
+                    <h2>Let's Fix that!</h2>
+                    <ul style = "list-style: none;">
                         <li>
-                            <button type="button" onClick={this.JoinCommunity}> Join a Community</button>
+                            <h2>Join a Community</h2>
                         </li>
                         <li>
-                            <button type="button" onClick={this.CreateCommunity}> Create a Community</button>
+                            <form onSubmit={this.handleSubmit}>
+                                <label>
+                                    Enter Community Join Code:
+                                    <input type = "text" value = {this.state.value} onChange = {this.handleChange}/>
+                                </label>
+                                <input type = "submit" value="Submit" />
+                            </form>
+                        </li>
+                        <li>
+                            <h2>Create a Community</h2>
+                        </li>
+                        <li>
+                            <button type="button" onClick={this.CreateCommunity}> Create Community</button>
                         </li>
                     </ul>
                 </div>

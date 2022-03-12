@@ -56,13 +56,30 @@ function App() {
             firstName: null,
             lastName: null,
             profileImgID: null,
-            communities: []
+            communities: [],
         }
+
+        //Get User Community Data
+        // Make API call to web server
+        axios.post(('http://localhost:8900/getUserCommunityData'), {
+            uid: user.uid,
+            communities: [],
+        }).then(function (response) {
+            console.log(response.data[0]);
+            userData.communities = response.data;
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+
         //Might need to change this back to loading the User Dashboard...JUST in case someone is wondering why
         //...it isn't loading, the line below is it.
 
-        // I had to change it back - Kyle
-        return <UserDashboard userData={userData}/>;
+        // I had to change it back - Kyle -What you doing Kyle... ;P -Brody
+        if(userData.communities.length)
+            return <UserDashboard userData={userData}/>;
+        else
+            return <CommunitySelect userData={userData}/>;
     }
 
     // If not signed in this is what renders
