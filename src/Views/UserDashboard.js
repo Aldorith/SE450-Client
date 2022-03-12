@@ -6,6 +6,7 @@ import VertNavBar from "../Components/VertNavBar";
 import Calendar from "../Components/Calendar";
 import ProfileImageUpload from "../Components/ImageUpload/ProfileImageUpload";
 import Chat from "../Components/Chat";
+import CommunityDashboard from "./CommunityDashboard";
 
 class userDashboard extends React.Component {
     constructor(props) {
@@ -14,7 +15,9 @@ class userDashboard extends React.Component {
             showCommunityCreator: false,
             showCalendar: false,
             showEventCreator: false,
-            showTestImageUpload: false
+            showTestImageUpload: false,
+            currentCommunity: undefined,
+            showCommunity: false
         }
 
         this.loadCommunityCreator = this.loadCommunityCreator.bind(this);
@@ -22,6 +25,8 @@ class userDashboard extends React.Component {
         this.loadEventCreator= this.loadEventCreator.bind(this);
         this.showTestImageUpload = this.showTestImageUpload.bind(this);
     }
+
+    loadCo
 
     componentDidMount() {
         console.log(this.props.userData);
@@ -66,6 +71,8 @@ class userDashboard extends React.Component {
             componentToRender = <CommunityCreator userData={this.props.userData} />;
         } else if (this.state.showTestImageUpload) {
             componentToRender = <ProfileImageUpload userData={this.props.userData} />;
+        } else if (this.state.showCommunity) {
+            componentToRender = <CommunityDashboard userData={this.props.userData} communityData={this.state.communityData} />
         } else {
             componentToRender = this.UserDash();
         }
