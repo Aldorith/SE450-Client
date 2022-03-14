@@ -21,6 +21,9 @@ button:hover {
   cursor:pointer;
 }
 
+ul {
+  list-style: none;
+}
 button {
   border-radius: 5px;
   border-style: none;
