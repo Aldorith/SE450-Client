@@ -5,6 +5,10 @@ class CommunitySelect extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            communityJoinCode: undefined
+        }
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -58,7 +62,7 @@ class CommunitySelect extends React.Component {
                 <div>
                     <h1>Looks like you aren't a part of any communities yet!</h1>
                     <h2>Let's Fix that!</h2>
-                    <ul style = "list-style: none;">
+                    <ul>
                         <li>
                             <h2>Join a Community</h2>
                         </li>
@@ -66,7 +70,7 @@ class CommunitySelect extends React.Component {
                             <form onSubmit={this.handleSubmit}>
                                 <label>
                                     Enter Community Join Code:
-                                    <input type = "text" value = {this.state.value} onChange = {this.handleChange}/>
+                                    <input type = "text" value={this.state.communityJoinCode} name="communityJoinCode" onChange = {this.handleChange}/>
                                 </label>
                                 <input type = "submit" value="Submit" />
                             </form>
