@@ -16,7 +16,7 @@ class userDashboard extends React.Component {
             showCalendar: false,
             showEventCreator: false,
             showTestImageUpload: false,
-            currentCommunity: undefined,
+            currentCommunity: 1, // This is a test - switch to undefined at a later point
             showCommunity: false
         }
 
@@ -24,9 +24,8 @@ class userDashboard extends React.Component {
         this.loadCalendar = this.loadCalendar.bind(this);
         this.loadEventCreator= this.loadEventCreator.bind(this);
         this.showTestImageUpload = this.showTestImageUpload.bind(this);
+        this.loadCommunity = this.loadCommunity.bind(this);
     }
-
-    loadCo
 
     componentDidMount() {
         console.log(this.props.userData);
@@ -49,6 +48,10 @@ class userDashboard extends React.Component {
         this.setState({showTestImageUpload: true});
     }
 
+    loadCommunity () {
+        this.setState({showCommunity: true});
+    }
+
     UserDash (props) {
         return (
             <div>
@@ -60,6 +63,8 @@ class userDashboard extends React.Component {
                 <button onClick={this.loadCommunityCreator}>Create Community</button>
                 <br/> <br/>
                 <button onClick={this.showTestImageUpload}>Test Image Upload</button>
+                <br/> <br/>
+                <button onClick={this.loadCommunity}>Load Test Community</button>
             </div>
         )
     }
@@ -72,17 +77,17 @@ class userDashboard extends React.Component {
         } else if (this.state.showTestImageUpload) {
             componentToRender = <ProfileImageUpload userData={this.props.userData} />;
         } else if (this.state.showCommunity) {
-            componentToRender = <CommunityDashboard userData={this.props.userData} communityData={this.state.communityData} />
+            componentToRender = <CommunityDashboard userData={this.props.userData} communityID={this.state.currentCommunity} />
         } else {
             componentToRender = this.UserDash();
         }
+        //                    <Chat userData={this.props.userData.uid} />
 
         return (
             <div className="rootUserDashDiv">
                 <VertNavBar userData={this.props.userData} />
                 <div className="userDash">
                     {componentToRender}
-                    <Chat userData={this.props.userData.uid} />
                 </div>
             </div>
         );

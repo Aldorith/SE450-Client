@@ -6,6 +6,10 @@
 }
 
 .userDash {
+    width: 100%;
+}
+
+.userDashContent {
     margin-left:2em;
     margin-right:2em;
 }
