@@ -85,7 +85,7 @@ function App() {
     // If not signed in this is what renders
     return (
         <div className="app">
-            <h1>IfyIf</h1>
+            <h1>IfyIfy</h1>
             <Login />
         </div>
     );

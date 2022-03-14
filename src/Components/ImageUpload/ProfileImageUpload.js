@@ -5,11 +5,25 @@ class ProfileImageUpload extends React.Component {
     constructor(props) {
         super(props);
         this.state ={
-            file: null
+            file: undefined,
+            profilePhoto: undefined
         };
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
     }
+
+    componentDidMount() {
+        this.getProfilePhoto();
+    }
+
+    getProfilePhoto() {
+        // Set path for profile photo
+        let imgUrl = "http://localhost:8900/profilePhotos/" + this.props.userData.uid + ".png";
+        this.setState({
+            profilePhoto: imgUrl
+        });
+    }
+
     onFormSubmit(e){
         e.preventDefault();
         const formData = new FormData();
@@ -26,6 +40,11 @@ class ProfileImageUpload extends React.Component {
             }).catch((error) => {
                 console.log("ERROR:  " + error);
         });
+
+        // Update Profile Photo
+        this.getProfilePhoto();
+
+        // TODO Properly implement image update
     }
     onChange(e) {
         this.setState({file:e.target.files[0]});
@@ -36,7 +55,9 @@ class ProfileImageUpload extends React.Component {
             <div>
                 <p>Image Upload:</p>
                 <form onSubmit={this.onFormSubmit}>
-                    <h1>File Upload</h1>
+                    <h1>Profile Photo Upload</h1>
+                    <img src={this.state.profilePhoto} className="profilePhoto" alt="ProfilePhoto" />
+                    <br />
                     <input type="file" name="profilePhoto" onChange= {this.onChange} />
                     <button type="submit">Upload</button>
                 </form>
