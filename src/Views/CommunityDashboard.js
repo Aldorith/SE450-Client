@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import './../Assets/communityDash.css';
+import Chat from "../Components/Chat";
 
 class CommunityDashboard extends React.Component {
     constructor(props) {
@@ -35,14 +36,14 @@ class CommunityDashboard extends React.Component {
         return (
             <div className="communityDash">
                 <div className="communityHeader">
-                    <img src="https://cmshelpfiles.com/sites/support/uploads/images/tools_resources/image_ratios/horizontal-landscape.jpg" />
+                    <img src="https://cmshelpfiles.com/sites/support/uploads/images/tools_resources/image_ratios/horizontal-landscape.jpg" alt="Community Header" />
                     <div className="communityInfo">
                         <h2>{this.state.community.CommunityName}</h2>
                         <p>X Members</p>
                     </div>
                 </div>
                 <div className="communityDash">
-
+                    <Chat userData={this.props.userData.uid} communityData={this.state.community} />
                 </div>
             </div>
         )

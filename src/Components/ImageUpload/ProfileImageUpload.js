@@ -56,7 +56,7 @@ class ProfileImageUpload extends React.Component {
                 <p>Image Upload:</p>
                 <form onSubmit={this.onFormSubmit}>
                     <h1>Profile Photo Upload</h1>
-                    <img src={this.state.profilePhoto} className="profilePhoto"/>
+                    <img src={this.state.profilePhoto} className="profilePhoto" alt="ProfilePhoto" />
                     <br />
                     <input type="file" name="profilePhoto" onChange= {this.onChange} />
                     <button type="submit">Upload</button>
