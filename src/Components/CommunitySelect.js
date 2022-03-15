@@ -27,7 +27,7 @@ class CommunitySelect extends React.Component {
     }
 
     CreateCommunity(){
-        this.props.loadCommunity();
+        this.props.loadCreateCommunity();
     }
 /*
     CommunityButtonList(userData) {
