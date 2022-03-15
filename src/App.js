@@ -76,10 +76,7 @@ function App() {
         //...it isn't loading, the line below is it.
 
         // I had to change it back - Kyle -What you doing Kyle... ;P -Brody
-        if(userData.communities.length)
-            return <UserDashboard userData={userData}/>;
-        else
-            return <CommunitySelect userData={userData}/>;
+        return <UserDashboard userData={userData}/>;
     }
 
     // If not signed in this is what renders
