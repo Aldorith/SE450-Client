@@ -20,11 +20,10 @@ class CommunitySelect extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({communityJoinCode: event.target.value});
+        this.setState({value: event.target.value});
     }
     handleSubmit(event) {
         //Have User Join Community
-        console.log(this.state.communityJoinCode);
         // Make API call to web server
         axios.post(('http://localhost:8900/userJoinCommunity'), {
             uid: this.props.userData.uid,
