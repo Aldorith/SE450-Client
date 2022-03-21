@@ -56,8 +56,9 @@ class userDashboard extends React.Component {
         this.setState({components: {showTestImageUpload: true}});
     }
 
-    loadCommunity () {
-        this.setState({components: {showCommunity: true}});
+    loadCommunity (communityID) {
+        //this.setState({components: {showCommunity: true}});
+        return <CommunityDashboard userData={this.props.userData} communityID={communityID} />;
     }
 
     loadTestDash() {
@@ -91,18 +92,17 @@ class userDashboard extends React.Component {
         } else if (this.state.components.showTestImageUpload) {
             componentToRender = <ProfileImageUpload userData={this.props.userData} />;
         } else if (this.state.components.showCommunity) {
-            componentToRender = <CommunityDashboard userData={this.props.userData} communityID={this.state.currentCommunity} />
+            componentToRender = <CommunityDashboard userData={this.props.userData} communityID={this.state.currentCommunity} />;
         }  else if (this.state.components.showTestAdmin) {
             //componentToRender = <AdminDashboard />
         } else if (!this.props.userData.communities.length) {
-            componentToRender = <CommunitySelect loadCreateCommunity={this.loadCommunityCreator} userData={this.props.userData} />
+            componentToRender = <CommunitySelect loadCreateCommunity={this.loadCommunityCreator} userData={this.props.userData} />;
         }
         else {
             //For Testing
             componentToRender = this.UserDash();
             // Later change to load first community
         }
-        //                    <Chat userData={this.props.userData.uid} />
 
         return (
             <div className="rootUserDashDiv">

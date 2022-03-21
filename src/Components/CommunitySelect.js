@@ -20,14 +20,15 @@ class CommunitySelect extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        this.setState({communityJoinCode: event.target.value});
     }
     handleSubmit(event) {
         //Have User Join Community
+        console.log(this.state.communityJoinCode);
         // Make API call to web server
         axios.post(('http://localhost:8900/userJoinCommunity'), {
             uid: this.props.userData.uid,
-            communityJoinCode: this.communityJoinCode,
+            communityJoinCode: this.state.communityJoinCode,
         }).then(function (response) {
             console.log(response.data);
 
@@ -83,7 +84,7 @@ class CommunitySelect extends React.Component {
                             <form onSubmit={this.handleSubmit}>
                                 <label>
                                     Enter Community Join Code:
-                                    <input type = "text" value = {this.state.communityJoinCode} name = "communityJoinCode" onChange = {this.handleChange}/>
+                                    <input type = "text" value={this.state.communityJoinCode} name="communityJoinCode" onChange={this.handleChange}/>
                                 </label>
                                 <input type = "submit" value="Submit" />
                             </form>
