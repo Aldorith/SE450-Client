@@ -1,22 +1,22 @@
 import React from "react";
 import axios from "axios";
 
-class Calendar extends React.Component {
+class Announcements extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            calendarEventName: undefined,
-            calendarEventDay: undefined,
-            calendarEventDesc: undefined,
-            calendarEventLocation: undefined,
-            calendarCommunityID: undefined
+            announcementTitle: undefined,
+            announcementDesc: undefined,
+            announcementPostee: undefined,
+            announcementDate: undefined,
+            announcementCommunityID: undefined
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.createCalendarEvent = this.createCalendarEvent().bind(this);
-        this.editCalendarEvent = this.editCalendarEvent().bind(this);
-        this.deleteCalendarEvent = this.deleteCalendarEvent().bind(this);
+        this.createAnnouncement = this.createAnnouncement.bind(this);
+        this.editAnnouncement = this.editAnnouncement.bind(this);
+        this.deleteAnnouncement = this.deleteAnnouncement.bind(this);
     }
 
     handleInputChange(event) {
@@ -29,13 +29,13 @@ class Calendar extends React.Component {
         });
     }
 
-    createCalendarEvent (e) {
+    createAnnouncement (e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        console.log("Attempting to Create a New Calendar Event: " + this.state.calendarEventName);
+        console.log("Attempting to Create a New Announcment: " + this.state.calendarEventName);
 
         axios.post(('http://localhost:8900/createCalendarEvent'), {
-           //** This has to be added, but first community loading need to be completed  [=]  communityID: this.props.communityData.communityID
+            //** This has to be added, but first community loading need to be completed  [=]  communityID: this.props.communityData.communityID
             calendarEventName: this.state.calendarEventName,
             calendarEventDesc: this.state.calendarEventDesc,
             calendarEventTime: this.state.calendarEventTime,
@@ -50,13 +50,14 @@ class Calendar extends React.Component {
     }
     //above two might need to be change, not exactly sure what data[0] is, or where it is being referenced
 
-    editCalendarEvent(){
+    editAnnouncement(){
 
     }
 
-    deleteCalendarEvent(){
+    deleteAnnouncement(){
 
     }
+
 
     render() {
         return (
@@ -71,4 +72,4 @@ class Calendar extends React.Component {
         )
     }
 }
-export default Calendar;
+export default Announcments;
