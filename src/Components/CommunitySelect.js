@@ -1,25 +1,47 @@
 import React from "react";
 import CommunityCreator from "../Views/CommunityCreator";
+import UserDashboard from "../Views/UserDashboard";
+import axios from "axios";
 
 class CommunitySelect extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            communityJoinCode: undefined
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
         this.CreateCommunity = this.CreateCommunity.bind(this);
+/*        this.JoinCommunity = this.JoinCommunity.bind(this);
+        this.EnterCommunity = this.EnterCommunity.bind(this);*/
+    }
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+    }
+    handleSubmit(event) {
+        //Have User Join Community
+        // Make API call to web server
+        axios.post(('http://localhost:8900/userJoinCommunity'), {
+            uid: this.props.userData.uid,
+            communityJoinCode: this.communityJoinCode,
+        }).then(function (response) {
+            console.log(response.data);
+
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+        event.preventDefault();
     }
 
     CreateCommunity(){
-        return <CommunityCreator userData={this.props.userData}/>;
+        this.props.loadCreateCommunity();
     }
-
-    JoinCommunity() {
-
-    }
-
-    EnterCommunity(){
-
-    }
-
+/*
     CommunityButtonList(userData) {
         const communities = userData.communities;
         const communityListItems = communities.map((communities) =>
@@ -29,13 +51,14 @@ class CommunitySelect extends React.Component {
             <ul>{communityListItems}</ul>
         );
     }
-
-    render() {
+*/
+    // I had to comment some stuff out - kyle
+    //                     <CommunityButtonList communities={this.props.userData.communities}/>
+    render() {/*
         if (this.props.userData.communities.length)
             return (
                 <div>
                     <h1>Current Communities</h1><br/>
-                    <CommunityButtonList communities={this.props.userData.communities}/>
                     <br/>
                     <ul>
                         <li>
@@ -47,15 +70,29 @@ class CommunitySelect extends React.Component {
                     </ul>
                 </div>
             )
-        else
+        else*/
             return (
                 <div>
+                    <h1>Looks like you aren't a part of any communities yet!</h1>
+                    <h2>Let's Fix that!</h2>
                     <ul>
                         <li>
-                            <button type="button" onClick={this.JoinCommunity}> Join a Community</button>
+                            <h2>Join a Community</h2>
                         </li>
                         <li>
-                            <button type="button" onClick={this.CreateCommunity}> Create a Community</button>
+                            <form onSubmit={this.handleSubmit}>
+                                <label>
+                                    Enter Community Join Code:
+                                    <input type = "text" value = {this.state.communityJoinCode} name = "communityJoinCode" onChange = {this.handleChange}/>
+                                </label>
+                                <input type = "submit" value="Submit" />
+                            </form>
+                        </li>
+                        <li>
+                            <h2>Create a Community</h2>
+                        </li>
+                        <li>
+                            <button type="button" onClick={this.CreateCommunity}> Create Community</button>
                         </li>
                     </ul>
                 </div>

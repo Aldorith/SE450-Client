@@ -2,9 +2,21 @@
 .rootUserDashDiv {
     display: grid;
     grid-template-columns: 10em auto;
+    height: 100vh;
 }
 
 .userDash {
+    width: 100%;
+}
+
+.userDashContent {
     margin-left:2em;
     margin-right:2em;
+}
+
+.profilePhoto {
+    object-fit: cover;
+    width: 12em;
+    height: 12em;
+    border-radius: 2.5em;
 }

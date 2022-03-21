@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 
+import CommunityCreator from "../Views/CommunityCreator";
+
 class Calendar extends React.Component {
     constructor(props) {
         super(props);
