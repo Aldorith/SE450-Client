@@ -20,7 +20,7 @@ class CommunitySelect extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        this.setState({communityJoinCode: event.target.communityJoinCode});
     }
     handleSubmit(event) {
         //Have User Join Community
