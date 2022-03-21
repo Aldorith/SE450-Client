@@ -1,6 +1,7 @@
 import React from "react";
 import CommunityCreator from "../Views/CommunityCreator";
 import UserDashboard from "../Views/UserDashboard";
+import axios from "axios";
 
 class CommunitySelect extends React.Component {
     constructor(props) {
@@ -22,7 +23,18 @@ class CommunitySelect extends React.Component {
         this.setState({value: event.target.value});
     }
     handleSubmit(event) {
-        //Enter Code appropriate to initiating the joining of the community here
+        //Have User Join Community
+        // Make API call to web server
+        axios.post(('http://localhost:8900/userJoinCommunity'), {
+            uid: this.props.userData.uid,
+            communityJoinCode: this.communityJoinCode,
+        }).then(function (response) {
+            console.log(response.data);
+
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
         event.preventDefault();
     }
 
