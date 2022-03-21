@@ -96,7 +96,7 @@ class userDashboard extends React.Component {
         }  else if (this.state.components.showTestAdmin) {
             //componentToRender = <AdminDashboard />
         } else if (!this.props.userData.communities.length) {
-            componentToRender = <CommunitySelect loadCreateCommunity={this.loadCommunityCreator} userData={this.props.userData} />;
+            componentToRender = <CommunitySelect loadCreateCommunity={this.loadCommunityCreator} loadCommunity={this.loadCommunity} userData={this.props.userData} />;
         }
         else {
             //For Testing

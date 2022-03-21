@@ -30,7 +30,9 @@ class CommunitySelect extends React.Component {
             communityJoinCode: this.state.communityJoinCode,
         }).then(function (response) {
             console.log(response.data);
-
+            if(response.data.length > 1) {
+                this.props.loadCommunity(response.data[0].communityID);
+            }
         })
             .catch(function (error) {
                 console.log(error);
