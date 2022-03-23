@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import CommunityCreator from "../Views/CommunityCreator";
 import UserDashboard from "../Views/UserDashboard";
 import axios from "axios";
@@ -8,15 +8,16 @@ class CommunitySelect extends React.Component {
         super(props);
 
         this.state = {
-            communityJoinCode: undefined
+            communityJoinCode: undefined,
+            errorMessage: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.CreateCommunity = this.CreateCommunity.bind(this);
-/*        this.JoinCommunity = this.JoinCommunity.bind(this);
-        this.EnterCommunity = this.EnterCommunity.bind(this);*/
+        /*        this.JoinCommunity = this.JoinCommunity.bind(this);
+                this.EnterCommunity = this.EnterCommunity.bind(this);*/
     }
 
     handleChange(event) {
@@ -31,7 +32,12 @@ class CommunitySelect extends React.Component {
         }).then(function (response) {
             console.log(response.data);
             if(response.data.length > 1) {
+                this.state.errorMessage = '';
                 this.props.loadCommunity(response.data[0].communityID);
+            }
+            else
+            {
+                this.state.errorMessage = "Invalid Join Code: Try again!";
             }
         })
             .catch(function (error) {
@@ -88,6 +94,9 @@ class CommunitySelect extends React.Component {
                                     <input type = "text" value={this.state.communityJoinCode} name="communityJoinCode" onChange={this.handleChange}/>
                                 </label>
                                 <input type = "submit" value="Submit" />
+                                {this.state.errorMessage && (
+                                    <p className="error"> {this.state.errorMessage}</p>
+                                )}
                             </form>
                         </li>
                         <li>
