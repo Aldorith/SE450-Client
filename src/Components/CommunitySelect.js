@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import CommunityCreator from "../Views/CommunityCreator";
 import UserDashboard from "../Views/UserDashboard";
 import axios from "axios";
@@ -8,7 +8,7 @@ class CommunitySelect extends React.Component {
         super(props);
 
         this.state = {
-            communityJoinCode: undefined,
+            communityJoinCode: '',
             errorMessage: ''
         }
 
@@ -16,12 +16,16 @@ class CommunitySelect extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.CreateCommunity = this.CreateCommunity.bind(this);
-        /*        this.JoinCommunity = this.JoinCommunity.bind(this);
-                this.EnterCommunity = this.EnterCommunity.bind(this);*/
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
     }
     handleSubmit(event) {
         //Have User Join Community
@@ -91,9 +95,9 @@ class CommunitySelect extends React.Component {
                             <form onSubmit={this.handleSubmit}>
                                 <label>
                                     Enter Community Join Code:
-                                    <input type = "text" value={this.state.communityJoinCode} name="communityJoinCode" onChange={this.handleChange}/>
+                                    <input type="text" value={this.state.communityJoinCode} name="communityJoinCode" onChange={this.handleChange}/>
                                 </label>
-                                <input type = "submit" value="Submit" />
+                                <input type="submit" value="Submit" />
                                 {this.state.errorMessage && (
                                     <p className="error"> {this.state.errorMessage}</p>
                                 )}

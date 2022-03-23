@@ -21,7 +21,7 @@ class userDashboard extends React.Component {
                     showCalendar: false,
                     showEventCreator: false,
                     showTestImageUpload: false,
-                    currentCommunity: 1, // This is a test - switch to undefined at a later point
+                    currentCommunity: undefined,
                     showCommunity: false,
                     showTestAdmin: false,
                 }
@@ -33,11 +33,6 @@ class userDashboard extends React.Component {
         this.showTestImageUpload = this.showTestImageUpload.bind(this);
         this.loadCommunity = this.loadCommunity.bind(this);
         this.loadTestDash = this.loadTestDash.bind(this);
-    }
-
-    componentDidMount() {
-        console.log(this.props.userData);
-        console.log(this.props.userData.communities)
     }
 
     loadCommunityCreator() {
@@ -58,6 +53,7 @@ class userDashboard extends React.Component {
 
     loadCommunity (communityID) {
         //this.setState({components: {showCommunity: true}});
+        console.log("Trying to Load Community #" + communityID);
         return <CommunityDashboard userData={this.props.userData} communityID={communityID} />;
     }
 
@@ -95,13 +91,22 @@ class userDashboard extends React.Component {
             componentToRender = <CommunityDashboard userData={this.props.userData} communityID={this.state.currentCommunity} />;
         }  else if (this.state.components.showTestAdmin) {
             //componentToRender = <AdminDashboard />
-        } else if (!this.props.userData.communities.length) {
+        } else if (this.props.userData.communities.length === 0) {
             componentToRender = <CommunitySelect loadCreateCommunity={this.loadCommunityCreator} loadCommunity={this.loadCommunity} userData={this.props.userData} />;
         }
         else {
-            //For Testing
-            componentToRender = this.UserDash();
-            // Later change to load first community
+            // Load Community
+            if (this.state.currentCommunity === undefined) {
+                this.setState(
+                    {currentCommunity: this.props.userData.communities[0].communityID},
+                    function() {
+                        console.log("Loading Community: " + this.state.currentCommunity);
+                        componentToRender = <CommunityDashboard userData={this.props.userData} communityID={this.state.currentCommunity} />;
+                    }
+                );
+            } else {
+                console.log("ELSE");
+            }
         }
 
         return (
