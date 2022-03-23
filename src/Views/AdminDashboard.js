@@ -17,9 +17,11 @@ class AdminDashboard extends React.Component {
                 communityJoinCode: undefined,
                 primaryColor: undefined,
                 secondaryColor: undefined,
-                options: [],
-            }
+            },
+            // ??? should be part of community, but I'll put it here as a placeholder
+            options: []
         }
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
@@ -31,9 +33,18 @@ class AdminDashboard extends React.Component {
         }).then((response) => {
             console.log(response.data[0]);
             this.setState({community: response.data[0]});
+
+            // don't know how to retrieve options for the image dropdown from the database :/
+            // placeholder
+            this.setState({options: [{id: 'One', name: 'Option One'}]});
         }).catch(function (error) {
             console.log(error);
         });
+    }
+
+    // simple updater
+    handleChange (event) {
+        this.setState({value: event.target.value});
     }
 
     updateRules() {
@@ -49,6 +60,15 @@ class AdminDashboard extends React.Component {
     }
 
     render() {
+        const { options } = this.state;
+
+        let optionsList = options.length > 0
+            && options.map((item, i) => {
+                return (
+                    <option key = {i} value={item.id}>{item.name}</option>
+                )
+        }, this);
+
         return (
             <div>
                 <div className="u-container-style u-group u-radius-10 u-shape-round u-white u-group-1">
@@ -69,27 +89,25 @@ class AdminDashboard extends React.Component {
                                                 <form onSubmit={this.updateRules} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style={{padding: '10px'}}>
                                                     <div className="u-form-group u-form-name">
                                                         <label className="u-label">Community Display Name</label>
-                                                        <input value={this.state.community.communityName} type="text" placeholder="Community Name" id="name-54ac" name="CommDisplayName" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""/>
+                                                        <input value={this.state.community.communityName} type="text" placeholder="Community Name" id="name-54ac" name="CommDisplayName" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
                                                     </div>
                                                     <div className="u-form-group u-form-message">
                                                         <label className="u-label">Community Description</label>
-                                                        <textarea value={this.state.community.communityDescription} placeholder="..." rows="3" cols="50" id="message-54ac" name="CommDescription" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""/>
+                                                        <textarea value={this.state.community.communityDescription} placeholder="..." rows="3" cols="50" id="message-54ac" name="CommDescription" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
                                                     </div>
                                                     <div className="u-form-group u-form-textarea u-form-group-3">
                                                         <label className="u-label">Community Rules</label>
-                                                        <textarea rows="3" cols="50" id="textarea-8022" name="CommRules" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" placeholder="1. X"/>
+                                                        <textarea rows="3" cols="50" id="textarea-8022" name="CommRules" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required="" placeholder="1. X"/>
                                                     </div>
                                                     <div className="u-form-group u-form-group-4">
                                                         <label className="u-label">Background</label>
-                                                        <input type="text" placeholder="#fffffff" id="text-d872" name="BackgroundCLR" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white"/>
+                                                        <input type="text" placeholder="#fffffff" id="text-d872" name="BackgroundCLR" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange}/>
                                                     </div>
                                                     <div className="u-form-group u-form-select u-form-group-5">
                                                         <label className="u-label">Header Image</label>
                                                         <div className="u-form-select-wrapper">
-                                                            <select id="select-d95a" name="HeaderIMG" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
-                                                                <option value="Image1.png">Image1.png</option>
-                                                                <option value="Image2.png">Image2.png</option>
-                                                                <option value="Image3.png">Image3.png</option>
+                                                            <select id="select-d95a" name="HeaderIMG" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange}>
+                                                                {optionsList}
                                                             </select>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" className="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"/></svg>
                                                         </div>
@@ -111,11 +129,11 @@ class AdminDashboard extends React.Component {
                                                 <form onSubmit={this.sendPost} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form-1" style={{padding: '10px'}}>
                                                     <div className="u-form-group u-form-name">
                                                         <label className="u-label">Post Title</label>
-                                                        <input type="text" placeholder="Post Title" id="name-269c" name="name" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""/>
+                                                        <input type="text" placeholder="Post Title" id="name-269c" name="name" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
                                                     </div>
                                                     <div className="u-form-group u-form-message">
                                                         <label className="u-label">Post Content</label>
-                                                        <textarea placeholder="..." rows="3" cols="50" id="message-269c" name="message" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""/>
+                                                        <textarea placeholder="..." rows="3" cols="50" id="message-269c" name="message" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
                                                     </div>
                                                     <div className="u-align-right u-form-group u-form-submit">
                                                         <a href="#" className="u-border-none u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Post</a>
