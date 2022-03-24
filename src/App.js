@@ -68,7 +68,7 @@ function App() {
             console.log(error);
         });
 
-        /* Needs to wait for getUSerCommunityData to be done */
+        /* Needs to wait for getUserCommunityData to be done */
         return <UserDashboard userData={userData}/>;
     }
     // If not signed in this is what renders
