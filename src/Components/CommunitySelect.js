@@ -45,7 +45,7 @@ class CommunitySelect extends React.Component {
             console.log(response.data);
             if(response.data.length >= 1) {
                 that.setErrorMessage('');
-                that.props.loadCommunity(response.data[0].communityID);
+                that.props.loadCommunity(response.data[0].CommunityID);
             }
             else
             {
