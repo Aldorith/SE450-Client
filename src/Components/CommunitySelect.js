@@ -12,10 +12,17 @@ class CommunitySelect extends React.Component {
             errorMessage: ''
         }
 
+        this.setErrorMessage = this.setErrorMessage.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.CreateCommunity = this.CreateCommunity.bind(this);
+    }
+
+    setErrorMessage = (message) => {
+        this.setState({
+            errorMessage: message
+        })
     }
 
     handleChange(event) {
@@ -27,7 +34,8 @@ class CommunitySelect extends React.Component {
             [name]: value
         });
     }
-    handleSubmit(event) {
+    handleSubmit(event){
+        let that = this;
         //Have User Join Community
         // Make API call to web server
         axios.post(('http://localhost:8900/userJoinCommunity'), {
@@ -35,13 +43,13 @@ class CommunitySelect extends React.Component {
             communityJoinCode: this.state.communityJoinCode,
         }).then(function (response) {
             console.log(response.data);
-            if(response.data.length > 1) {
-                this.state.errorMessage = '';
-                this.props.loadCommunity(response.data[0].communityID);
+            if(response.data.length >= 1) {
+                that.setErrorMessage('');
+                that.props.loadCommunity(response.data[0].communityID);
             }
             else
             {
-                this.state.errorMessage = "Invalid Join Code: Try again!";
+                that.setErrorMessage('Invalid Join Code: Try again!');
             }
         })
             .catch(function (error) {
