@@ -36,14 +36,14 @@ class CommunityDashboard extends React.Component {
 
     loadCalendar(){
         //this.setState({components: {showCalendar: true}});
-        console.log("Trying to Load Community #" + this.communityID + " ManageCalendar");
-        return <ManageCalendar communityID={this.communityID } />;
+        console.log("Trying to Load Community #" + this.communityID + " Calendar");
+        return <showCalendar communityID={this.communityID } />;
     }
 
     loadAnnouncements(){
         //this.setState({components: {showAnnouncements: true}});
-        console.log("Trying to Load Community #" + this.communityID + " MangeAnnouncements");
-        return <MangeAnnouncements communityID={this.communityID } />;
+        console.log("Trying to Load Community #" + this.communityID + " Announcements");
+        return <showAnnouncements communityID={this.communityID } />;
     }
 
     render() {

@@ -12,7 +12,6 @@ class ManageCalendar extends React.Component {
             calendarEventDay: undefined,
             calendarEventDesc: undefined,
             calendarEventLocation: undefined,
-            calendarCommunityID: undefined
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -37,10 +36,10 @@ class ManageCalendar extends React.Component {
         console.log("Attempting to Create a New ManageCalendar Event: " + this.state.calendarEventName);
 
         axios.post(('http://localhost:8900/createCalendarEvent'), {
-           //** This has to be added, but first community loading need to be completed  [=]  communityID: this.props.communityData.communityID
+            communityID: this.props.communityID,
             calendarEventName: this.state.calendarEventName,
             calendarEventDesc: this.state.calendarEventDesc,
-            calendarEventTime: this.state.calendarEventTime,
+            calendarEventDay: this.state.calendarEventDay,
             calendarEventLocation: this.state.calendarEventName,
 
         }).then(function (response) {
