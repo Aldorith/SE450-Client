@@ -2,8 +2,8 @@ import React from "react";
 import axios from "axios";
 import './../Assets/communityDash.css';
 import Chat from "../Components/Chat";
-import ManageCalendar from "../Components/manageCalendar";
-import MangeAnnouncements from "../Components/mangeAnnouncements";
+import Calendar from "../Components/Calendar";
+import Announcements from "../Components/Announcements";
 
 class CommunityDashboard extends React.Component {
     constructor(props) {
@@ -37,13 +37,13 @@ class CommunityDashboard extends React.Component {
     loadCalendar(){
         //this.setState({components: {showCalendar: true}});
         console.log("Trying to Load Community #" + this.communityID + " Calendar");
-        return <showCalendar communityID={this.communityID } />;
+        return <Calendar communityID={this.communityID } />;
     }
 
     loadAnnouncements(){
         //this.setState({components: {showAnnouncements: true}});
         console.log("Trying to Load Community #" + this.communityID + " Announcements");
-        return <showAnnouncements communityID={this.communityID } />;
+        return <Announcements communityID={this.communityID } />;
     }
 
     render() {

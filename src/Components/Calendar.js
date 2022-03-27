@@ -3,7 +3,7 @@ import axios from "axios";
 
 import CommunityCreator from "../Views/CommunityCreator";
 
-class ManageCalendar extends React.Component {
+class Calendar extends React.Component {
     constructor(props) {
         super(props);
 
@@ -33,10 +33,10 @@ class ManageCalendar extends React.Component {
     createCalendarEvent (e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        console.log("Attempting to Create a New ManageCalendar Event: " + this.state.calendarEventName);
+        console.log("Attempting to Create a New Calendar Event: " + this.state.calendarEventName);
 
         axios.post(('http://localhost:8900/createCalendarEvent'), {
-            communityID: this.props.communityID,
+            communityID: this.communityID,
             calendarEventName: this.state.calendarEventName,
             calendarEventDesc: this.state.calendarEventDesc,
             calendarEventDay: this.state.calendarEventDay,
@@ -74,4 +74,4 @@ class ManageCalendar extends React.Component {
         )
     }
 }
-export default ManageCalendar;
+export default Calendar;

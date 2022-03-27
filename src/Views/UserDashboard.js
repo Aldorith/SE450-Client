@@ -2,7 +2,7 @@ import React from "react";
 import LogOut from "../Components/LogOut";
 import CommunityCreator from "./CommunityCreator";
 import VertNavBar from "../Components/VertNavBar";
-import ManageCalendar from "../Components/manageCalendar";
+import Calendar from "../Components/Calendar";
 import ProfileImageUpload from "../Components/ImageUpload/ProfileImageUpload";
 import CommunityDashboard from "./CommunityDashboard";
 //import AdminDashboard from "./AdminDashboard";

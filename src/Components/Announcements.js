@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-class MangeAnnouncements extends React.Component {
+class Announcements extends React.Component {
     constructor(props) {
         super(props);
 
@@ -71,4 +71,4 @@ class MangeAnnouncements extends React.Component {
         )
     }
 }
-export default MangeAnnouncements;
+export default Announcements;
