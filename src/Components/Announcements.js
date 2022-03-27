@@ -8,8 +8,7 @@ class Announcements extends React.Component {
         this.state = {
             announcementTitle: undefined,
             announcementDesc: undefined,
-            announcementDate: undefined,
-            announcementCommunityID: undefined
+            communityID: undefined
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
