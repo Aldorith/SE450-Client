@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-class Announcements extends React.Component {
+class MangeAnnouncements extends React.Component {
     constructor(props) {
         super(props);
 
@@ -31,7 +31,7 @@ class Announcements extends React.Component {
     createAnnouncement (e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        console.log("Attempting to Create a New Announcment: " + this.state.calendarEventName);
+        console.log("Attempting to Create a New Announcement: " + this.state.calendarEventName);
 
         axios.post(('http://localhost:8900/createCalendarEvent'), {
             //** This has to be added, but first community loading need to be completed  [=]  communityID: this.props.communityData.communityID
@@ -71,4 +71,4 @@ class Announcements extends React.Component {
         )
     }
 }
-export default Announcements;
+export default MangeAnnouncements;

@@ -3,7 +3,7 @@ import axios from "axios";
 
 import CommunityCreator from "../Views/CommunityCreator";
 
-class Calendar extends React.Component {
+class ManageCalendar extends React.Component {
     constructor(props) {
         super(props);
 
@@ -34,7 +34,7 @@ class Calendar extends React.Component {
     createCalendarEvent (e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        console.log("Attempting to Create a New Calendar Event: " + this.state.calendarEventName);
+        console.log("Attempting to Create a New ManageCalendar Event: " + this.state.calendarEventName);
 
         axios.post(('http://localhost:8900/createCalendarEvent'), {
            //** This has to be added, but first community loading need to be completed  [=]  communityID: this.props.communityData.communityID
@@ -62,15 +62,17 @@ class Calendar extends React.Component {
 
     render() {
         return (
-            <div className="communityCreator">
-                <h2> Enter Community Information </h2>
-                <form onSubmit={this.createCommunity}>
-                    <label> Community Name: <input type="text" name="communityName" value={this.state.communityName} onChange={this.handleInputChange} /></label>
-                    <label> Community Description: <input type="text" name="communityDesc" value={this.state.communityDesc} onChange={this.handleInputChange} /></label>
+            <div className="calendarEventCreator">
+                <h2> Enter Event Information </h2>
+                <form onSubmit={this.createCalendarEvent}>
+                    <label> Calendar Event Name: <input type="text" name="calendarEventName" value={this.state.calendarEventName} onChange={this.handleInputChange} /></label>
+                    <label> Calendar Event Description: <input type="text" name="calendarEventDesc" value={this.state.calendarEventDesc} onChange={this.handleInputChange} /></label>
+                    <label> Calendar Event Location: <input type="text" name="calendarEventLocation" value={this.state.calendarEventLocation} onChange={this.handleInputChange} /></label>
+                    <label> Calendar Event Day: <input type="text" name="calendarEventDay" value={this.state.calendarEventDay} onChange={this.handleInputChange} /></label>
                     <input type="submit" value="Submit" />
                 </form>
             </div>
         )
     }
 }
-export default Calendar;
+export default ManageCalendar;

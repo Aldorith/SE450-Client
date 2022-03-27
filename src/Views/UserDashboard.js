@@ -2,7 +2,7 @@ import React from "react";
 import LogOut from "../Components/LogOut";
 import CommunityCreator from "./CommunityCreator";
 import VertNavBar from "../Components/VertNavBar";
-import Calendar from "../Components/Calendar";
+import ManageCalendar from "../Components/manageCalendar";
 import ProfileImageUpload from "../Components/ImageUpload/ProfileImageUpload";
 import CommunityDashboard from "./CommunityDashboard";
 //import AdminDashboard from "./AdminDashboard";
@@ -40,7 +40,7 @@ class userDashboard extends React.Component {
     }
 
     loadCommunity (communityID) {
-        //this.setState({components: {showCommunity: true}});
+        this.setState({components: {showCommunity: true}});
         console.log("Trying to Load Community #" + communityID);
         return <CommunityDashboard userData={this.props.userData} communityID={communityID} />;
     }
