@@ -18,8 +18,6 @@ class userDashboard extends React.Component {
         this.state = {
                 components: {
                     showCommunityCreator: false,
-                    showCalendar: false,
-                    showEventCreator: false,
                     showTestImageUpload: false,
                     currentCommunity: undefined,
                     showCommunity: false,
@@ -28,8 +26,6 @@ class userDashboard extends React.Component {
         }
 
         this.loadCommunityCreator = this.loadCommunityCreator.bind(this);
-        this.loadCalendar = this.loadCalendar.bind(this);
-        this.loadEventCreator= this.loadEventCreator.bind(this);
         this.showTestImageUpload = this.showTestImageUpload.bind(this);
         this.loadCommunity = this.loadCommunity.bind(this);
         this.loadTestDash = this.loadTestDash.bind(this);
@@ -37,14 +33,6 @@ class userDashboard extends React.Component {
 
     loadCommunityCreator() {
         this.setState({components: {showCommunityCreator: true}});
-    }
-
-    loadCalendar() {
-        this.setState({components: {showCalendar: true}});
-    }
-
-    loadEventCreator() {
-        this.setState({components: {showEventCreator: true}});
     }
 
     showTestImageUpload() {

@@ -8,7 +8,6 @@ class Announcements extends React.Component {
         this.state = {
             announcementTitle: undefined,
             announcementDesc: undefined,
-            announcementPostee: undefined,
             announcementDate: undefined,
             announcementCommunityID: undefined
         };
@@ -72,4 +71,4 @@ class Announcements extends React.Component {
         )
     }
 }
-export default Announcments;
+export default Announcements;

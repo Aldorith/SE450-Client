@@ -2,16 +2,18 @@ import React from "react";
 import axios from "axios";
 import './../Assets/communityDash.css';
 import Chat from "../Components/Chat";
+import Calendar from "../Components/Calendar";
+import Announcements from "../Components/Announcements";
 
 class CommunityDashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             community: {
-                CommunityID: undefined,
-                CommunityName: undefined,
-                LogoID: undefined,
-                HeaderID: undefined,
+                communityID: undefined,
+                communityName: undefined,
+                logoID: undefined,
+                headerID: undefined,
                 communityDescription: undefined,
                 communityJoinCode: undefined,
                 primaryColor: undefined,
@@ -32,6 +34,18 @@ class CommunityDashboard extends React.Component {
         });
     }
 
+    loadCalendar(){
+        //this.setState({components: {showCalendar: true}});
+        console.log("Trying to Load Community #" + this.communityID + " Calendar");
+        return <Calendar communityID={this.communityID } />;
+    }
+
+    loadAnnouncements(){
+        //this.setState({components: {showAnnouncements: true}});
+        console.log("Trying to Load Community #" + this.communityID + " Announcements");
+        return <Announcements communityID={this.communityID } />;
+    }
+
     render() {
         return (
             <div className="communityDash">
@@ -41,6 +55,12 @@ class CommunityDashboard extends React.Component {
                         <h2>{this.state.community.CommunityName}</h2>
                         <p>X Members</p>
                     </div>
+                </div>
+                <div className="communityCalendar">
+                    <button onClick={this.loadCalendar}>Display Calendar</button>
+                </div>
+                <div className="communityAnnouncements">
+                    <button onClick={this.loadAnnouncements}>Display Announcements</button>
                 </div>
                 <div className="communityDash">
                     <Chat userData={this.props.userData.uid} communityData={this.state.community} />
