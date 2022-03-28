@@ -35,7 +35,7 @@ class Calendar extends React.Component {
         console.log("Attempting to Create a New Calendar Event: " + this.state.calendarEventName);
 
         axios.post(('http://localhost:8900/createCalendarEvent'), {
-            communityID: this.communityID,
+            communityID: this.props.communityID,
             calendarEventName: this.state.calendarEventName,
             calendarEventDesc: this.state.calendarEventDesc,
             calendarEventDay: this.state.calendarEventDay,
