@@ -98,7 +98,7 @@ class userDashboard extends React.Component {
                 console.log("Loading Community: #" + this.props.userData.communities[0].CommunityID);
                 componentToRender = <CommunityDashboard userData={this.props.userData} communityID={this.props.userData.communities[0].CommunityID} />;
             } else {
-                <div><h2>ERROR</h2></div>
+                componentToRender = <div><h2>ERROR</h2></div>;
             }
         }
 
