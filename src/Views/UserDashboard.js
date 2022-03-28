@@ -10,26 +10,43 @@ import CommunityDashboard from "./CommunityDashboard";
 // Style
 import '../Assets/userDash.css';
 import CommunitySelect from "../Components/CommunitySelect";
-import axios from "axios";
-
+import Loading from "../Components/Loading";
+import {unmountComponentAtNode} from "react-dom";
 
 class userDashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-                components: {
-                    showCommunityCreator: false,
-                    showTestImageUpload: false,
-                    currentCommunity: undefined,
-                    showCommunity: false,
-                    showTestAdmin: false,
-                }
+            components: {
+                showCommunityCreator: false,
+                showTestImageUpload: false,
+                currentCommunity: undefined,
+                showCommunity: false,
+                showTestAdmin: false,
+            },
+            componentToRender: null,
         }
 
-        this.loadCommunityCreator = this.loadCommunityCreator.bind(this);
-        this.showTestImageUpload = this.showTestImageUpload.bind(this);
-        this.loadCommunity = this.loadCommunity.bind(this);
-        this.loadTestDash = this.loadTestDash.bind(this);
+        this.switchCommunity = this.switchCommunity.bind(this);
+    }
+
+    componentDidMount() {
+        let component = null;
+
+        // If not a member of any communities
+        if (this.props.userData.communities.length === 0) {
+            component =
+                <CommunitySelect loadCreateCommunity={this.loadCommunityCreator} loadCommunity={this.loadCommunity}
+                                 userData={this.props.userData}/>;
+        }
+        // Auto Load First Community
+        if (this.state.currentCommunity === undefined && this.props.userData.communities[0].CommunityID !== undefined) {
+            console.log("Loading Community: #" + this.props.userData.communities[0].CommunityID);
+            component = <CommunityDashboard userData={this.props.userData} communityID={this.props.userData.communities[0].CommunityID} />;
+        }
+
+        // Update State
+        this.setState({componentToRender: component});
     }
 
     componentWillUnmount() {
@@ -39,74 +56,26 @@ class userDashboard extends React.Component {
         };
     }
 
-    loadCommunityCreator() {
-        this.setState({components: {showCommunityCreator: true}});
-    }
+    // Switch Community
+    switchCommunity(CommunityID) {
+        console.log("Trying to Load Community #" + CommunityID);
 
-    showTestImageUpload() {
-        this.setState({components: {showTestImageUpload: true}});
-    }
+        // Get CommunityDashboard Component
+        let component = <CommunityDashboard key={CommunityID} userData={this.props.userData} communityID={CommunityID} />;
 
-    loadCommunity (communityID) {
-        this.setState({components: {showCommunity: true}});
-        console.log("Trying to Load Community #" + communityID);
-        return <CommunityDashboard userData={this.props.userData} communityID={communityID} />;
-    }
+        // Update State
+        this.setState(state => ({
+            componentToRender: component
+        }));
 
-    loadTestDash() {
-        this.setState({components: {showTestAdmin: true}})
-    }
-
-    UserDash (props) {
-        return (
-            <div class="userDashContent">
-                <h2>User Dashboard</h2>
-                <p>{this.props.userData.username}</p>
-                <LogOut />
-
-                <br/> <br/>
-                <button onClick={this.loadCommunityCreator}>Create Community</button>
-                <br/> <br/>
-                <button onClick={this.showTestImageUpload}>Test Image Upload</button>
-                <br/> <br/>
-                <button onClick={this.loadCommunity}>Load Test Community</button>
-                <br/> <br/>
-                <button onClick={this.loadTestDash}>Load Test Admin Page</button>
-            </div>
-        )
     }
 
     render() {
-        let componentToRender;
-
-        if (this.state.components.showCommunityCreator) {
-            componentToRender = <CommunityCreator userData={this.props.userData}/>;
-        } else if (this.state.components.showTestImageUpload) {
-            componentToRender = <ProfileImageUpload userData={this.props.userData}/>;
-        } else if (this.state.components.showCommunity) {
-            componentToRender =
-                <CommunityDashboard userData={this.props.userData} communityID={this.state.currentCommunity}/>;
-        } else if (this.state.components.showTestAdmin) {
-            //componentToRender = <AdminDashboard />
-        } else if (this.props.userData.communities.length === 0) {
-            componentToRender =
-                <CommunitySelect loadCreateCommunity={this.loadCommunityCreator} loadCommunity={this.loadCommunity}
-                                 userData={this.props.userData}/>;
-        } else {
-            // Load Community
-            if (this.state.currentCommunity === undefined && this.props.userData.communities[0].CommunityID !== undefined) {
-                console.log("Loading Community: #" + this.props.userData.communities[0].CommunityID);
-                componentToRender = <CommunityDashboard userData={this.props.userData} communityID={this.props.userData.communities[0].CommunityID} />;
-            } else {
-                componentToRender = <div><h2>ERROR</h2></div>;
-            }
-        }
-
         return (
             <div className="rootUserDashDiv">
-                <VertNavBar userData={this.props.userData}/>
+                <VertNavBar userData={this.props.userData} switchCommunity={this.switchCommunity} />
                 <div className="userDash">
-                    {componentToRender}
+                    {this.state.componentToRender}
                 </div>
             </div>
         );
