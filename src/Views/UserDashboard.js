@@ -10,6 +10,7 @@ import CommunityDashboard from "./CommunityDashboard";
 // Style
 import '../Assets/userDash.css';
 import CommunitySelect from "../Components/CommunitySelect";
+import axios from "axios";
 
 
 class userDashboard extends React.Component {
@@ -30,6 +31,7 @@ class userDashboard extends React.Component {
         this.loadCommunity = this.loadCommunity.bind(this);
         this.loadTestDash = this.loadTestDash.bind(this);
     }
+
 
     loadCommunityCreator() {
         this.setState({components: {showCommunityCreator: true}});
@@ -72,34 +74,29 @@ class userDashboard extends React.Component {
         let componentToRender;
 
         if (this.state.components.showCommunityCreator) {
-            componentToRender = <CommunityCreator userData={this.props.userData} />;
+            componentToRender = <CommunityCreator userData={this.props.userData}/>;
         } else if (this.state.components.showTestImageUpload) {
-            componentToRender = <ProfileImageUpload userData={this.props.userData} />;
+            componentToRender = <ProfileImageUpload userData={this.props.userData}/>;
         } else if (this.state.components.showCommunity) {
-            componentToRender = <CommunityDashboard userData={this.props.userData} communityID={this.state.currentCommunity} />;
-        }  else if (this.state.components.showTestAdmin) {
+            componentToRender =
+                <CommunityDashboard userData={this.props.userData} communityID={this.state.currentCommunity}/>;
+        } else if (this.state.components.showTestAdmin) {
             //componentToRender = <AdminDashboard />
         } else if (this.props.userData.communities.length === 0) {
-            componentToRender = <CommunitySelect loadCreateCommunity={this.loadCommunityCreator} loadCommunity={this.loadCommunity} userData={this.props.userData} />;
-        }
-        else {
+            componentToRender =
+                <CommunitySelect loadCreateCommunity={this.loadCommunityCreator} loadCommunity={this.loadCommunity}
+                                 userData={this.props.userData}/>;
+        } else {
             // Load Community
             if (this.state.currentCommunity === undefined) {
-                this.setState(
-                    {currentCommunity: this.props.userData.communities[0].communityID},
-                    function() {
-                        console.log("Loading Community: " + this.state.currentCommunity);
-                        componentToRender = <CommunityDashboard userData={this.props.userData} communityID={this.state.currentCommunity} />;
-                    }
-                );
-            } else {
-                console.log("ELSE");
+                console.log("Loading Community: #" + this.props.userData.communities[0].CommunityID);
+                componentToRender = <CommunityDashboard userData={this.props.userData} communityID={this.props.userData.communities[0].CommunityID} />;
             }
         }
 
         return (
             <div className="rootUserDashDiv">
-                <VertNavBar userData={this.props.userData} />
+                <VertNavBar userData={this.props.userData}/>
                 <div className="userDash">
                     {componentToRender}
                 </div>

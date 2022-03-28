@@ -34,6 +34,7 @@ class CommunitySelect extends React.Component {
             [name]: value
         });
     }
+
     handleSubmit(event){
         let that = this;
         //Have User Join Community
