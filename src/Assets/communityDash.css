@@ -5,12 +5,13 @@
 }
 .communityDashContent {
     text-align: center;
-    margin-left: 1em;
-    margin-right: 1em;
-    width:100%;
+    margin: 0;
+    width: 100%;
     display: grid;
-    grid-template-columns: auto 65%;
+    gap: 1em;
+    grid-template-columns: auto auto auto;
 }
+
 .communityDash img {
     object-fit: cover;
     width: 100%;
