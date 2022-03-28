@@ -5,10 +5,11 @@
 }
 .communityDashContent {
     text-align: center;
-    margin: auto;
+    margin-left: 1em;
+    margin-right: 1em;
     width:100%;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto 65%;
 }
 .communityDash img {
     object-fit: cover;
