@@ -6,6 +6,23 @@ import testCommunityLogo from '../Assets/images/testCommunityLogo.png';
 class VertNavBar extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            communityIDs: []
+        }
+    }
+
+    componentDidMount() {
+        let communityIDs = [];
+
+        this.props.userData.communities.forEach(community =>
+        {
+            communityIDs.push(community.CommunityID);
+        });
+
+        this.setState({
+            communityIDs: communityIDs
+        })
     }
 
     loadCommunity (communityID) {
@@ -25,14 +42,15 @@ class VertNavBar extends React.Component {
             <div className="vertNavBar">
                 <h2>Logo</h2>
                 <ul>
-                    {communityIds.map((cID) =>
+                    {this.state.communityIDs.map((cID) =>
                         <li key={cID.toString()}>
-                            <a onClick={() => this.loadCommunity(cID)}>
-                                <img src={images[cID]}/>
+                            <a onClick={() => this.props.switchCommunity(cID)}>
+                                <h1>X</h1>
                             </a>
                         </li>
                     )}
                 </ul>
+
             </div>
         )
     }

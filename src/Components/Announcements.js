@@ -7,8 +7,7 @@ class Announcements extends React.Component {
 
         this.state = {
             announcementTitle: undefined,
-            announcementDesc: undefined,
-            communityID: undefined
+            announcementContents: undefined,
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -30,14 +29,12 @@ class Announcements extends React.Component {
     createAnnouncement (e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        console.log("Attempting to Create a New Announcement: " + this.state.calendarEventName);
+        console.log("Attempting to Create a New Announcement: " + this.state.announcementTitle);
 
-        axios.post(('http://localhost:8900/createCalendarEvent'), {
-            //** This has to be added, but first community loading need to be completed  [=]  communityID: this.props.communityData.communityID
-            calendarEventName: this.state.calendarEventName,
-            calendarEventDesc: this.state.calendarEventDesc,
-            calendarEventTime: this.state.calendarEventTime,
-            calendarEventLocation: this.state.calendarEventName,
+        axios.post(('http://localhost:8900/createAnnouncement'), {
+            communityID: this.props.communityID,
+            announcementTitle: this.state.announcementTitle,
+            announcementContents: this.state.announcementContents
 
         }).then(function (response) {
             console.log(response.data[0]);
@@ -59,11 +56,11 @@ class Announcements extends React.Component {
 
     render() {
         return (
-            <div className="communityCreator">
-                <h2> Enter Community Information </h2>
-                <form onSubmit={this.createCommunity}>
-                    <label>Announcement Name: <input type="text" name="communityName" value={this.state.communityName} onChange={this.handleInputChange} /></label>
-                    <label>Announcement Description: <input type="text" name="communityDesc" value={this.state.communityDesc} onChange={this.handleInputChange} /></label>
+            <div className="announcementCreator">
+                <h2> Enter Announcement Information </h2>
+                <form onSubmit={this.createAnnouncement}>
+                    <label> Announcement Title: <input type="text" name="announcementTitle" value={this.state.announcementTitle} onChange={this.handleInputChange} /></label>
+                    <label> Announcement Contents: <input type="text" name="announcementContents" value={this.state.announcementContents} onChange={this.handleInputChange} /></label>
                     <input type="submit" value="Submit" />
                 </form>
             </div>
