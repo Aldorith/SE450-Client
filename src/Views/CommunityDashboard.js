@@ -35,9 +35,6 @@ class CommunityDashboard extends React.Component {
         }).catch(function (error) {
             console.log(error);
         });
-
-        console.log("STATE: ")
-        console.log(this.state.community);
     }
 
     componentWillUnmount() {
@@ -50,7 +47,7 @@ class CommunityDashboard extends React.Component {
     render() {
         const { isLoading } = this.state;
         if (isLoading) {
-            return <div><h2>Loading...</h2></div>
+            // Do Nothing
         }
 
         return (
