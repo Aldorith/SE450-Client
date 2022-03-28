@@ -53,6 +53,9 @@ class CommunityDashboard extends React.Component {
         return (
             <div className="communityDash">
                 <div className="communityHeader">
+                    <div className="communityNav">
+                        <a><img className="profilePic" src={this.props.userData.profileImgID} /></a>
+                    </div>
                     <img src="https://cmshelpfiles.com/sites/support/uploads/images/tools_resources/image_ratios/horizontal-landscape.jpg" alt="Community Header" />
                     <div className="communityInfo">
                         <h2>{this.state.community.CommunityName}</h2>

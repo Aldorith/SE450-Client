@@ -47,7 +47,7 @@ function App() {
                     username: user.displayName, //temp
                     firstName: null,
                     lastName: null,
-                    profileImgID: null,
+                    profileImgID: user.photoURL,
                     communities: []
                 }
 
