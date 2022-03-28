@@ -3,6 +3,13 @@
     margin: auto;
     width:100%;
 }
+.communityDashContent {
+    text-align: center;
+    margin: auto;
+    width:100%;
+    display: grid;
+    grid-template-columns: auto auto;
+}
 .communityDash img {
     object-fit: cover;
     width: 100%;

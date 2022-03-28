@@ -15,9 +15,9 @@ class Calendar extends React.Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.createCalendarEvent = this.createCalendarEvent().bind(this);
-        this.editCalendarEvent = this.editCalendarEvent().bind(this);
-        this.deleteCalendarEvent = this.deleteCalendarEvent().bind(this);
+        this.createCalendarEvent = this.createCalendarEvent.bind(this);
+        this.editCalendarEvent = this.editCalendarEvent.bind(this);
+        this.deleteCalendarEvent = this.deleteCalendarEvent.bind(this);
     }
 
     handleInputChange(event) {
@@ -31,8 +31,7 @@ class Calendar extends React.Component {
     }
 
     createCalendarEvent (e) {
-        e.preventDefault(); // This prevents the page from refreshing
-
+        e.preventDefault();
         console.log("Attempting to Create a New Calendar Event: " + this.state.calendarEventName);
 
         axios.post(('http://localhost:8900/createCalendarEvent'), {

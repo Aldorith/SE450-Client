@@ -10,19 +10,20 @@ class CommunityDashboard extends React.Component {
         super(props);
         this.state = {
             community: {
-                communityID: undefined,
-                communityName: undefined,
-                logoID: undefined,
-                headerID: undefined,
-                communityDescription: undefined,
-                communityJoinCode: undefined,
-                primaryColor: undefined,
-                secondaryColor: undefined,
-            }
+                CommunityID: undefined,
+                CommunityName: undefined,
+                LogoID: undefined,
+                HeaderID: undefined,
+                CommunityDescription: undefined,
+                CommunityJoinCode: undefined,
+                PrimaryColor: undefined,
+                SecondaryColor: undefined,
+            },
+            isLoading: true
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         console.log("LOADING COMMUNITY");
 
         // Make API to get Community Data
@@ -30,10 +31,13 @@ class CommunityDashboard extends React.Component {
             communityID: this.props.communityID,
         }).then((response) => {
             console.log(response.data[0]);
-            this.setState({community: response.data[0]});
+            this.setState({community: response.data[0], isLoading: false});
         }).catch(function (error) {
             console.log(error);
         });
+
+        console.log("STATE: ")
+        console.log(this.state.community);
     }
 
     componentWillUnmount() {
@@ -43,19 +47,12 @@ class CommunityDashboard extends React.Component {
         };
     }
 
-    loadCalendar(){
-        //this.setState({components: {showCalendar: true}});
-        console.log("Trying to Load Community #" + this.communityID + " Calendar");
-        return <Calendar communityID={this.communityID } />;
-    }
-
-    loadAnnouncements(){
-        //this.setState({components: {showAnnouncements: true}});
-        console.log("Trying to Load Community #" + this.communityID + " Announcements");
-        return <Announcements communityID={this.communityID } />;
-    }
-
     render() {
+        const { isLoading } = this.state;
+        if (isLoading) {
+            return <div><h2>Loading...</h2></div>
+        }
+
         return (
             <div className="communityDash">
                 <div className="communityHeader">
@@ -65,14 +62,10 @@ class CommunityDashboard extends React.Component {
                         <p>X Members</p>
                     </div>
                 </div>
-                <div className="communityCalendar">
-                    <button onClick={this.loadCalendar}>Display Calendar</button>
-                </div>
-                <div className="communityAnnouncements">
-                    <button onClick={this.loadAnnouncements}>Display Announcements</button>
-                </div>
-                <div className="communityDash">
+                <div className="communityDashContent">
                     <Chat userData={this.props.userData.uid} communityData={this.state.community} />
+                    <Calendar communityID={this.state.community.CommunityID } />
+                    <Announcements communityID={this.state.community.CommunityID } />
                 </div>
             </div>
         )
