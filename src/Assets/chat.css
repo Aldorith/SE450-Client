@@ -1,0 +1,47 @@
+
+.messagesDisplay {
+    background-color: white;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    text-align: left;
+}
+
+.channelSelect {
+    font-size: 2rem;
+    padding-left: 0;
+    border: none;
+    font-weight: bold;
+}
+
+.messageList {
+    list-style-type: none;
+    margin-left:0;
+    text-align: left;
+}
+
+.messageListItem {
+    list-style-type: none;
+    margin-left:0;
+    padding-left: 0;
+    margin-bottom:-10px;
+    text-align: left;
+}
+
+.username {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.timestamp {
+    font-size: 10px;
+    font-style: italic;
+    color: #000000;
+}
+
+.messageText {
+    color: #000000;
+    margin-left: 0;
+
+}
