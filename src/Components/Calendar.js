@@ -8,6 +8,11 @@ class Calendar extends React.Component {
         super(props);
 
         this.state = {
+            components: {
+                showEventCreator: true,
+                showEventDelete: false,
+                showEventEditor: true
+            },
             calendarEventName: undefined,
             calendarEventDay: undefined,
             calendarEventDesc: undefined,
@@ -58,19 +63,36 @@ class Calendar extends React.Component {
 
     }
 
+    clearForm(){
+        this.state.calendarEventName = "";
+        this.state.calendarEventDay = "";
+        this.state.calendarEventDesc = "";
+        this.state.calendarEventLocation = "";
+    }
+
     render() {
-        return (
-            <div className="calendarEventCreator">
-                <h2> Enter Event Information </h2>
-                <form onSubmit={this.createCalendarEvent}>
-                    <label> Calendar Event Name: <input type="text" name="calendarEventName" value={this.state.calendarEventName} onChange={this.handleInputChange} /></label>
-                    <label> Calendar Event Description: <input type="text" name="calendarEventDesc" value={this.state.calendarEventDesc} onChange={this.handleInputChange} /></label>
-                    <label> Calendar Event Location: <input type="text" name="calendarEventLocation" value={this.state.calendarEventLocation} onChange={this.handleInputChange} /></label>
-                    <label> Calendar Event Day: <input type="text" name="calendarEventDay" value={this.state.calendarEventDay} onChange={this.handleInputChange} /></label>
-                    <input type="submit" value="Submit" />
-                </form>
-            </div>
-        )
+            return (
+                <div>
+                    <div className="calendarEventCreator">
+                        <h2> Enter Event Information </h2>
+                        <form onSubmit={this.createCalendarEvent}>
+                            <label> Calendar Event Name: <input type="text" name="calendarEventName"
+                                                                value={this.state.calendarEventName}
+                                                                onChange={this.handleInputChange}/></label>
+                            <label> Calendar Event Description: <input type="text" name="calendarEventDesc"
+                                                                       value={this.state.calendarEventDesc}
+                                                                       onChange={this.handleInputChange}/></label>
+                            <label> Calendar Event Location: <input type="text" name="calendarEventLocation"
+                                                                    value={this.state.calendarEventLocation}
+                                                                    onChange={this.handleInputChange}/></label>
+                            <label> Calendar Event Day: <input type="text" name="calendarEventDay"
+                                                               value={this.state.calendarEventDay}
+                                                               onChange={this.handleInputChange}/></label>
+                            <input type="submit" value="Submit"/>
+                        </form>
+                    </div>
+                </div>
+            )
     }
 }
 export default Calendar;

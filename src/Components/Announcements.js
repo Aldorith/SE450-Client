@@ -28,7 +28,6 @@ class Announcements extends React.Component {
 
     createAnnouncement (e) {
         e.preventDefault(); // This prevents the page from refreshing
-
         console.log("Attempting to Create a New Announcement: " + this.state.announcementTitle);
 
         axios.post(('http://localhost:8900/createAnnouncement'), {
