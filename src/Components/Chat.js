@@ -1,28 +1,30 @@
 import React from "react";
 import axios from "axios";
 import './../Assets/chat.css';
-import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
+//import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 class Chat extends React.Component {
     constructor(props) {
         super(props);
 
+
+
         this.state = {
-            chanID: 1,
+            channels: [],
             messages: [],
             messageText: '',
         }
 
         this.handleMessageChange = this.handleMessageChange.bind(this);
         this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
-
+//        this.ChannelDropdownList = this.ChannelDropdownList.bind(this);
+  //      this.DropdownOption = this.DropdownOption.bind(this);
     }
 
     getDateTime() {
         let nowDateTime = new Date();
         return `${nowDateTime.getFullYear()}-${nowDateTime.getMonth() + 1}-${nowDateTime.getDate()} ${nowDateTime.getHours()}:${nowDateTime.getMinutes()}:${nowDateTime.getSeconds()}`;
     }
-
 
     handleMessageChange(event) {
         const target = event.target;
@@ -36,17 +38,21 @@ class Chat extends React.Component {
 
     handleMessageSubmit(event){
         let that = this;
+
         //Store Message on Server, and display new message
         // Make API call to web server
         axios.post(('http://localhost:8900/sendMessage'), {
             messageID: this.state.messages[this.state.messages.length-1].uniqueID+1,
-            chanID: 1,//this.state.chanID,
-            commID: 1,//this.props.communityData.commID,
+            chanID: 1,//this.state.chanID[0],
+            commID: this.props.communityData.CommunityID,
             uid: 4, //this.props.userData.uid,
             messageText: this.state.messageText,
             messageDateTime: that.getDateTime(),
         }).then(function (response) {
             console.log(response.data);
+            that.state.messages = (previousState => ({
+                messages: [...previousState.messages, response.data]
+            }));
         })
             .catch(function (error) {
                 console.log(error);
@@ -55,9 +61,22 @@ class Chat extends React.Component {
     }
 
     componentDidMount() {
+
+        axios.post(('http://localhost:8900/getChannelData'), {
+            commID: 1,//this.props.communityData.CommunityID,
+        }).then((response) => {
+            //This is where the response is handled from the server
+            console.log(response.data[0]);
+            console.log("Hello")
+            this.setState({channels: response.data})
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+
         axios.post(('http://localhost:8900/getMessageData'), {
-            commID: 1, //this.props.commID,
-            chanID: 1, //this.state.chanID,
+            commID: 1,//this.props.communityData.CommunityID,
+            chanID: 1,//this.state.channels[0],
         }).then((response) => {
             //This is where the response is handled from the server
             console.log(response.data[0]);
@@ -78,24 +97,29 @@ class Chat extends React.Component {
     }
 
     /*
-    messageData = {
-        username: messages[0],
-        messageText: null,
-        messageTime: null,
+    DropdownOption() {
+        return <option>{this.state.channels.channelName}</option>
     }
+
+    ChannelDropdownList() {
+        const channels = this.state.channels;
+        const channelListItems = channels.map((channels) =>
+            <this.DropdownOption key = {channels.channelID} value = {channels}/>
+        );
+        return(
+        <optgroup label = "Channels">{channelListItems}</optgroup>
+        );
+    }
+
+    {channels.channelName.map(channel => {return (<option value = {channel}> {channel} </option>)})}
     */
 
-
     render() {
+        const {channels} = this.state.channels;
         return(
             <div className = "messagesDisplay">
                 <select name = "channels" id = "channels" className = "channelSelect" >
-                    <option value = "channel_1">
-                        ChannelName_1
-                    </option>
-                    <option value = "channel_2">
-                        ChannelName_2
-                    </option>
+                    {this.state.channels.map(channelName => (<option>{channelName.ChannelName}</option>))}
                 </select>
                 <ul className = "messageList">
                     {this.state.messages.map((message) =>
@@ -105,7 +129,7 @@ class Chat extends React.Component {
                 </ul>
                 <form onSubmit={this.handleMessageSubmit}>
                     <label>
-                        Enter Community Join Code:
+                        Enter Message:
                         <input type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/>
                     </label>
                     <input type="submit" value="Submit" />
