@@ -18,7 +18,7 @@ class ProfileImageUpload extends React.Component {
 
     getProfilePhoto() {
         // Set path for profile photo
-        let imgUrl = "http://localhost:8900/profilePhotos/" + this.props.userData.uid + ".png";
+        let imgUrl = "/profilePhotos/" + this.props.userData.uid + ".png";
         this.setState({
             profilePhoto: imgUrl
         });
@@ -34,7 +34,7 @@ class ProfileImageUpload extends React.Component {
                 'content-type': 'multipart/form-data'
             }
         };
-        axios.post("http://localhost:8900/uploadProfilePhoto", formData, config)
+        axios.post("/uploadProfilePhoto", formData, config)
             .then((response) => {
                 alert("The file is successfully uploaded");
             }).catch((error) => {

@@ -30,7 +30,7 @@ class Announcements extends React.Component {
         e.preventDefault(); // This prevents the page from refreshing
         console.log("Attempting to Create a New Announcement: " + this.state.announcementTitle);
 
-        axios.post(('http://localhost:8900/createAnnouncement'), {
+        axios.post(('/createAnnouncement'), {
             communityID: this.props.communityID,
             announcementTitle: this.state.announcementTitle,
             announcementContents: this.state.announcementContents
@@ -44,16 +44,49 @@ class Announcements extends React.Component {
     }
     //above two might need to be change, not exactly sure what data[0] is, or where it is being referenced
 
-    editAnnouncement(){
+    editAnnouncement(e, announcementID){
+        e.preventDefault(); // This prevents the page from refreshing
 
+        console.log("Editing a Announcement: " + announcementID);
+
+        axios.post(('/editAnnouncement'), {
+            announcementID: announcementID,
+            communityID: this.props.communityID,
+            announcementTitle: this.state.announcementTitle,
+            announcementContents: this.state.announcementContents
+
+        }).then(function (response) {
+            console.log(response.data[0]);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
-    deleteAnnouncement(){
+    deleteAnnouncement(e, announcementID){
+        e.preventDefault();
+        console.log("Deleting Announcement: " + announcementID);
 
+        axios.post(('/deleteAnnouncement'), {
+            announcementID: announcementID
+
+        }).then(function (response) {
+            console.log(response.data[0]);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
+    render(){
+        return(
+            <div>
+                Announcement Temp
+            </div>
+        )
+    }
 
-    render() {
+    renderAnnouncementCreator() {
         return (
             <div className="announcementCreator">
                 <h2> Enter Announcement Information </h2>

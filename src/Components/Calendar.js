@@ -8,11 +8,6 @@ class Calendar extends React.Component {
         super(props);
 
         this.state = {
-            components: {
-                showEventCreator: true,
-                showEventDelete: false,
-                showEventEditor: true
-            },
             calendarEventName: undefined,
             calendarEventDay: undefined,
             calendarEventDesc: undefined,
@@ -39,7 +34,7 @@ class Calendar extends React.Component {
         e.preventDefault();
         console.log("Attempting to Create a New Calendar Event: " + this.state.calendarEventName);
 
-        axios.post(('http://localhost:8900/createCalendarEvent'), {
+        axios.post(('/createCalendarEvent'), {
             communityID: this.props.communityID,
             calendarEventName: this.state.calendarEventName,
             calendarEventDesc: this.state.calendarEventDesc,
@@ -55,44 +50,63 @@ class Calendar extends React.Component {
     }
     //above two might need to be change, not exactly sure what data[0] is, or where it is being referenced
 
-    editCalendarEvent(){
+    editCalendarEvent(e, eventID){
+        e.preventDefault(); // This prevents the page from refreshing
 
+        console.log("Editing a Calendar Event: " + eventID);
+
+        axios.post(('/editCalendarEvent'), {
+            eventID: eventID,
+            communityID: this.props.communityID,
+            calendarEventName: this.state.calendarEventName,
+            calendarEventDesc: this.state.calendarEventDesc,
+            calendarEventDay: this.state.calendarEventDay,
+            calendarEventLocation: this.state.calendarEventName,
+
+        }).then(function (response) {
+            console.log(response.data[0]);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
-    deleteCalendarEvent(){
+    deleteCalendarEvent(e, eventID){
+        e.preventDefault();
+        console.log("Deleting a Calendar Event: " + eventID);
 
-    }
+        axios.post(('/deleteCalendarEvent'), {
+            eventID: eventID
 
-    clearForm(){
-        this.state.calendarEventName = "";
-        this.state.calendarEventDay = "";
-        this.state.calendarEventDesc = "";
-        this.state.calendarEventLocation = "";
+        }).then(function (response) {
+            console.log(response.data[0]);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     render() {
-            return (
-                <div>
-                    <div className="calendarEventCreator">
-                        <h2> Enter Event Information </h2>
-                        <form onSubmit={this.createCalendarEvent}>
-                            <label> Calendar Event Name: <input type="text" name="calendarEventName"
-                                                                value={this.state.calendarEventName}
-                                                                onChange={this.handleInputChange}/></label>
-                            <label> Calendar Event Description: <input type="text" name="calendarEventDesc"
-                                                                       value={this.state.calendarEventDesc}
-                                                                       onChange={this.handleInputChange}/></label>
-                            <label> Calendar Event Location: <input type="text" name="calendarEventLocation"
-                                                                    value={this.state.calendarEventLocation}
-                                                                    onChange={this.handleInputChange}/></label>
-                            <label> Calendar Event Day: <input type="text" name="calendarEventDay"
-                                                               value={this.state.calendarEventDay}
-                                                               onChange={this.handleInputChange}/></label>
-                            <input type="submit" value="Submit"/>
-                        </form>
-                    </div>
-                </div>
-            )
+        return(
+            <div>
+                Calendar Temp
+            </div>
+        )
+    }
+
+    renderCalendarEventCreator(){
+        return (
+            <div className="calendarEventCreator">
+                <h2> Enter Event Information </h2>
+                <form onSubmit={this.createCalendarEvent}>
+                    <label> Calendar Event Name: <input type="text" name="calendarEventName" value={this.state.calendarEventName} onChange={this.handleInputChange} /></label>
+                    <label> Calendar Event Description: <input type="text" name="calendarEventDesc" value={this.state.calendarEventDesc} onChange={this.handleInputChange} /></label>
+                    <label> Calendar Event Location: <input type="text" name="calendarEventLocation" value={this.state.calendarEventLocation} onChange={this.handleInputChange} /></label>
+                    <label> Calendar Event Day: <input type="text" name="calendarEventDay" value={this.state.calendarEventDay} onChange={this.handleInputChange} /></label>
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
+        )
     }
 }
 export default Calendar;

@@ -1,0 +1,77 @@
+.chatComponent {
+
+}
+
+.chatTitle {
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    font-size: x-large;
+    margin: 1rem;
+}
+
+.messagesDisplay {
+    background-color: white;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    text-align: left;
+    position: relative;
+    margin: 1rem;
+    min-height: 200px;
+}
+
+.channelSelect {
+    font-size: 2rem;
+    padding-left: 0;
+    border: none;
+    font-weight: bold;
+}
+
+.messages {
+    padding-bottom: 1.5rem;
+}
+
+.messageList {
+    list-style-type: none;
+    margin-left:0;
+    text-align: left;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 10rem;
+}
+
+.messageListItem {
+    list-style-type: none;
+    margin-left:0;
+    padding-left: 0;
+    margin-bottom:-10px;
+    text-align: left;
+}
+
+.username {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.timestamp {
+    font-size: 10px;
+    font-style: italic;
+    color: #000000;
+}
+
+.messageEntry {
+    position: absolute;
+    bottom:10px;
+    left:10px;
+}
+
+.submitLabelText {
+    color: #000000;
+}
+
+.messageText {
+    color: #000000;
+    margin-left: 0;
+}
