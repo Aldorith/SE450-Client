@@ -33,7 +33,7 @@
     text-align: center;
     border-radius: 2em;
     position: relative;
-    z-index: 2000;
+    z-index: 0;
     top: -60px;
     height: 100px;
     width: 35%;
@@ -46,7 +46,7 @@
 /* Community Nav Bar */
 .communityNav {
     position: relative;
-    z-index: 2000;
+    z-index: 0;
     height: 0;
     margin: 0 auto;
     float: right;
@@ -94,8 +94,8 @@
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    width: 50%;
+    border-radius: 25px;
 }
 
 /* The Close Button */

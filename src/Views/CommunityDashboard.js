@@ -4,6 +4,7 @@ import './../Assets/communityDash.css';
 import Chat from "../Components/Chat";
 import Calendar from "../Components/Calendar";
 import Announcements from "../Components/Announcements";
+import ProfileEdit from "../Components/ProfileEdit";
 
 class CommunityDashboard extends React.Component {
     constructor(props) {
@@ -86,12 +87,10 @@ class CommunityDashboard extends React.Component {
                 </div>
 
                 <div id="profileModal" className="modal">
-
                     <div className="modal-content">
                         <a onClick={this.closeProfileEdit}><span className="close">&times;</span></a>
-                        <p>Some text in the Modal..</p>
+                        <ProfileEdit userData={this.props.userData}/>
                     </div>
-
                 </div>
             </div>
         )
