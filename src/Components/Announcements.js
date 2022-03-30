@@ -78,15 +78,7 @@ class Announcements extends React.Component {
             });
     }
 
-    render(){
-        return(
-            <div>
-                Announcement Temp
-            </div>
-        )
-    }
-
-    renderAnnouncementCreator() {
+    render() {
         return (
             <div className="announcementCreator">
                 <h2> Enter Announcement Information </h2>

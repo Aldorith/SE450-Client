@@ -18,6 +18,7 @@ class Calendar extends React.Component {
         this.createCalendarEvent = this.createCalendarEvent.bind(this);
         this.editCalendarEvent = this.editCalendarEvent.bind(this);
         this.deleteCalendarEvent = this.deleteCalendarEvent.bind(this);
+        this.clearForm = this.clearForm.bind(this);
     }
 
     handleInputChange(event) {
@@ -47,6 +48,7 @@ class Calendar extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+        this.clearForm();
     }
     //above two might need to be change, not exactly sure what data[0] is, or where it is being referenced
 
@@ -86,15 +88,16 @@ class Calendar extends React.Component {
             });
     }
 
-    render() {
-        return(
-            <div>
-                Calendar Temp
-            </div>
-        )
+    clearForm(){
+        this.setState({
+            calendarEventName: "",
+            calendarEventDesc: "",
+            calendarEventDay: "",
+            calendarEventLocation: ""
+        })
     }
 
-    renderCalendarEventCreator(){
+    render(){
         return (
             <div className="calendarEventCreator">
                 <h2> Enter Event Information </h2>
