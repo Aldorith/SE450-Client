@@ -1,17 +1,10 @@
 import React from "react";
-import LogOut from "../Components/LogOut";
-import CommunityCreator from "./CommunityCreator";
 import VertNavBar from "../Components/VertNavBar";
-import Calendar from "../Components/Calendar";
-import ProfileImageUpload from "../Components/ImageUpload/ProfileImageUpload";
 import CommunityDashboard from "./CommunityDashboard";
-//import AdminDashboard from "./AdminDashboard";
 
 // Style
 import '../Assets/userDash.css';
 import CommunitySelect from "../Components/CommunitySelect";
-import Loading from "../Components/Loading";
-import {unmountComponentAtNode} from "react-dom";
 
 class userDashboard extends React.Component {
     constructor(props) {
@@ -38,7 +31,7 @@ class userDashboard extends React.Component {
             component =
                 <CommunitySelect loadCreateCommunity={this.loadCommunityCreator} loadCommunity={this.loadCommunity}
                                  userData={this.props.userData}/>;
-        } else if (this.state.userData.communities.length > 0) {
+        } else {
             console.log("Loading Community: #" + this.props.userData.communities[0].CommunityID);
             component = <CommunityDashboard userData={this.props.userData} communityID={this.props.userData.communities[0].CommunityID} />;
         }
