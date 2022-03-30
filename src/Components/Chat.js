@@ -59,7 +59,6 @@ class Chat extends React.Component {
     }
 
     async componentDidMount() {
-
         axios.post(('/getChannelData'), {
             commID: this.props.communityData.CommunityID,
         }).then((response) => {
@@ -83,7 +82,6 @@ class Chat extends React.Component {
                     i += 1;
                 }
             );
-
 
             this.setState({messages: response.data})
         })

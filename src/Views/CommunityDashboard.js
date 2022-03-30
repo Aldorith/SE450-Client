@@ -5,6 +5,7 @@ import Chat from "../Components/Chat";
 import Calendar from "../Components/Calendar";
 import Announcements from "../Components/Announcements";
 import ProfileEdit from "../Components/ProfileEdit";
+import AdminDashboard from "./AdminDashboard";
 
 class CommunityDashboard extends React.Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class CommunityDashboard extends React.Component {
 
         this.openProfileEdit = this.openProfileEdit.bind(this);
         this.closeProfileEdit = this.closeProfileEdit.bind(this);
+        this.openAdminDash = this.openAdminDash.bind(this);
     }
 
     async componentDidMount() {
@@ -46,6 +48,10 @@ class CommunityDashboard extends React.Component {
         this.setState = (state,callback)=>{
             return;
         };
+    }
+
+    openAdminDash() {
+
     }
 
     openProfileEdit() {
@@ -71,7 +77,7 @@ class CommunityDashboard extends React.Component {
             <div className="communityDash">
                 <div className="communityHeader">
                     <div className="communityNav">
-                        <a><p>Admin Dashboard</p></a>
+                        <a onClick={this.openAdminDash}><p>Admin Dashboard</p></a>
                         <a onClick={this.openProfileEdit}><img className="profilePic" src={this.props.userData.profileImgID} /></a>
                     </div>
                     <img src="https://cmshelpfiles.com/sites/support/uploads/images/tools_resources/image_ratios/horizontal-landscape.jpg" alt="Community Header" />
@@ -92,6 +98,8 @@ class CommunityDashboard extends React.Component {
                         <ProfileEdit userData={this.props.userData}/>
                     </div>
                 </div>
+
+                <AdminDashboard userData={this.props.userData} community={this.state.community} />
             </div>
         )
     }
