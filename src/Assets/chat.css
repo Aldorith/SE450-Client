@@ -1,3 +1,14 @@
+.chatComponent {
+
+}
+
+.chatTitle {
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    font-size: x-large;
+    margin: 1rem;
+}
 
 .messagesDisplay {
     background-color: white;
@@ -6,6 +17,8 @@
     padding-top: 10px;
     text-align: left;
     position: relative;
+    margin: 1rem;
+    min-height: 200px;
 }
 
 .channelSelect {
@@ -15,10 +28,17 @@
     font-weight: bold;
 }
 
+.messages {
+    padding-bottom: 1.5rem;
+}
+
 .messageList {
     list-style-type: none;
     margin-left:0;
     text-align: left;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 10rem;
 }
 
 .messageListItem {

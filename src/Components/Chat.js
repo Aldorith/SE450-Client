@@ -120,16 +120,20 @@ class Chat extends React.Component {
 
     render() {
         return(
+            <div className = "chatComponent">
+                <p className = "chatTitle">Chat</p>
             <div className = "messagesDisplay">
                 <select name = "channels" id = "channels" className = "channelSelect" onChange = {this.changeChat}>
-                    {this.state.channels.map(channel => (<option value = {channel.ChannelID}>{channel.ChannelName}</option>))}
+                    {this.state.channels.map(channel => (<option value = {channel.ChannelID} key = {channel.ChannelID}>{channel.ChannelName}</option>))}
                 </select>
+                <div className = "messages">
                 <ul className = "messageList">
                     {this.state.messages.map((message) =>
                         <li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
                         </span>    <span className = "timestamp">{message.MessageDateTime}<br/></span>{message.MessageText}</p></div></li>
                     )}
                 </ul>
+                </div>
                 <form className = "messageEntry" onSubmit={this.handleMessageSubmit}>
                     <label className = "submitLabelText">
                         Enter Message:
@@ -140,6 +144,7 @@ class Chat extends React.Component {
                         <p className="error"> {this.state.errorMessage}</p>
                     )}
                 </form>
+            </div>
             </div>
         )
     }
