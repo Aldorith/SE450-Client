@@ -8,9 +8,11 @@ class Chat extends React.Component {
         super(props);
 
         this.state = {
+            isLoading: true,
             channels: [],
             messages: [],
             messageText: '',
+            chanID: 1,
         }
 
         this.handleMessageChange = this.handleMessageChange.bind(this);
@@ -25,6 +27,7 @@ class Chat extends React.Component {
     }
 
     handleMessageChange(event) {
+        event.preventDefault();
         const target = event.target;
         const value = target.value;
         const name = target.name;
@@ -35,22 +38,28 @@ class Chat extends React.Component {
     }
 
     handleMessageSubmit(event){
+        event.preventDefault();
         let that = this;
 
         //Store Message on Server, and display new message
         // Make API call to web server
         axios.post(('/sendMessage'), {
             messageID: this.state.messages[this.state.messages.length-1].uniqueID+1,
-            chanID: 1,//this.state.chanID[0],
+            chanID: this.state.chanID,
             commID: this.props.communityData.CommunityID,
             uid: this.props.userData.uid,
             messageText: this.state.messageText,
             messageDateTime: that.getDateTime(),
         }).then(function (response) {
-            console.log(response.data);
-            that.state.messages = (previousState => ({
-                messages: [...previousState.messages, response.data]
-            }));
+            //This is where the response is handled from the server
+            console.log(response.data[0]);
+            let i = 0;
+            response.data.forEach(element => {
+                    element.uniqueID = i;
+                    i += 1;
+                }
+            );
+            that.state.messages = response.data
         })
             .catch(function (error) {
                 console.log(error);
@@ -72,7 +81,7 @@ class Chat extends React.Component {
 
         axios.post(('/getMessageData'), {
             commID: this.props.communityData.CommunityID,
-            chanID: 1,//this.state.channels[0],
+            chanID: this.state.chanID,
         }).then((response) => {
             //This is where the response is handled from the server
             console.log(response.data[0]);
@@ -82,8 +91,7 @@ class Chat extends React.Component {
                     i += 1;
                 }
             );
-
-            this.setState({messages: response.data})
+            this.setState({messages: response.data, isLoading: false})
         })
         .catch(function (error) {
             console.log(error);
@@ -94,8 +102,9 @@ class Chat extends React.Component {
     changeChat(event) {
         const target = event.target;
         const value = target.value;
+        this.setState({chanID: value});
 
-        axios.post(('http://localhost:8900/getMessageData'), {
+        axios.post(('/getMessageData'), {
             commID: this.props.communityData.CommunityID,
             chanID: value,
         }).then((response) => {
@@ -107,8 +116,6 @@ class Chat extends React.Component {
                     i += 1;
                 }
             );
-
-
             this.setState({messages: response.data})
         })
             .catch(function (error) {
@@ -117,19 +124,24 @@ class Chat extends React.Component {
     }
 
     render() {
+        if(this.state.isLoading)
+            return(
+                <div></div>
+            )
         return(
             <div className = "chatComponent">
                 <p className = "chatTitle">Chat</p>
             <div className = "messagesDisplay">
+                <label for="channels" accesskey = "c" className = "channelSelect">Channel: </label>
                 <select name = "channels" id = "channels" className = "channelSelect" onChange = {this.changeChat}>
                     {this.state.channels.map(channel => (<option value = {channel.ChannelID} key = {channel.ChannelID}>{channel.ChannelName}</option>))}
                 </select>
                 <div className = "messages">
                 <ul className = "messageList">
-                    {this.state.messages.map((message) =>
-                        <li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
+                    {this.state.messages.map(message =>
+                        (<li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
                         </span>    <span className = "timestamp">{message.MessageDateTime}<br/></span>{message.MessageText}</p></div></li>
-                    )}
+                        ))}
                 </ul>
                 </div>
                 <form className = "messageEntry" onSubmit={this.handleMessageSubmit}>
