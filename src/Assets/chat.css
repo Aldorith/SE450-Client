@@ -40,8 +40,16 @@
     color: #000000;
 }
 
+.messageEntry {
+    bottom:10px;
+    left:10px;
+}
+
+.submitLabelText {
+    color: #000000;
+}
+
 .messageText {
     color: #000000;
     margin-left: 0;
-
 }
