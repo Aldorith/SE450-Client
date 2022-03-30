@@ -4,8 +4,7 @@ import '../Assets/style.css';
 import '../Assets/adminDash.css';
 
 class AdminDashboard extends React.Component {
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
         this.state = {
             community: {
@@ -33,13 +32,14 @@ class AdminDashboard extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         // Make API to get Community Data
         axios.post(('/getCommunityData'), {
-            communityID: this.propsID
+            communityID: this.props.communityID,
         }).then((response) => {
-            console.log(response.data[0]);
-            this.setState({community: response.data[0]});
+            this.setState({community: response.data[0]}, function() {
+                this.setState({isLoading: false})
+            });
         }).catch(function (error) {
             console.log(error);
         });
@@ -54,7 +54,7 @@ class AdminDashboard extends React.Component {
     updateRules(e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        console.log("Attempting to Update Community: " + this.propsName);
+        console.log("Attempting to Update Community: " + this.state.community.communityName);
 
 
     }
@@ -65,8 +65,8 @@ class AdminDashboard extends React.Component {
         console.log("Attempting to Post Event: " + this.state.announcement.announcementTitle);
 
         axios.post(('/createAnnouncement'), {
-            announcementTitle: this.props.announcementTitle,
-            announcementDesc: this.props.announcementDesc
+            announcementTitle: this.state.announcement.announcementTitle,
+            announcementDesc: this.state.announcement.announcementDesc
         }).then(function (response) {
             console.log(response.data[0]);
         })
@@ -81,10 +81,10 @@ class AdminDashboard extends React.Component {
         console.log("Attempting to Post Event: " + this.state.announcement.announcementTitle);
 
         axios.post(('/createCalendarEvent'), {
-            calendarEventName: this.props.calendarEventName,
-            calendarEventDesc: this.props.calendarEventDesc,
-            calendarEventDay: this.props.calendarEventDay,
-            calendarEventLocation: this.props.calendarEventLocation
+            calendarEventName: this.state.event.calendarEventName,
+            calendarEventDesc: this.state.event.calendarEventDesc,
+            calendarEventDay: this.state.event.calendarEventDay,
+            calendarEventLocation: this.state.event.calendarEventLocation
         }).then(function (response) {
             console.log(response.data[0]);
         })
@@ -94,15 +94,6 @@ class AdminDashboard extends React.Component {
     }
 
     render() {
-        const { options } = this.state;
-
-        let optionsList = options.length > 0
-            && options.map((item, i) => {
-                return (
-                    <option key = {i} value={item.id}>{item.name}</option>
-                )
-        }, this);
-
         return (
             <div>
                 <div className="u-container-style u-group u-radius-10 u-shape-round u-white u-group-1">
@@ -140,13 +131,8 @@ class AdminDashboard extends React.Component {
                                                     <div className="u-form-group u-form-select u-form-group-5">
                                                         <label className="u-label">Header Image</label>
                                                         <div className="u-form-select-wrapper">
-														
-															// needs to be replaced
-                                                            <select id="select-d95a" name="HeaderIMG" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange}>
-                                                                
-                                                            </select>
+                                                            <input type ="file" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange}></input>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" className="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"/></svg>
-                                                        
 														</div>
                                                     </div>
                                                     <div className="u-align-right u-form-group u-form-submit">
@@ -166,11 +152,11 @@ class AdminDashboard extends React.Component {
                                                 <form onSubmit={this.sendPost} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form-1" style={{padding: '10px'}}>
                                                     <div className="u-form-group u-form-name">
                                                         <label className="u-label">Post Title</label>
-                                                        <input value={this.state.announcement.announcementTitle} type="text" placeholder="Post Title" id="name-269c" name="name" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
+                                                        <input value={this.props.announcementTitle} type="text" placeholder="Post Title" id="name-269c" name="name" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
                                                     </div>
                                                     <div className="u-form-group u-form-message">
                                                         <label className="u-label">Post Content</label>
-                                                        <textarea value={this.state.announcement.announcementDesc} placeholder="..." rows="3" cols="50" id="message-269c" name="message" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
+                                                        <textarea value={this.props.announcementDesc} placeholder="..." rows="3" cols="50" id="message-269c" name="message" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
                                                     </div>
                                                     <div className="u-align-right u-form-group u-form-submit">
                                                         <a href="#" className="u-border-none u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Post</a>
