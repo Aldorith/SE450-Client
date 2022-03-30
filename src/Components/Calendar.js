@@ -50,15 +50,51 @@ class Calendar extends React.Component {
     }
     //above two might need to be change, not exactly sure what data[0] is, or where it is being referenced
 
-    editCalendarEvent(){
+    editCalendarEvent(e, eventID){
+        e.preventDefault(); // This prevents the page from refreshing
 
+        console.log("Editing a Calendar Event: " + eventID);
+
+        axios.post(('/editCalendarEvent'), {
+            eventID: eventID,
+            communityID: this.props.communityID,
+            calendarEventName: this.state.calendarEventName,
+            calendarEventDesc: this.state.calendarEventDesc,
+            calendarEventDay: this.state.calendarEventDay,
+            calendarEventLocation: this.state.calendarEventName,
+
+        }).then(function (response) {
+            console.log(response.data[0]);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
-    deleteCalendarEvent(){
+    deleteCalendarEvent(e, eventID){
+        e.preventDefault();
+        console.log("Deleting a Calendar Event: " + eventID);
 
+        axios.post(('/deleteCalendarEvent'), {
+            eventID: eventID
+
+        }).then(function (response) {
+            console.log(response.data[0]);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     render() {
+        return(
+            <div>
+                Calendar Temp
+            </div>
+        )
+    }
+
+    renderCalendarEventCreator(){
         return (
             <div className="calendarEventCreator">
                 <h2> Enter Event Information </h2>
