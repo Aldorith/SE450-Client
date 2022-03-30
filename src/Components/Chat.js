@@ -43,7 +43,7 @@ class Chat extends React.Component {
             messageID: this.state.messages[this.state.messages.length-1].uniqueID+1,
             chanID: 1,//this.state.chanID[0],
             commID: this.props.communityData.CommunityID,
-            uid: 4, //this.props.userData.uid,
+            uid: this.props.userData.uid,
             messageText: this.state.messageText,
             messageDateTime: that.getDateTime(),
         }).then(function (response) {
