@@ -14,7 +14,7 @@ class CommunitySelect extends React.Component {
 
         this.setErrorMessage = this.setErrorMessage.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.joinCommunity = this.joinCommunity.bind(this);
 
         this.CreateCommunity = this.CreateCommunity.bind(this);
     }
@@ -35,7 +35,7 @@ class CommunitySelect extends React.Component {
         });
     }
 
-    handleSubmit(event){
+    joinCommunity(event){
         let that = this;
         //Have User Join Community
         // Make API call to web server
@@ -62,36 +62,8 @@ class CommunitySelect extends React.Component {
     CreateCommunity(){
         this.props.loadCreateCommunity();
     }
-/*
-    CommunityButtonList(userData) {
-        const communities = userData.communities;
-        const communityListItems = communities.map((communities) =>
-            <li key = {communities.name}> <button type="button" onClick={this.EnterCommunity(communities.id)}>{communities.name}</button></li>
-        );
-        return(
-            <ul>{communityListItems}</ul>
-        );
-    }
-*/
-    // I had to comment some stuff out - kyle
-    //                     <CommunityButtonList communities={this.props.userData.communities}/>
-    render() {/*
-        if (this.props.userData.communities.length)
-            return (
-                <div>
-                    <h1>Current Communities</h1><br/>
-                    <br/>
-                    <ul>
-                        <li>
-                            <button type="button" onClick={this.JoinCommunity}> Join a Community</button>
-                        </li>
-                        <li>
-                            <button type="button" onClick={this.CreateCommunity}> Create a Community</button>
-                        </li>
-                    </ul>
-                </div>
-            )
-        else*/
+
+    render() {
             return (
                 <div>
                     <h1>Looks like you aren't a part of any communities yet!</h1>
@@ -101,7 +73,7 @@ class CommunitySelect extends React.Component {
                             <h2>Join a Community</h2>
                         </li>
                         <li>
-                            <form onSubmit={this.handleSubmit}>
+                            <form onSubmit={this.joinCommunity}>
                                 <label>
                                     Enter Community Join Code:
                                     <input type="text" value={this.state.communityJoinCode} name="communityJoinCode" onChange={this.handleChange}/>
