@@ -38,9 +38,7 @@ class userDashboard extends React.Component {
             component =
                 <CommunitySelect loadCreateCommunity={this.loadCommunityCreator} loadCommunity={this.loadCommunity}
                                  userData={this.props.userData}/>;
-        }
-        // Auto Load First Community
-        if (this.state.currentCommunity === undefined && this.props.userData.communities[0].CommunityID !== undefined) {
+        } else if (this.state.userData.communities.length > 0) {
             console.log("Loading Community: #" + this.props.userData.communities[0].CommunityID);
             component = <CommunityDashboard userData={this.props.userData} communityID={this.props.userData.communities[0].CommunityID} />;
         }
