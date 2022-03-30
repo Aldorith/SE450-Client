@@ -19,8 +19,12 @@ class CommunityDashboard extends React.Component {
                 PrimaryColor: undefined,
                 SecondaryColor: undefined,
             },
-            isLoading: true
+            isLoading: true,
+            showProfileEdit: false
         }
+
+        this.openProfileEdit = this.openProfileEdit.bind(this);
+        this.closeProfileEdit = this.closeProfileEdit.bind(this);
     }
 
     async componentDidMount() {
@@ -44,6 +48,20 @@ class CommunityDashboard extends React.Component {
         };
     }
 
+    openProfileEdit() {
+        // Get the modal
+        let modal = document.getElementById("profileModal");
+
+        modal.style.display = "block";
+    }
+
+    closeProfileEdit() {
+        // Get the modal
+        let modal = document.getElementById("profileModal");
+
+        modal.style.display = "none";
+    }
+
     render() {
         const { isLoading } = this.state;
         if (isLoading) {
@@ -54,7 +72,8 @@ class CommunityDashboard extends React.Component {
             <div className="communityDash">
                 <div className="communityHeader">
                     <div className="communityNav">
-                        <a><img className="profilePic" src={this.props.userData.profileImgID} /></a>
+                        <a><p>Admin Dashboard</p></a>
+                        <a onClick={this.openProfileEdit}><img className="profilePic" src={this.props.userData.profileImgID} /></a>
                     </div>
                     <img src="https://cmshelpfiles.com/sites/support/uploads/images/tools_resources/image_ratios/horizontal-landscape.jpg" alt="Community Header" />
                     <div className="communityInfo">
@@ -66,6 +85,15 @@ class CommunityDashboard extends React.Component {
                     <Calendar communityID={this.state.community.CommunityID } />
                     <Chat userData={this.props.userData.uid} communityData={this.state.community} />
                     <Announcements communityID={this.state.community.CommunityID } />
+                </div>
+
+                <div id="profileModal" className="modal">
+
+                    <div className="modal-content">
+                        <a onClick={this.closeProfileEdit}><span className="close">&times;</span></a>
+                        <p>Some text in the Modal..</p>
+                    </div>
+
                 </div>
             </div>
         )
