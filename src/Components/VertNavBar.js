@@ -82,6 +82,10 @@ class VertNavBar extends React.Component {
                     </li>
                 </ul>
 
+                <div>
+                    <p>{this.props.userData.username}</p>
+                </div>
+
             </div>
         )
     }
