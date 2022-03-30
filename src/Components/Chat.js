@@ -58,7 +58,7 @@ class Chat extends React.Component {
         event.preventDefault();
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
         axios.post(('/getChannelData'), {
             commID: this.props.communityData.CommunityID,

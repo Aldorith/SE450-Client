@@ -28,14 +28,13 @@ class CommunityDashboard extends React.Component {
     }
 
     async componentDidMount() {
-        console.log("LOADING COMMUNITY");
-
         // Make API to get Community Data
         axios.post(('/getCommunityData'), {
             communityID: this.props.communityID,
         }).then((response) => {
-            console.log(response.data[0]);
-            this.setState({community: response.data[0], isLoading: false});
+            this.setState({community: response.data[0]}, function() {
+                this.setState({isLoading: false})
+            });
         }).catch(function (error) {
             console.log(error);
         });
@@ -63,9 +62,8 @@ class CommunityDashboard extends React.Component {
     }
 
     render() {
-        const { isLoading } = this.state;
-        if (isLoading) {
-            // Do Nothing
+        if (this.state.isLoading) {
+            return <div>Loading...</div>
         }
 
         return (
