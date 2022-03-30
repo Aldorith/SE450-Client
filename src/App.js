@@ -27,7 +27,7 @@ function App() {
             await setUser(user);
             if (user) {
                 // If User Load Data for Database
-                axios.post(('http://localhost:8900/getUserData'), {
+                axios.post(('/getUserData'), {
                     uid: user.uid,
                     email: user.email,
                     username: user.displayName, //temp
@@ -52,7 +52,7 @@ function App() {
                 }
 
                 //Get User Community Data
-                axios.post(('http://localhost:8900/getUserCommunityData'), {
+                axios.post(('/getUserCommunityData'), {
                     uid: user.uid,
                     communities: [],
                 }).then(function (response) {

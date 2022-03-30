@@ -27,7 +27,7 @@ class CommunityDashboard extends React.Component {
         console.log("LOADING COMMUNITY");
 
         // Make API to get Community Data
-        axios.post(('http://localhost:8900/getCommunityData'), {
+        axios.post(('/getCommunityData'), {
             communityID: this.props.communityID,
         }).then((response) => {
             console.log(response.data[0]);

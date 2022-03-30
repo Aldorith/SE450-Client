@@ -26,7 +26,7 @@ class AdminDashboard extends React.Component {
 
     componentDidMount() {
         // Make API to get Community Data
-        axios.post(('http://localhost:8900/getCommunityData'), {
+        axios.post(('/getCommunityData'), {
             communityID: this.props.communityID,
             communityName: this.props.communityName,
             communityDescription: this.props.communityDescription,

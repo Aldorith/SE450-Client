@@ -30,22 +30,15 @@ class VertNavBar extends React.Component {
     }
 
     render() {
-        const communityIds = [1, 2, 3];
-
-        // Replace with Actual System Later
-        let images = [];
-        images[1] = testCommunityLogo;
-        images[2] = testCommunityLogo;
-        images[3] = testCommunityLogo;
 
         return (
             <div className="vertNavBar">
                 <h2>Logo</h2>
                 <ul>
-                    {this.state.communityIDs.map((cID) =>
-                        <li key={cID.toString()}>
-                            <a onClick={() => this.props.switchCommunity(cID)}>
-                                <h1>X</h1>
+                    {this.props.userData.communities.map((community) =>
+                        <li key={community.CommunityID.toString()}>
+                            <a onClick={() => this.props.switchCommunity(community.CommunityID)}>
+                                <img />
                             </a>
                         </li>
                     )}

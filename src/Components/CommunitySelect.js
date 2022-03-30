@@ -39,7 +39,7 @@ class CommunitySelect extends React.Component {
         let that = this;
         //Have User Join Community
         // Make API call to web server
-        axios.post(('http://localhost:8900/userJoinCommunity'), {
+        axios.post(('/userJoinCommunity'), {
             uid: this.props.userData.uid,
             communityJoinCode: this.state.communityJoinCode,
         }).then(function (response) {

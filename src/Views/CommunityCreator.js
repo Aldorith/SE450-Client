@@ -29,7 +29,7 @@ class CommunityCreator extends React.Component {
 
         console.log("Attempting to Create Community: " + this.state.communityName);
 
-        axios.post(('http://localhost:8900/createCommunity'), {
+        axios.post(('/createCommunity'), {
             uid: this.props.userData.uid,
             communityName: this.state.communityName,
             communityDesc: this.state.communityDesc

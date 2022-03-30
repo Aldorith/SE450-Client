@@ -41,7 +41,7 @@ class Chat extends React.Component {
 
         //Store Message on Server, and display new message
         // Make API call to web server
-        axios.post(('http://localhost:8900/sendMessage'), {
+        axios.post(('/sendMessage'), {
             messageID: this.state.messages[this.state.messages.length-1].uniqueID+1,
             chanID: 1,//this.state.chanID[0],
             commID: this.props.communityData.CommunityID,
@@ -62,7 +62,7 @@ class Chat extends React.Component {
 
     componentDidMount() {
 
-        axios.post(('http://localhost:8900/getChannelData'), {
+        axios.post(('/getChannelData'), {
             commID: 1,//this.props.communityData.CommunityID,
         }).then((response) => {
             //This is where the response is handled from the server
@@ -74,7 +74,7 @@ class Chat extends React.Component {
                 console.log(error);
             });
 
-        axios.post(('http://localhost:8900/getMessageData'), {
+        axios.post(('/getMessageData'), {
             commID: 1,//this.props.communityData.CommunityID,
             chanID: 1,//this.state.channels[0],
         }).then((response) => {

@@ -31,7 +31,7 @@ class Announcements extends React.Component {
 
         console.log("Attempting to Create a New Announcement: " + this.state.announcementTitle);
 
-        axios.post(('http://localhost:8900/createAnnouncement'), {
+        axios.post(('/createAnnouncement'), {
             communityID: this.props.communityID,
             announcementTitle: this.state.announcementTitle,
             announcementContents: this.state.announcementContents
