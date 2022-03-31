@@ -13,8 +13,7 @@
 .chatBox {
     background-color: white;
     border-radius: 10px;
-    padding-left: 10px;
-    padding-top: 10px;
+    padding: 10px;
     text-align: left;
     position: relative;
     margin: 1rem;
@@ -25,7 +24,6 @@
 }
 
 .channelSelect {
-    background-color: #2cccc4;
     color: black;
     font-size: 1.5rem;
     padding-left: 0;
@@ -34,26 +32,19 @@
     border: none;
     font-weight: bold;
 }
-.channelSelect2 {
-    background-color: BLUE;
-    color: black;
-    font-size: 1.5rem;
-    padding-left: 0;
-    border: none;
-    font-weight: bold;
-}
 
 .messages {
-    margin-top: 0;
+    margin: 0;
     padding-top: 0;
-    padding-bottom: 1.5rem;
-    background-color: white;
+    border: black;
+    padding-bottom: 0;
+    background-color: #CCCCCC;
 }
 
 .messageList {
-    background-color: black;
     list-style-type: none;
     margin-left:0;
+    margin-bottom: 0;
     text-align: left;
     overflow: scroll;
     overflow-x: hidden;
@@ -66,6 +57,7 @@
     padding-left: 0;
     margin-bottom:-10px;
     text-align: left;
+    margin-top: -15px;
 }
 
 .username {
@@ -81,21 +73,26 @@
 }
 
 .sendMessageSection {
-    background-color: green;
 }
 
 .messageEntry {
-    background-color: greenyellow;
-    position: absolute;
-    bottom:10px;
-    left:10px;
+    font-weight: bold;
 }
 
 .submitLabelText {
     color: #000000;
+    font-family: Arial, serif;
 }
 
 .messageText {
     color: #000000;
     margin-left: 0;
+}
+
+.messageSendButton {
+    border-radius: 10px;
+    color:black;
+    font-weight: bold;
+    background-color: white;
+    font-family: Arial, serif;
 }

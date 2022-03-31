@@ -139,35 +139,25 @@ class Chat extends React.Component {
         return(
             <div className = "chatComponent">
                 <p className = "chatTitle">Chat</p>
-                <div className= "chatBox">
-                    <div className = "messagesDisplay">
+                <div className= "chatBox"><div className = "messagesDisplay">
                         <label className = "channelSelect">Channel: </label>
-                        <select name = "channels" id = "channels" className = "channelSelect2" onChange = {this.changeChat}>
+                        <select name = "channels" id = "channels" className = "channelSelect" onChange = {this.changeChat}>
                             {this.state.channels.map(channel => (<option value = {channel.ChannelID} key = {channel.ChannelID}>{channel.ChannelName}</option>))}
-                        </select>
-                        <div className = "messages">
-                            <ul className = "messageList">
+                        </select><div className = "messages"><ul className = "messageList">
                                 {this.state.messages.map(message =>
                                     (<li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
                         </span>    <span className = "timestamp">{message.MessageDateTime}<br/></span>{message.MessageText}</p></div></li>
                                     ))}
-                            </ul>
-                        </div>
-                        <div className= "sendMessageSection">
-                            <form className = "messageEntry" onSubmit={this.handleMessageSubmit}>
+                            </ul></div><div className= "sendMessageSection"><form className = "messageEntry" onSubmit={this.handleMessageSubmit}>
                                 <label className = "submitLabelText">
                                     Enter Message:
                                     <input type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/>
                                 </label>
-                                <input type="submit" value="Submit" />
+                                <input type="submit" value="Send" className = "messageSendButton" />
                                 {this.state.errorMessage && (
                                     <p className="error"> {this.state.errorMessage}</p>
                                 )}
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            </form></div></div></div></div>
         )
     }
 }
