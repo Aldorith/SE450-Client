@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import './../Assets/chat.css';
+import io from "socket.io-client";
 //import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 class Chat extends React.Component {
@@ -19,6 +20,45 @@ class Chat extends React.Component {
         this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
         this.changeChat = this.changeChat.bind(this);
 
+    }
+
+    async componentDidMount() {
+        axios.post(('/getChannelData'), {
+            commID: this.props.communityData.CommunityID,
+        }).then((response) => {
+            //This is where the response is handled from the server
+            console.log(response.data[0]);
+            this.setState({channels: response.data})
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        axios.post(('/getMessageData'), {
+            commID: this.props.communityData.CommunityID,
+            chanID: this.state.chanID,
+        }).then((response) => {
+            //This is where the response is handled from the server
+            console.log(response.data[0]);
+            let i = 0;
+            response.data.forEach(element => {
+                    element.uniqueID = i;
+                    i += 1;
+                }
+            );
+            this.setState({messages: response.data, isLoading: false})
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        const socket = io(':8900');
+        console.log(socket);
+        console.log("BEFORE!!")
+        socket.on("connect", () => {
+            console.log(socket.id);
+        });
+        console.log("AFTER!!")
     }
 
     getDateTime() {
@@ -67,38 +107,6 @@ class Chat extends React.Component {
         event.preventDefault();
     }
 
-    async componentDidMount() {
-        axios.post(('/getChannelData'), {
-            commID: this.props.communityData.CommunityID,
-        }).then((response) => {
-            //This is where the response is handled from the server
-            console.log(response.data[0]);
-            this.setState({channels: response.data})
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-        axios.post(('/getMessageData'), {
-            commID: this.props.communityData.CommunityID,
-            chanID: this.state.chanID,
-        }).then((response) => {
-            //This is where the response is handled from the server
-            console.log(response.data[0]);
-            let i = 0;
-            response.data.forEach(element => {
-                    element.uniqueID = i;
-                    i += 1;
-                }
-            );
-            this.setState({messages: response.data, isLoading: false})
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-    }
-
     changeChat(event) {
         const target = event.target;
         const value = target.value;
@@ -131,30 +139,34 @@ class Chat extends React.Component {
         return(
             <div className = "chatComponent">
                 <p className = "chatTitle">Chat</p>
-            <div className = "messagesDisplay">
-                <label for="channels" accesskey = "c" className = "channelSelect">Channel: </label>
-                <select name = "channels" id = "channels" className = "channelSelect" onChange = {this.changeChat}>
-                    {this.state.channels.map(channel => (<option value = {channel.ChannelID} key = {channel.ChannelID}>{channel.ChannelName}</option>))}
-                </select>
-                <div className = "messages">
-                <ul className = "messageList">
-                    {this.state.messages.map(message =>
-                        (<li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
+                <div className= "chatBox">
+                    <div className = "messagesDisplay">
+                        <label className = "channelSelect">Channel: </label>
+                        <select name = "channels" id = "channels" className = "channelSelect2" onChange = {this.changeChat}>
+                            {this.state.channels.map(channel => (<option value = {channel.ChannelID} key = {channel.ChannelID}>{channel.ChannelName}</option>))}
+                        </select>
+                        <div className = "messages">
+                            <ul className = "messageList">
+                                {this.state.messages.map(message =>
+                                    (<li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
                         </span>    <span className = "timestamp">{message.MessageDateTime}<br/></span>{message.MessageText}</p></div></li>
-                        ))}
-                </ul>
+                                    ))}
+                            </ul>
+                        </div>
+                        <div className= "sendMessageSection">
+                            <form className = "messageEntry" onSubmit={this.handleMessageSubmit}>
+                                <label className = "submitLabelText">
+                                    Enter Message:
+                                    <input type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/>
+                                </label>
+                                <input type="submit" value="Submit" />
+                                {this.state.errorMessage && (
+                                    <p className="error"> {this.state.errorMessage}</p>
+                                )}
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <form className = "messageEntry" onSubmit={this.handleMessageSubmit}>
-                    <label className = "submitLabelText">
-                        Enter Message:
-                        <input type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/>
-                    </label>
-                    <input type="submit" value="Submit" />
-                    {this.state.errorMessage && (
-                        <p className="error"> {this.state.errorMessage}</p>
-                    )}
-                </form>
-            </div>
             </div>
         )
     }

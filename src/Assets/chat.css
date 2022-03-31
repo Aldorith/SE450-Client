@@ -10,7 +10,7 @@
     margin: 1rem;
 }
 
-.messagesDisplay {
+.chatBox {
     background-color: white;
     border-radius: 10px;
     padding-left: 10px;
@@ -21,12 +21,24 @@
     min-height: 200px;
 }
 
+.messagesDisplay {
+}
+
 .channelSelect {
+    background-color: #2cccc4;
     color: black;
     font-size: 1.5rem;
     padding-left: 0;
     padding-bottom: 0;
     margin-bottom: 0;
+    border: none;
+    font-weight: bold;
+}
+.channelSelect2 {
+    background-color: BLUE;
+    color: black;
+    font-size: 1.5rem;
+    padding-left: 0;
     border: none;
     font-weight: bold;
 }
@@ -39,6 +51,7 @@
 }
 
 .messageList {
+    background-color: black;
     list-style-type: none;
     margin-left:0;
     text-align: left;
@@ -67,7 +80,12 @@
     color: #000000;
 }
 
+.sendMessageSection {
+    background-color: green;
+}
+
 .messageEntry {
+    background-color: greenyellow;
     position: absolute;
     bottom:10px;
     left:10px;
