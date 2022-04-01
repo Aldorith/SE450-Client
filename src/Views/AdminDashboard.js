@@ -37,6 +37,7 @@ class AdminDashboard extends React.Component {
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.sendPost = this.sendPost.bind(this);
+        this.postEvent = this.postEvent.bind(this);
     }
 
     componentDidMount() {
@@ -88,7 +89,7 @@ class AdminDashboard extends React.Component {
 
     postEvent(e) {
         e.preventDefault(); // This prevents the page from refreshing
-        console.log("Attempting to Post Event: " + this.state.calendarEventDay);
+
 
         axios.post(('/createCalendarEvent'), {
             communityID: this.props.userData.communities[0].CommunityID,
