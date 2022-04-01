@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import '../Assets/style.css';
 import '../Assets/adminDash.css';
+import announcements from "../Components/Announcements";
 
 class AdminDashboard extends React.Component {
     constructor(props) {
@@ -12,45 +13,57 @@ class AdminDashboard extends React.Component {
                 CommunityName: undefined,
                 LogoID: undefined,
                 HeaderID: undefined,
-                communityDescription: undefined,
-                communityRules: undefined,
-                communityJoinCode: undefined,
-                primaryColor: undefined,
-                secondaryColor: undefined,
+                CommunityDescription: undefined,
+                CommunityJoinCode: undefined,
+                PrimaryColor: undefined,
+                SecondaryColor: undefined,
             },
-            announcement: {
-                announcementTitle: undefined,
-                announcementDesc: undefined,
-            },
-            event: {
-                calendarEventName: undefined,
-                calendarEventDesc: undefined,
-                calendarEventDay: undefined,
-                calendarEventLocation: undefined,
-            },
+
+            CommunityName: undefined,
+            LogoID: undefined,
+            HeaderID: undefined,
+            CommunityDescription: undefined,
+            CommunityJoinCode: undefined,
+            PrimaryColor: undefined,
+            SecondaryColor: undefined,
+
+            announcementTitle: undefined,
+            announcementDesc: undefined,
+
+            calendarEventName: undefined,
+            calendarEventDesc: undefined,
+            calendarEventDay: undefined,
+            calendarEventLocation: 'Unknown',
         }
-        this.handleChange = this.handleChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.sendPost = this.sendPost.bind(this);
+        this.postEvent = this.postEvent.bind(this);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         // Make API to get Community Data
         axios.post(('/getCommunityData'), {
-            communityID: this.props.communityID,
+            communityID: this.props.userData.communities[0].CommunityID,
         }).then((response) => {
             this.setState({community: response.data[0]}, function() {
                 this.setState({isLoading: false})
             });
+
+            this.setState({communityName: this.state.community.communityName})
+            this.setState({communityDescription: this.state.community.communityDescription})
+
         }).catch(function (error) {
             console.log(error);
         });
     }
 
     // simple updater
-    handleChange (event) {
-        this.setState({value: event.target.value});
+    handleInputChange(event) {
+        this.setState({[event.target.name]: event.target.value});
     }
 
-	// this does nothing right now
+
+    // this does nothing right now
     updateRules(e) {
         e.preventDefault(); // This prevents the page from refreshing
 
@@ -62,11 +75,10 @@ class AdminDashboard extends React.Component {
     sendPost(e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        console.log("Attempting to Post Event: " + this.state.announcement.announcementTitle);
-
         axios.post(('/createAnnouncement'), {
-            announcementTitle: this.state.announcement.announcementTitle,
-            announcementDesc: this.state.announcement.announcementDesc
+            communityID: this.props.userData.communities[0].CommunityID,
+            announcementTitle: this.state.announcementTitle,
+            announcementContents: this.state.announcementDesc
         }).then(function (response) {
             console.log(response.data[0]);
         })
@@ -78,13 +90,13 @@ class AdminDashboard extends React.Component {
     postEvent(e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        console.log("Attempting to Post Event: " + this.state.announcement.announcementTitle);
 
         axios.post(('/createCalendarEvent'), {
-            calendarEventName: this.state.event.calendarEventName,
-            calendarEventDesc: this.state.event.calendarEventDesc,
-            calendarEventDay: this.state.event.calendarEventDay,
-            calendarEventLocation: this.state.event.calendarEventLocation
+            communityID: this.props.userData.communities[0].CommunityID,
+            eventTitle: this.state.calendarEventName,
+            eventDescription: this.state.calendarEventDesc,
+            eventDateTime: this.state.calendarEventDay,
+            eventLocation: this.state.calendarEventLocation
         }).then(function (response) {
             console.log(response.data[0]);
         })
@@ -98,7 +110,7 @@ class AdminDashboard extends React.Component {
             <div>
                 <div className="u-container-style u-group u-radius-10 u-shape-round u-white u-group-1">
                     <div className="u-container-layout u-container-layout-1">
-                        <h1 className="u-align-center u-text u-text-body-color u-text-default u-text-1">{this.props.CommunityName}</h1>
+                        <h1 className="u-align-center u-text u-text-body-color u-text-2">{this.state.community.CommunityName}</h1>
                         <h2 className="u-align-center u-text u-text-body-color u-text-2">Admin Dashboard</h2>
                     </div>
                 </div>
@@ -114,29 +126,29 @@ class AdminDashboard extends React.Component {
                                                 <form onSubmit={this.updateRules} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style={{padding: '10px'}}>
                                                     <div className="u-form-group u-form-name">
                                                         <label className="u-label">Community Display Name</label>
-                                                        <input value={this.props.communityName} type="text" placeholder="Community Name" id="name-54ac" name="CommDisplayName" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
+                                                        <input value={this.state.community.communityName} type="text" placeholder="Community Name" id="name-54ac" name="CommDisplayName" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange} required=""/>
                                                     </div>
                                                     <div className="u-form-group u-form-message">
                                                         <label className="u-label">Community Description</label>
-                                                        <textarea value={this.props.communityDescription} placeholder="..." rows="3" cols="50" id="message-54ac" name="CommDescription" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
+                                                        <textarea value={this.state.communityDescription} placeholder="..." rows="3" cols="50" id="message-54ac" name="CommDescription" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange} required=""/>
                                                     </div>
                                                     <div className="u-form-group u-form-textarea u-form-group-3">
                                                         <label className="u-label">Community Rules</label>
-                                                        <textarea value={this.props.communityRules} rows="3" cols="50" id="textarea-8022" name="CommRules" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required="" placeholder="1. X"/>
+                                                        <textarea value={this.state.communityRules} rows="3" cols="50" id="textarea-8022" name="CommRules" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange} required="" placeholder="1. X"/>
                                                     </div>
                                                     <div className="u-form-group u-form-group-4">
                                                         <label className="u-label">Background</label>
-                                                        <input value={this.props.primaryColor} type="text" placeholder="#fffffff" id="text-d872" name="BackgroundCLR" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange}/>
+                                                        <input value={this.state.primaryColor} type="text" placeholder="#fffffff" id="text-d872" name="BackgroundCLR" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange}/>
                                                     </div>
                                                     <div className="u-form-group u-form-select u-form-group-5">
                                                         <label className="u-label">Header Image</label>
                                                         <div className="u-form-select-wrapper">
-                                                            <input type ="file" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange}></input>
+                                                            <input type ="file" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange}></input>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" className="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"/></svg>
-														</div>
+                                                        </div>
                                                     </div>
                                                     <div className="u-align-right u-form-group u-form-submit">
-                                                        <a href="#" className="u-border-none u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1">Save</a>
+                                                        <a className="u-border-none u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1">Save</a>
                                                         <input type="submit" value="save" className="u-form-control-hidden"/>
                                                     </div>
                                                     <div className="u-form-send-message u-form-send-success"> Changes have been saved. </div>
@@ -149,46 +161,39 @@ class AdminDashboard extends React.Component {
                                     <div className="u-container-style u-layout-cell u-size-30 u-layout-cell-2">
                                         <div className="u-container-layout u-container-layout-2">
                                             <div className="u-expanded-width u-form u-form-2">
-                                                <form onSubmit={this.sendPost} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form-1" style={{padding: '10px'}}>
+                                                <form id = "announcementForm" onSubmit={this.sendPost} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form-1" style={{padding: '10px'}}>
                                                     <div className="u-form-group u-form-name">
                                                         <label className="u-label">Post Title</label>
-                                                        <input value={this.props.announcementTitle} type="text" placeholder="Post Title" id="name-269c" name="name" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
+                                                        <input value={this.state.announcementTitle} type="text" placeholder="Post Title" id="name-269c" name="announcementTitle" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange} required=""/>
                                                     </div>
                                                     <div className="u-form-group u-form-message">
                                                         <label className="u-label">Post Content</label>
-                                                        <textarea value={this.props.announcementDesc} placeholder="..." rows="3" cols="50" id="message-269c" name="message" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
+                                                        <textarea value={this.state.announcementDesc} placeholder="..." rows="3" cols="50" id="message-269c" name="announcementDesc" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange} required=""/>
                                                     </div>
                                                     <div className="u-align-right u-form-group u-form-submit">
-                                                        <a href="#" className="u-border-none u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Post</a>
-                                                        <input type="submit" value="post" className="u-form-control-hidden"/>
+                                                        <button type="submit" form={"announcementForm"} className="u-border-none u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Post</button>
                                                     </div>
-                                                    <div className="u-form-send-message u-form-send-success"> Post has been sent. </div>
-                                                    <div className="u-form-send-error u-form-send-message"> Unable to send. Cannot connect to server. </div>
-                                                    <input type="hidden" value="" name="recaptchaResponse"/>
                                                 </form>
+
                                             </div>
                                             <h2 className="u-text u-text-2">Create An Event</h2>
                                             <div className="u-expanded-width u-form u-form-3">
-                                                <form onSubmit={this.postEvent} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form-2" style={{padding: '10px'}}>
+                                                <form id = "eventForm" onSubmit={this.postEvent} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form-2" style={{padding: '10px'}}>
                                                     <div className="u-form-group u-form-name u-form-partition-factor-2">
                                                         <label className="u-label">Event Title</label>
-                                                        <input value={this.props.calendarEventName} type="text" placeholder="Event Title" id="name-8220" name="name" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
+                                                        <input value={this.state.calendarEventName} type="text" placeholder="Event Title" id="name-8220" name="calendarEventName" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange} required=""/>
                                                     </div>
                                                     <div className="u-form-email u-form-group u-form-partition-factor-2">
                                                         <label className="u-label">Date &amp; Time</label>
-                                                        <input type="date" placeholder="1/1/2022 - 5 PM" id="date-8220" name="date" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value={this.props.calendarEventDay} onChange={this.handleChange} required=""/>
+                                                        <input value={this.state.calendarEventDay} type="date" placeholder="1/1/2022 - 5 PM" id="date-8220" name="calendarEventDay" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange} required=""/>
                                                     </div>
                                                     <div className="u-form-group u-form-message">
                                                         <label className="u-label">Event Description</label>
-                                                        <textarea value={this.props.calendarEventDesc} placeholder="..." rows="3" cols="50" id="message-8220" name="message" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleChange} required=""/>
+                                                        <textarea value={this.state.calendarEventDesc} placeholder="..." rows="3" cols="50" id="message-8220" name="calendarEventDesc" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange} required=""/>
                                                     </div>
                                                     <div className="u-align-right u-form-group u-form-submit">
-                                                        <a href="#" className="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-3">Post</a>
-                                                        <input type="submit" value="post" className="u-form-control-hidden"/>
+                                                        <button type="submit" form={"eventForm"} className="u-border-none u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Post</button>
                                                     </div>
-                                                    <div className="u-form-send-message u-form-send-success"> Your event has been posted. </div>
-                                                    <div className="u-form-send-error u-form-send-message"> Unable to post event. Cannot connect to server. </div>
-                                                    <input type="hidden" value="" name="recaptchaResponse"/>
                                                 </form>
                                             </div>
                                         </div>
