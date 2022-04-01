@@ -91,16 +91,25 @@ class Chat extends React.Component {
         }
         else {
             let that = this;
-            if (!that.state.messages) ;
-            that.state.messages[0] = {
-                UserName: that.props.userData.username,
-                MessageText: that.state.messageText,
-                MessageDateTime: that.getDateTime(),
-                messageID: 0,
-                uniqueID: -1,
+            if (!that.state.messages) {
+                that.state.messages[0] = {
+                    UserName: that.props.userData.username,
+                    MessageText: that.state.messageText,
+                    MessageDateTime: that.getDateTime(),
+                    messageID: 0,
+                    uniqueID: -1,
+                }
+                console.log(that.state.messages[0]);
             }
-            console.log(that.state.messages[0]);
-
+            else{
+                that.state.messages.push({
+                    UserName: that.props.userData.username,
+                    MessageText: that.state.messageText,
+                    MessageDateTime: that.getDateTime(),
+                    messageID: 0,
+                    uniqueID: that.state.messages[that.state.messages.length-1].uniqueID + 1,
+                })
+            }
             //Store Message on Server, and display new message
             // Make API call to web server
             axios.post(('/sendMessage'), {
