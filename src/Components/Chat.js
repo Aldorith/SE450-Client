@@ -188,9 +188,8 @@ class Chat extends React.Component {
                                 <label className = "submitLabelText">
                                     Enter Message:
                                     <input type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/>
-                                </label>
-                                <input type="submit" value="Send" className = "messageSendButton" />{this.state.errorMessage&&(<p className="error"> {this.state.errorMessage}</p>
-                )}</form></div></div></div></div>
+                                </label><div><input type="submit" value="Send" className = "messageSendButton" />{this.state.errorMessage&&(<p className="error"> {this.state.errorMessage}</p>)}</div>
+                </form></div></div></div></div>
         )
     }
 }
