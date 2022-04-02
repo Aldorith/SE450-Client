@@ -75,8 +75,6 @@ class AdminDashboard extends React.Component {
     sendPost(e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        console.log("Creating an Announcement");
-
         axios.post(('/createAnnouncement'), {
             communityID: this.props.userData.communities[0].CommunityID,
             announcementTitle: this.state.announcementTitle,
@@ -92,7 +90,6 @@ class AdminDashboard extends React.Component {
     postEvent(e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        console.log("Creating Calendar Event");
 
         axios.post(('/createCalendarEvent'), {
             communityID: this.props.userData.communities[0].CommunityID,
