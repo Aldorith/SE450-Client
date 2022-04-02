@@ -36,8 +36,8 @@ class AdminDashboard extends React.Component {
             calendarEventLocation: 'Unknown',
         }
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.sendPost = this.sendPost.bind(this);
-        this.postEvent = this.postEvent.bind(this);
+        this.createAnnouncement = this.createAnnouncement.bind(this);
+        this.createCalendarEvent = this.createCalendarEvent.bind(this);
     }
 
     componentDidMount() {
@@ -69,10 +69,9 @@ class AdminDashboard extends React.Component {
 
         console.log("Attempting to Update Community: " + this.state.community.communityName);
 
-
     }
 
-    sendPost(e) {
+    createAnnouncement(e) {
         e.preventDefault(); // This prevents the page from refreshing
 
         axios.post(('/createAnnouncement'), {
@@ -87,7 +86,7 @@ class AdminDashboard extends React.Component {
             });
     }
 
-    postEvent(e) {
+    createCalendarEvent(e) {
         e.preventDefault(); // This prevents the page from refreshing
 
 
@@ -161,7 +160,7 @@ class AdminDashboard extends React.Component {
                                     <div className="u-container-style u-layout-cell u-size-30 u-layout-cell-2">
                                         <div className="u-container-layout u-container-layout-2">
                                             <div className="u-expanded-width u-form u-form-2">
-                                                <form id = "announcementForm" onSubmit={this.sendPost} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form-1" style={{padding: '10px'}}>
+                                                <form id = "announcementForm" onSubmit={this.createAnnouncement} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form-1" style={{padding: '10px'}}>
                                                     <div className="u-form-group u-form-name">
                                                         <label className="u-label">Post Title</label>
                                                         <input value={this.state.announcementTitle} type="text" placeholder="Post Title" id="name-269c" name="announcementTitle" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange} required=""/>
@@ -178,7 +177,7 @@ class AdminDashboard extends React.Component {
                                             </div>
                                             <h2 className="u-text u-text-2">Create An Event</h2>
                                             <div className="u-expanded-width u-form u-form-3">
-                                                <form id = "eventForm" onSubmit={this.postEvent} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form-2" style={{padding: '10px'}}>
+                                                <form id = "eventForm" onSubmit={this.createCalendarEvent} className="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form-2" style={{padding: '10px'}}>
                                                     <div className="u-form-group u-form-name u-form-partition-factor-2">
                                                         <label className="u-label">Event Title</label>
                                                         <input value={this.state.calendarEventName} type="text" placeholder="Event Title" id="name-8220" name="calendarEventName" className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" onChange={this.handleInputChange} required=""/>

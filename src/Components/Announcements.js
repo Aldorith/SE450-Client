@@ -81,12 +81,7 @@ class Announcements extends React.Component {
     render() {
         return (
             <div className="announcementCreator">
-                <h2> Enter Announcement Information </h2>
-                <form onSubmit={this.createAnnouncement}>
-                    <label> Announcement Title: <input type="text" name="announcementTitle" value={this.state.announcementTitle} onChange={this.handleInputChange} /></label>
-                    <label> Announcement Contents: <input type="text" name="announcementContents" value={this.state.announcementContents} onChange={this.handleInputChange} /></label>
-                    <input type="submit" value="Submit" />
-                </form>
+
             </div>
         )
     }

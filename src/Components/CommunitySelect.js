@@ -15,7 +15,6 @@ class CommunitySelect extends React.Component {
         this.setErrorMessage = this.setErrorMessage.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.joinCommunity = this.joinCommunity.bind(this);
-
         this.CreateCommunity = this.CreateCommunity.bind(this);
     }
 
