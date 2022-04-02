@@ -3,6 +3,7 @@ import axios from "axios";
 import '../Assets/style.css';
 import '../Assets/adminDash.css';
 import announcements from "../Components/Announcements";
+import CreateChatChannel from "../Components/CreateChatChannel";
 
 class AdminDashboard extends React.Component {
     constructor(props) {
@@ -203,6 +204,9 @@ class AdminDashboard extends React.Component {
                         <h2 className="u-text u-text-default u-text-3">Community Settings<br/></h2>
                     </div>
                 </section>
+                <div>
+                <CreateChatChannel userData={this.props.userData} communityData={this.state.community}/>
+                </div>
             </div>
         );
     }

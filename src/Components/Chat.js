@@ -14,7 +14,7 @@ class Chat extends React.Component {
             messages: [],
             messageText: '',
             chanID: 1,
-            errorMessage: ''
+            errorMessage: '',
         }
 
         this.handleMessageChange = this.handleMessageChange.bind(this);
@@ -190,10 +190,8 @@ class Chat extends React.Component {
                                     (<li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
                         </span>    <span className = "timestamp">{message.MessageDateTime}<br/></span>{message.MessageText}</p></div></li>
                                     ))}
-                    </ul></div><div className= "sendMessageSection"><form className = "messageEntry" onSubmit={this.handleMessageSubmit}>
-                                <label className = "submitLabelText">
-                                    Enter Message:
-                                    <input type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/>
+                    </ul></div><div className= "sendMessageSection"><form className = "messageEntry" onSubmit={this.handleMessageSubmit}
+                ><label className = "submitLabelText"> Enter Message: <input type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/>
                                 </label><div><input type="submit" value="Send" className = "messageSendButton" />{this.state.errorMessage&&(<p className="error"> {this.state.errorMessage}</p>)}</div>
                 </form></div></div></div></div>
         )
