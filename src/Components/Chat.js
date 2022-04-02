@@ -62,7 +62,7 @@ class Chat extends React.Component {
             console.log(socket.id);
         });
          */
-        console.log("AFTER!!")
+        //console.log("AFTER!!")
     }
 
     getDateTime() {
@@ -91,7 +91,7 @@ class Chat extends React.Component {
         }
         else {
             let that = this;
-            if (!that.state.messages) {
+            if (that.state.messages[0] === undefined) {
                 that.state.messages[0] = {
                     UserName: that.props.userData.username,
                     MessageText: that.state.messageText,
@@ -121,9 +121,6 @@ class Chat extends React.Component {
                 messageDateTime: that.getDateTime(),
             }).then(function (response) {
                 //This is where the response is handled from the server
-                console.log("vvvv");
-                console.log(response.data[0]);
-                console.log("^^^^");
                 let i = 0;
                 response.data.forEach(element => {
                         element.uniqueID = i;
@@ -164,7 +161,7 @@ class Chat extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
-        this.updateScroll();
+        //this.updateScroll();
     }
 /*
     updateScroll = () => {

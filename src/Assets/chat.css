@@ -35,10 +35,9 @@
 
 .messages {
     margin: 0;
-    padding-top: 0;
-    border: black;
-    padding-bottom: 0;
-    background-color: #CCCCCC;
+    padding: 0;
+    border: none;
+    background-color: white;
 }
 
 .messageList {
@@ -49,6 +48,9 @@
     overflow: scroll;
     overflow-x: hidden;
     height: 10rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    scroll-margin: 0;
 }
 
 .messageListItem {
