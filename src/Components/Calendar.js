@@ -1,24 +1,18 @@
 import React from "react";
 import axios from "axios";
 
-import CommunityCreator from "../Views/CommunityCreator";
-
 class Calendar extends React.Component {
     constructor(props) {
         super(props);
-
+        this.calendarListRef = React.createRef();
         this.state = {
-            calendarEventName: undefined,
-            calendarEventDay: undefined,
-            calendarEventDesc: undefined,
-            calendarEventLocation: undefined,
+            isLoading: true,
+            calendarEvents: []
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.createCalendarEvent = this.createCalendarEvent.bind(this);
         this.editCalendarEvent = this.editCalendarEvent.bind(this);
         this.deleteCalendarEvent = this.deleteCalendarEvent.bind(this);
-        this.clearForm = this.clearForm.bind(this);
     }
 
     handleInputChange(event) {
@@ -31,26 +25,19 @@ class Calendar extends React.Component {
         });
     }
 
-    createCalendarEvent (e) {
-        e.preventDefault();
-        console.log("Attempting to Create a New Calendar Event: " + this.state.calendarEventName);
-
-        axios.post(('/createCalendarEvent'), {
-            communityID: this.props.communityID,
-            calendarEventName: this.state.calendarEventName,
-            calendarEventDesc: this.state.calendarEventDesc,
-            calendarEventDay: this.state.calendarEventDay,
-            calendarEventLocation: this.state.calendarEventName,
-
-        }).then(function (response) {
+    async componentDidMount() {
+        console.log("Retrieving Calendar Data for Community: " + this.communityID);
+        axios.post(('/loadCalendar'), {
+            communityID: this.communityID,
+        }).then((response) => {
+            //This is where the response is handled from the server
             console.log(response.data[0]);
+            this.setState({calendarEvents: response.data, isLoading: false})
         })
             .catch(function (error) {
                 console.log(error);
             });
-        this.clearForm();
     }
-    //above two might need to be change, not exactly sure what data[0] is, or where it is being referenced
 
     editCalendarEvent(e, eventID){
         e.preventDefault(); // This prevents the page from refreshing
@@ -97,19 +84,39 @@ class Calendar extends React.Component {
         })
     }
 
-    render(){
-        return (
-            <div className="calendarEventCreator">
-                <h2> Enter Event Information </h2>
-                <form onSubmit={this.createCalendarEvent}>
-                    <label> Calendar Event Name: <input type="text" name="calendarEventName" value={this.state.calendarEventName} onChange={this.handleInputChange} /></label>
-                    <label> Calendar Event Description: <input type="text" name="calendarEventDesc" value={this.state.calendarEventDesc} onChange={this.handleInputChange} /></label>
-                    <label> Calendar Event Location: <input type="text" name="calendarEventLocation" value={this.state.calendarEventLocation} onChange={this.handleInputChange} /></label>
-                    <label> Calendar Event Day: <input type="text" name="calendarEventDay" value={this.state.calendarEventDay} onChange={this.handleInputChange} /></label>
-                    <input type="submit" value="Submit" />
-                </form>
+    render() {
+        if(this.state.isLoading)
+            return(
+                <div>
+                    Loading Calendar
+                </div>
+            )
+
+        return(
+            <div className = "communityCalendar">
+                <p className = "calendarTitle">Events Coming Up</p>
+                <div className= "calendarContents">
+                    <div className = "calendarEvents">
+                        <ul className = "calendarEventList" ref = {this.calendarListRef}>
+                            {this.state.calendarEvents.map(calendarEvents =>
+                             (<li className = "calendarListItem" key={calendarEvents.EventID.toString()}>
+                                     <div>
+                                         <p className = "event">
+                                             <span className = "eventTitle">{calendarEvents.EventTitle}</span>
+                                             <span className = "eventDescription">{calendarEvents.EventDescription}</span>
+                                             <span className = "eventDateTime">{calendarEvents.EventDateTime}</span>
+                                             <span className = "eventLocation">{calendarEvents.EventLocation}</span>
+                                         </p>
+                                     </div>
+                             </li>
+                             ))}
+                        </ul>
+                    </div>
+                </div>
             </div>
         )
+
+
     }
 }
 export default Calendar;
