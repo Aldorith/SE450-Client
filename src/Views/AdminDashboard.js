@@ -35,6 +35,8 @@ class AdminDashboard extends React.Component {
             calendarEventDesc: undefined,
             calendarEventDay: undefined,
             calendarEventLocation: 'Unknown',
+
+            isLoading: true,
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.createAnnouncement = this.createAnnouncement.bind(this);
@@ -106,8 +108,15 @@ class AdminDashboard extends React.Component {
     }
 
     render() {
+        if(this.state.isLoading)
+            { // noinspection CheckTagEmptyBody
+                return(<div></div>)
+            }
         return (
             <div>
+                <div>
+                    <CreateChatChannel userData={this.props.userData} communityData={this.state.community}/>
+                </div>
                 <div className="u-container-style u-group u-radius-10 u-shape-round u-white u-group-1">
                     <div className="u-container-layout u-container-layout-1">
                         <h1 className="u-align-center u-text u-text-body-color u-text-2">{this.state.community.CommunityName}</h1>
@@ -204,9 +213,6 @@ class AdminDashboard extends React.Component {
                         <h2 className="u-text u-text-default u-text-3">Community Settings<br/></h2>
                     </div>
                 </section>
-                <div>
-                <CreateChatChannel userData={this.props.userData} communityData={this.state.community}/>
-                </div>
             </div>
         );
     }

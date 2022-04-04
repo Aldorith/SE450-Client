@@ -10,7 +10,7 @@ class CreateChatChannel extends React.Component {
 
         this.state = {
             channels: [],
-            chanID: 1,
+            chanID: '',
             errorMessage1: '',
             errorMessage2: '',
             successMessage: '',
@@ -27,13 +27,14 @@ class CreateChatChannel extends React.Component {
 
     async componentDidMount() {
         this.state.successMessage = '';
+        let that = this;
         console.log('Getting Channel Data For '+this.props.communityData.CommunityID);
         axios.post(('/getChannelData'), {
             commID: this.props.communityData.CommunityID,
         }).then((response) => {
             //This is where the response is handled from the server
             console.log(response.data);
-            this.setState({channels: response.data})
+            that.setState({channels: response.data, chanID: response.data[0].ChannelID})
         })
             .catch(function (error) {
                 console.log(error);
@@ -79,13 +80,14 @@ class CreateChatChannel extends React.Component {
         let that = this;
         if(this.state.channels.length > 1) {
             this.setState({errorMessage2:''});
+            let channelsTemp = this.state.channels;
             axios.post(('/deleteChannel'), {
                 commID: that.props.communityData.CommunityID,
                 chanID: that.state.chanID,
             }).then((response) => {
                 //This is where the response is handled from the server
                 console.log(response.data[0]);
-                that.setState({channels: response.data})
+                that.channelsTemp = response.data
             })
                 .catch(function (error) {
                     console.log(error);
