@@ -1,0 +1,56 @@
+.announcementsTitle {
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    font-size: x-large;
+    margin: 1rem;
+}
+
+.announcementsBox {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: left;
+    position: relative;
+    margin: 1rem;
+    min-height: 200px;
+}
+
+.announcementList {
+    list-style-type: none;
+    margin-left:0;
+    margin-bottom: 0;
+    text-align: left;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 10rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    scroll-margin: 0;
+}
+
+.announcementsListItem {
+    list-style-type: none;
+    margin-left:0;
+    padding-left: 0;
+    margin-bottom:-10px;
+    text-align: left;
+    margin-top: -15px;
+}
+
+.announcement {
+    color: #000000;
+    margin-left: 0;
+}
+
+.announcementTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.announcementDescription{
+    font-size: 16px;
+    color: #000000;
+    margin-left: 0;
+}

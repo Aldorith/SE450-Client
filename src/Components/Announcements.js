@@ -1,19 +1,36 @@
 import React from "react";
 import axios from "axios";
+import './../Assets/Announcements.css';
 
 class Announcements extends React.Component {
     constructor(props) {
         super(props);
-
+        this.announcementListRef = React.createRef();
         this.state = {
             announcementTitle: undefined,
             announcementContents: undefined,
+            isLoading: true,
+            announcementEvents: []
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.createAnnouncement = this.createAnnouncement.bind(this);
         this.editAnnouncement = this.editAnnouncement.bind(this);
         this.deleteAnnouncement = this.deleteAnnouncement.bind(this);
+    }
+
+    async componentDidMount() {
+        console.log("Retrieving Announcement Data for Community: " + this.props.communityID);
+        axios.post(('/loadAnnouncement'), {
+            communityID: + this.props.communityID,
+        }).then((response) => {
+            //This is where the response is handled from the server
+            console.log(response.data[0]);
+            this.setState({announcementEvents: response.data, isLoading: false})
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     handleInputChange(event) {
@@ -78,10 +95,35 @@ class Announcements extends React.Component {
             });
     }
 
-    render() {
-        return (
-            <div className="announcementCreator">
 
+
+    render() {
+        if(this.state.isLoading)
+            return(
+                <div>
+                    Loading Announcements
+                </div>
+            )
+
+        return(
+            <div className = "communityAnnouncements">
+                <p className = "announcementsTitle">Community Announcements</p>
+                <div className= "announcementsBox">
+                    <div className = "announcements">
+                        <ul className = "announcementsList" ref = {this.announcementListRef}>
+                            {this.state.announcementEvents.map(announcementEvents =>
+                                (<li className = "announcementsListItem" key={announcementEvents.AnnouncementID.toString()}>
+                                        <div>
+                                            <p className = "announcement">
+                                                <span className = "announcementTitle">{announcementEvents.AnnouncementTitle} </span>
+                                                <span className = "announcementDescription">{announcementEvents.AnnouncementText} </span>
+                                            </p>
+                                        </div>
+                                    </li>
+                                ))}
+                        </ul>
+                    </div>
+                </div>
             </div>
         )
     }

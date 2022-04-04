@@ -1,0 +1,67 @@
+.calendarTitle {
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    font-size: x-large;
+    margin: 1rem;
+}
+
+.calendarBox {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: left;
+    position: relative;
+    margin: 1rem;
+    min-height: 200px;
+}
+
+.calendarList {
+    list-style-type: none;
+    margin-left:0;
+    margin-bottom: 0;
+    text-align: left;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 10rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    scroll-margin: 0;
+}
+
+.calendarListItem {
+    list-style-type: none;
+    margin-left:0;
+    padding-left: 0;
+    margin-bottom:-10px;
+    text-align: left;
+    margin-top: -15px;
+}
+
+.event {
+    color: #000000;
+    margin-left: 0;
+}
+
+.eventTitle {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.eventDescription{
+    color: #000000;
+    margin-left: 0;
+}
+
+.eventDateTime{
+    font-size: 12px;
+    color: #000000;
+    margin-left: 0;
+}
+
+.eventLocation{
+    font-size: 12px;
+    color: #000000;
+    margin-left: 0;
+}

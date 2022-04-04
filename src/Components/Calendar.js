@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import './../Assets/Calendar.css';
 
 class Calendar extends React.Component {
     constructor(props) {
@@ -15,20 +16,10 @@ class Calendar extends React.Component {
         this.deleteCalendarEvent = this.deleteCalendarEvent.bind(this);
     }
 
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
     async componentDidMount() {
-        console.log("Retrieving Calendar Data for Community: " + this.communityID);
+        console.log("Retrieving Calendar Data for Community: " + this.props.communityID);
         axios.post(('/loadCalendar'), {
-            communityID: this.communityID,
+            communityID: + this.props.communityID,
         }).then((response) => {
             //This is where the response is handled from the server
             console.log(response.data[0]);
@@ -37,6 +28,16 @@ class Calendar extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
     }
 
     editCalendarEvent(e, eventID){
@@ -95,17 +96,17 @@ class Calendar extends React.Component {
         return(
             <div className = "communityCalendar">
                 <p className = "calendarTitle">Events Coming Up</p>
-                <div className= "calendarContents">
+                <div className= "calendarBox">
                     <div className = "calendarEvents">
                         <ul className = "calendarEventList" ref = {this.calendarListRef}>
                             {this.state.calendarEvents.map(calendarEvents =>
                              (<li className = "calendarListItem" key={calendarEvents.EventID.toString()}>
                                      <div>
                                          <p className = "event">
-                                             <span className = "eventTitle">{calendarEvents.EventTitle}</span>
+                                             <span className = "eventTitle">{calendarEvents.EventTitle}   </span>
+                                             <span className = "eventDateTime">{calendarEvents.EventDateTime}   </span>
+                                             <span className = "eventLocation">{calendarEvents.EventLocation}</span><br/>
                                              <span className = "eventDescription">{calendarEvents.EventDescription}</span>
-                                             <span className = "eventDateTime">{calendarEvents.EventDateTime}</span>
-                                             <span className = "eventLocation">{calendarEvents.EventLocation}</span>
                                          </p>
                                      </div>
                              </li>
