@@ -5,6 +5,7 @@ import CommunityDashboard from "./CommunityDashboard";
 // Style
 import '../Assets/userDash.css';
 import CommunitySelect from "../Components/CommunitySelect";
+import CommunityCreator from "./CommunityCreator";
 
 class userDashboard extends React.Component {
     constructor(props) {
@@ -21,6 +22,12 @@ class userDashboard extends React.Component {
         }
 
         this.switchCommunity = this.switchCommunity.bind(this);
+        this.loadCommunityCreator = this.loadCommunityCreator.bind(this);
+    }
+
+    loadCommunityCreator() {
+        let component = <CommunityCreator userData={this.props.userData} />;
+        this.setState({componentToRender: component});
     }
 
     componentDidMount() {
