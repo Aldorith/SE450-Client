@@ -92,7 +92,7 @@ class CreateChatChannel extends React.Component {
                 .catch(function (error) {
                     console.log(error);
                 });
-            this.setState({successMessage: 'Channel added successfully!', channelName: ''})
+            this.setState({successMessage: 'Channel deleted successfully!', channelName: ''})
         }
         else{
             this.setState({errorMessage2: 'There must remain at least one channel'})
