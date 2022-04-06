@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
-import '../Assets/style.css';
 import '../Assets/adminDash.css';
 import announcements from "../Components/Announcements";
 import CreateChatChannel from "../Components/CreateChatChannel";
+// Original adminDashboard.css here: https://pastebin.com/ckdnnSz1
 
 class AdminDashboard extends React.Component {
     constructor(props) {
@@ -15,6 +15,7 @@ class AdminDashboard extends React.Component {
             HeaderID: undefined,
             CommunityDescription: undefined,
             CommunityJoinCode: undefined,
+            CommunityRules: undefined,
             PrimaryColor: undefined,
             SecondaryColor: undefined,
 
@@ -57,6 +58,7 @@ class AdminDashboard extends React.Component {
     }
 
     createAnnouncement(e) {
+        console.log("1");
         e.preventDefault(); // This prevents the page from refreshing
 
         axios.post(('/createAnnouncement'), {
@@ -73,7 +75,6 @@ class AdminDashboard extends React.Component {
 
     createCalendarEvent(e) {
         e.preventDefault(); // This prevents the page from refreshing
-
 
         axios.post(('/createCalendarEvent'), {
             communityID: this.props.community.CommunityID,
@@ -116,9 +117,32 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div className="item2">
                     <h2>Post an Announcement</h2>
+                    <form id = {"announcementForm"} onSubmit={this.createAnnouncement} name="form-1" style={{padding: '10px'}}>
+                        <label>Post Title</label>
+                        <input value={this.state.announcementTitle} type="text" placeholder="Post Title" id="name-269c" name="announcementTitle" onChange={this.handleInputChange} required=""/>
+                        <label>Post Content</label>
+                        <textarea value={this.state.announcementDesc} placeholder="..." rows="3" cols="50" id="message-269c" name="announcementDesc" onChange={this.handleInputChange} required=""/>
+                        <input type="submit" value="Post"/>
+                    </form>
+
                 </div>
                 <div className="item3">
                     <h2>Create an Event</h2>
+                    <form id = "eventForm" onSubmit={this.createCalendarEvent} name="form-2" style={{padding: '10px'}}>
+                        <label>Event Title</label>
+                        <input value={this.state.calendarEventName} type="text" placeholder="Event Title" id="name-8220" name="calendarEventName" onChange={this.handleInputChange} required=""/>
+
+                        <label>Date &amp; Time</label>
+                        <input value={this.state.calendarEventDay} type="datetime-local" placeholder="1/1/2022 - 5 PM" id="date-8220" name="calendarEventDay" onChange={this.handleInputChange} required=""/>
+
+                        <label>Event Description</label>
+                        <textarea value={this.state.calendarEventDesc} placeholder="..." rows="3" cols="50" id="message-8220" name="calendarEventDesc" onChange={this.handleInputChange} required=""/>
+
+                        <label>Event Location</label>
+                        <input value={this.state.calendarEventLocation} type="text" placeholder="Room 1" name="calendarEventLocation" onChange={this.handleInputChange} required=""/>
+
+                        <input type="submit" value="Post"/>
+                    </form>
                 </div>
 
             </div>
