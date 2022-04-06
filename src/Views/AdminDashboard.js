@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import '../Assets/style.css';
 import '../Assets/adminDash.css';
 import announcements from "../Components/Announcements";
 import CreateChatChannel from "../Components/CreateChatChannel";
@@ -17,11 +18,6 @@ class AdminDashboard extends React.Component {
             PrimaryColor: undefined,
             SecondaryColor: undefined,
 
-            tempCommunityName: '',
-            tempCommunityDesc: '',
-            tempCommunityRules: '',
-            tempCommunityHeader: '',
-
             announcementTitle: undefined,
             announcementDesc: undefined,
 
@@ -29,10 +25,7 @@ class AdminDashboard extends React.Component {
             calendarEventDesc: undefined,
             calendarEventDay: undefined,
             calendarEventLocation: 'Unknown',
-
-            isLoading: true
         }
-
         this.handleInputChange = this.handleInputChange.bind(this);
         this.createAnnouncement = this.createAnnouncement.bind(this);
         this.createCalendarEvent = this.createCalendarEvent.bind(this);
@@ -80,6 +73,7 @@ class AdminDashboard extends React.Component {
 
     createCalendarEvent(e) {
         e.preventDefault(); // This prevents the page from refreshing
+
 
         axios.post(('/createCalendarEvent'), {
             communityID: this.props.community.CommunityID,

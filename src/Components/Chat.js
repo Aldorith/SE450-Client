@@ -22,6 +22,7 @@ class Chat extends React.Component {
         this.changeChat = this.changeChat.bind(this);
         //this.updateScroll = this.updateScroll.bind(this);
         this.getDateTime = this.getDateTime.bind(this);
+        this.checkText = this.checkText.bind(this);
     }
 
     async componentDidMount() {
@@ -65,6 +66,22 @@ class Chat extends React.Component {
         //console.log("AFTER!!")
     }
 
+    checkText(String) {
+        let i = 0;
+        let temp = '';
+        while(i < String.length)
+        {
+            if(String[i] === "'")
+            {
+                temp+="\\"
+            }
+            temp+=String[i];
+            i+=1;
+        }
+        String = temp;
+        return String;
+    }
+
     getDateTime() {
         let nowDateTime = new Date();
         return `${nowDateTime.getFullYear()}-${nowDateTime.getMonth() + 1}-${nowDateTime.getDate()} ${nowDateTime.getHours()}:${nowDateTime.getMinutes()}:${nowDateTime.getSeconds()}`;
@@ -90,11 +107,14 @@ class Chat extends React.Component {
             this.setState({errorMessage: 'Too long: Maximum 150 Characters'})
         }
         else {
+            let tempText = this.checkText(this.state.messageText);
+            console.log(this.state.messageText);
+            console.log(this.state.messageText);
             let that = this;
             if (that.state.messages[0] === undefined) {
                 that.state.messages[0] = {
                     UserName: that.props.userData.username,
-                    MessageText: that.state.messageText,
+                    MessageText: this.state.messageText,
                     MessageDateTime: that.getDateTime(),
                     messageID: 0,
                     uniqueID: -1,
@@ -104,7 +124,7 @@ class Chat extends React.Component {
             else{
                 that.state.messages.push({
                     UserName: that.props.userData.username,
-                    MessageText: that.state.messageText,
+                    MessageText: this.state.messageText,
                     MessageDateTime: that.getDateTime(),
                     messageID: 0,
                     uniqueID: that.state.messages[that.state.messages.length-1].uniqueID + 1,
@@ -117,7 +137,7 @@ class Chat extends React.Component {
                 chanID: that.state.chanID,
                 commID: that.props.communityData.CommunityID,
                 uid: that.props.userData.uid,
-                messageText: that.state.messageText,
+                messageText: tempText,
                 messageDateTime: that.getDateTime(),
             }).then(function (response) {
                 //This is where the response is handled from the server
