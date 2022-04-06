@@ -90,12 +90,18 @@
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+
 .modal-content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     width: 50%;
     border-radius: 25px;
+}
+
+.admin-modal-content {
+    margin: auto;
+    width: 95%;
 }
 
 /* The Close Button */

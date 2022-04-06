@@ -50,17 +50,28 @@ class CommunityDashboard extends React.Component {
         };
     }
 
+    // Admin Modal
+    // TODO Make sure user has permissions to view admin dashboard
     openAdminDash() {
+        // Get the modal
+        let modal = document.getElementById("adminModal");
 
+        modal.style.display = "block";
+    }
+    closeAdminDash() {
+        // Get the modal
+        let modal = document.getElementById("adminModal");
+
+        modal.style.display = "none";
     }
 
+    // Profile Modal
     openProfileEdit() {
         // Get the modal
         let modal = document.getElementById("profileModal");
 
         modal.style.display = "block";
     }
-
     closeProfileEdit() {
         // Get the modal
         let modal = document.getElementById("profileModal");
@@ -99,7 +110,11 @@ class CommunityDashboard extends React.Component {
                     </div>
                 </div>
 
-                <AdminDashboard userData={this.props.userData} community={this.state.community} />
+                <div id="adminModal" className="modal">
+                    <div className="admin-modal-content" >
+                        <AdminDashboard userData={this.props.userData} community={this.state.community} />
+                    </div>
+                </div>
             </div>
         )
     }

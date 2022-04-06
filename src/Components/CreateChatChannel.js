@@ -27,7 +27,7 @@ class CreateChatChannel extends React.Component {
 
     async componentDidMount() {
         this.state.successMessage = '';
-        console.log('Getting Channel Data For '+this.props.communityData.CommunityID);
+        console.log('Getting Channel Data For '+ this.props.communityData.CommunityID);
         axios.post(('/getChannelData'), {
             commID: this.props.communityData.CommunityID,
         }).then((response) => {

@@ -6,6 +6,8 @@
     margin: 0;
     padding-left: 0;
     text-align: center;
+    position: relative;
+    height: 100%;
 }
 .vertNavBar li {
     padding-bottom: 1em;
@@ -18,4 +20,13 @@
 }
 .vertNavBar h2 {
     margin: 0.5em;
+}
+
+
+/* Bottom Menu Bar */
+.bottomBar {
+    background: #595959;
+    padding: 10px;
+    position: relative;
+    top: 0;
 }

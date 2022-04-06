@@ -80,12 +80,10 @@ class VertNavBar extends React.Component {
                             )}
                         </form>
                     </li>
+                    <li className="bottomBar">
+                        <p>{this.props.userData.username}</p>
+                    </li>
                 </ul>
-
-                <div>
-                    <p>{this.props.userData.username}</p>
-                </div>
-
             </div>
         )
     }
