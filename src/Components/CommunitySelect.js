@@ -9,7 +9,7 @@ class CommunitySelect extends React.Component {
 
         this.state = {
             communityJoinCode: '',
-            errorMessage: ''
+            errorMessage: '',
         }
 
         this.setErrorMessage = this.setErrorMessage.bind(this);
@@ -32,6 +32,9 @@ class CommunitySelect extends React.Component {
         this.setState({
             [name]: value
         });
+
+        this.joinCommunity = this.joinCommunity.bind(this);
+        this.CreateCommunity = this.CreateCommunity.bind(this);
     }
 
     joinCommunity(event){
@@ -41,11 +44,11 @@ class CommunitySelect extends React.Component {
         axios.post(('/userJoinCommunity'), {
             uid: this.props.userData.uid,
             communityJoinCode: this.state.communityJoinCode,
-        }).then(function (response) {
+        }).then((response) => {
             console.log(response.data);
             if(response.data.length >= 1) {
                 that.setErrorMessage('');
-                //that.props.loadCommunity(response.data[0].CommunityID);
+                this.props.switchCommunity(response.data[0].CommunityID);
             }
             else
             {
@@ -55,6 +58,7 @@ class CommunitySelect extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+
         event.preventDefault();
     }
 
@@ -63,35 +67,35 @@ class CommunitySelect extends React.Component {
     }
 
     render() {
-            return (
-                <div>
-                    <h1>Looks like you aren't a part of any communities yet!</h1>
-                    <h2>Let's Fix that!</h2>
-                    <ul>
-                        <li>
-                            <h2>Join a Community</h2>
-                        </li>
-                        <li>
-                            <form onSubmit={this.joinCommunity}>
-                                <label>
-                                    Enter Community Join Code:
-                                    <input type="text" value={this.state.communityJoinCode} name="communityJoinCode" onChange={this.handleChange}/>
-                                </label>
-                                <input type="submit" value="Submit" />
-                                {this.state.errorMessage && (
-                                    <p className="error"> {this.state.errorMessage}</p>
-                                )}
-                            </form>
-                        </li>
-                        <li>
-                            <h2>Create a Community</h2>
-                        </li>
-                        <li>
-                            <button type="button" onClick={this.CreateCommunity}> Create Community</button>
-                        </li>
-                    </ul>
-                </div>
-            )
+        return (
+            <div>
+                <h1>Looks like you aren't a part of any communities yet!</h1>
+                <h2>Let's Fix that!</h2>
+                <ul>
+                    <li>
+                        <h2>Join a Community</h2>
+                    </li>
+                    <li>
+                        <form onSubmit={this.joinCommunity}>
+                            <label>
+                                Enter Community Join Code:
+                                <input type="text" value={this.state.communityJoinCode} name="communityJoinCode" onChange={this.handleChange}/>
+                            </label>
+                            <input type="submit" value="Submit" />
+                            {this.state.errorMessage && (
+                                <p className="error"> {this.state.errorMessage}</p>
+                            )}
+                        </form>
+                    </li>
+                    <li>
+                        <h2>Create a Community</h2>
+                    </li>
+                    <li>
+                        <button type="button" onClick={this.CreateCommunity}> Create Community</button>
+                    </li>
+                </ul>
+            </div>
+        )
     }
 }
 

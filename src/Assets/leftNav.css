@@ -2,19 +2,58 @@
     height: 100%;
     background-color: #444e5c;
 }
-.vertNavBar ul {
-    margin: 0;
-    padding-left: 0;
-    text-align: center;
-    position: relative;
+
+.vertNavBar .twoSides {
+    display: grid;
+    grid-template-columns: 5em auto;
     height: 100%;
 }
+
+.vertNavBar .options {
+    text-align: left;
+    height: 100%;
+    padding-left: 10px;
+}
+
+.vertNavBar .logoBlock {
+    padding-top: 7%;
+    padding-bottom: 7%;
+    border-bottom: #282c34;
+    border-width: 10px;
+    border-style: solid;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+.vertNavBar .logoBlock h2 {
+    margin: 0;
+    text-align: center;
+}
+.vertNavBar .listOfCommunities {
+    background-color: #282c34;
+    padding-top: 1em;
+    text-align: center;
+    height: 100%;
+}
+
+.vertNavBar ul {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.vertNavBar ul > :last-child {
+    margin-top: auto;
+}
+
 .vertNavBar li {
-    padding-bottom: 1em;
+    padding-bottom: 0.5em;
+    width: 100%;
 }
 .vertNavBar img {
-    max-width: 50%;
-    border-radius: 2em;
+    max-width: 3.5em;
+    border-radius: 1.5em;
     border-style: solid;
     border-color: white;
 }
@@ -22,11 +61,16 @@
     margin: 0.5em;
 }
 
+.vertNavBar .icon {
+    background-color: #2bbcf1;
+}
 
 /* Bottom Menu Bar */
 .bottomBar {
-    background: #595959;
+    background: #252626;
     padding: 10px;
-    position: relative;
-    top: 0;
+}
+
+.addOrJoinModal {
+    background-color: #282c34;
 }

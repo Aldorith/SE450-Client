@@ -1,7 +1,7 @@
 /*Setup Grid for UserDash and Left Hand Nav Bar*/
 .rootUserDashDiv {
     display: grid;
-    grid-template-columns: 10em auto;
+    grid-template-columns: 20% auto;
     height: 100vh;
 }
 
