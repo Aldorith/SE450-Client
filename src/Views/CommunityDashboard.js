@@ -6,6 +6,7 @@ import Calendar from "../Components/Calendar";
 import Announcements from "../Components/Announcements";
 import ProfileEdit from "../Components/ProfileEdit";
 import AdminDashboard from "./AdminDashboard";
+import Directory from "../Components/Directory";
 
 class CommunityDashboard extends React.Component {
     constructor(props) {

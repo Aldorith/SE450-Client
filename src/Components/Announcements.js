@@ -95,7 +95,9 @@ class Announcements extends React.Component {
             });
     }
 
-
+    openOptions(){
+        console.log("It worked");
+    }
 
     render() {
         if(this.state.isLoading)
@@ -117,8 +119,10 @@ class Announcements extends React.Component {
                                             <p className = "announcement">
                                                 <span className = "announcementTitle">{announcementEvents.AnnouncementTitle} </span>
                                                 <span className = "announcementDescription">{announcementEvents.AnnouncementText} </span>
+                                                <div className = "optionSelect" onClick={this.openOptions()}> ... </div>
                                             </p>
                                         </div>
+
                                     </li>
                                 ))}
                         </ul>
