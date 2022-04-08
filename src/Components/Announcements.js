@@ -135,6 +135,7 @@ class Announcements extends React.Component {
                                                     <option name = {"selectChoice"} value = {"delete"} onChange={this.handleInputChange}>Delete</option>
                                                 </select>
                                             </p>
+
                                         </div>
 
                                     </li>
