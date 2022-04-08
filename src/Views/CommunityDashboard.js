@@ -23,15 +23,21 @@ class CommunityDashboard extends React.Component {
                 SecondaryColor: undefined,
             },
             isLoading: true,
-            showProfileEdit: false
+            showProfileEdit: false,
+            profilePhoto: undefined,
+            profilePhotoHash: Date.now()
         }
 
         this.openProfileEdit = this.openProfileEdit.bind(this);
         this.closeProfileEdit = this.closeProfileEdit.bind(this);
         this.openAdminDash = this.openAdminDash.bind(this);
+        this.getProfilePhoto = this.getProfilePhoto.bind(this);
     }
 
     async componentDidMount() {
+        // Fetch Profile Photo
+        this.getProfilePhoto();
+
         // Make API to get Community Data
         axios.post(('/getCommunityData'), {
             communityID: this.props.communityID,
@@ -80,6 +86,15 @@ class CommunityDashboard extends React.Component {
         modal.style.display = "none";
     }
 
+    getProfilePhoto() {
+        // Set path for profile photo
+        let imgUrl = "/profilePhotos/" + this.props.userData.uid + ".png";
+        this.setState({
+            profilePhoto: imgUrl,
+            profilePhotoHash: Date.now()
+        });
+    }
+
     render() {
         if (this.state.isLoading) {
             return <div>Loading...</div>
@@ -90,7 +105,7 @@ class CommunityDashboard extends React.Component {
                 <div className="communityHeader">
                     <div className="communityNav">
                         <a onClick={this.openAdminDash}><p>Admin Dashboard</p></a>
-                        <a onClick={this.openProfileEdit}><img className="profilePic" src={this.props.userData.profileImgID} /></a>
+                        <a onClick={this.openProfileEdit}><img className="profilePic" src={`${this.state.profilePhoto}?${this.state.profilePhotoHash}`} /></a>
                     </div>
                     <img src="https://cmshelpfiles.com/sites/support/uploads/images/tools_resources/image_ratios/horizontal-landscape.jpg" alt="Community Header" />
                     <div className="communityInfo">
@@ -107,7 +122,7 @@ class CommunityDashboard extends React.Component {
                 <div id="profileModal" className="modal">
                     <div className="modal-content">
                         <a onClick={this.closeProfileEdit}><span className="close">&times;</span></a>
-                        <ProfileEdit userData={this.props.userData}/>
+                        <ProfileEdit userData={this.props.userData} updateProfilePhoto={this.getProfilePhoto}/>
                     </div>
                 </div>
 

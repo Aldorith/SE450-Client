@@ -14,9 +14,8 @@
     margin-right:2em;
 }
 
-.profilePhoto {
-    object-fit: cover;
-    width: 12em;
-    height: 12em;
+#profilePhoto {
+    width: 50%;
+    max-height: 75%;
     border-radius: 2.5em;
 }

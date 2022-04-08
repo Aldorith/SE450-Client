@@ -1,5 +1,6 @@
 import React from "react";
 import './../Assets/profile.css';
+import ProfileImageUpload from "./ImageUpload/ProfileImageUpload";
 
 class ProfileEdit extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class ProfileEdit extends React.Component {
         return (
             <div className="profile">
                 <h2>{this.props.userData.username}</h2>
-                <p>Profile Edit Options</p>
+                <ProfileImageUpload userData={this.props.userData} updateProfilePhoto={this.props.updateProfilePhoto} />
             </div>
         )
     }

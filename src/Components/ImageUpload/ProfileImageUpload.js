@@ -6,7 +6,8 @@ class ProfileImageUpload extends React.Component {
         super(props);
         this.state ={
             file: undefined,
-            profilePhoto: undefined
+            profilePhoto: undefined,
+            profilePhotoHash: Date.now()
         };
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -20,7 +21,8 @@ class ProfileImageUpload extends React.Component {
         // Set path for profile photo
         let imgUrl = "/profilePhotos/" + this.props.userData.uid + ".png";
         this.setState({
-            profilePhoto: imgUrl
+            profilePhoto: imgUrl,
+            profilePhotoHash: Date.now()
         });
     }
 
@@ -43,8 +45,7 @@ class ProfileImageUpload extends React.Component {
 
         // Update Profile Photo
         this.getProfilePhoto();
-
-        // TODO Properly implement image update
+        this.props.updateProfilePhoto(); // Updates in CommunityDashboard.js
     }
     onChange(e) {
         this.setState({file:e.target.files[0]});
@@ -52,11 +53,10 @@ class ProfileImageUpload extends React.Component {
 
     render() {
         return (
-            <div>
-                <p>Image Upload:</p>
+            <div className="profile2">
                 <form onSubmit={this.onFormSubmit}>
-                    <h1>Profile Photo Upload</h1>
-                    <img src={this.state.profilePhoto} className="profilePhoto" alt="ProfilePhoto" />
+                    <p>Profile Photo Upload</p>
+                    <img src={`${this.state.profilePhoto}?${this.state.profilePhotoHash}`} id="profilePhoto" alt="ProfilePhoto" />
                     <br />
                     <input type="file" name="profilePhoto" onChange= {this.onChange} />
                     <button type="submit">Upload</button>

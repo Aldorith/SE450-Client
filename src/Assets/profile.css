@@ -1,3 +1,9 @@
 .profile {
     color: black;
+    text-align: center;
+}
+
+.profile2 {
+    text-align: center;
+    margin: auto;
 }
