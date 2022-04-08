@@ -23,6 +23,7 @@ class CreateChatChannel extends React.Component {
         this.deleteChannel = this.deleteChannel.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.selectChat = this.selectChat.bind(this);
+        this.checkText = this.checkText.bind(this);
     };
 
     async componentDidMount() {
@@ -39,20 +40,40 @@ class CreateChatChannel extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+        this.setState({isLoading: false});
+    }
+
+    checkText(String) {
+        let i = 0;
+        let temp = '';
+        while(i < String.length)
+        {
+            if(String[i] === "'")
+            {
+                temp+="\\"
+            }
+            temp+=String[i];
+            i+=1;
+        }
+        String = temp;
+        return String;
     }
 
     addChannel(event) {
         event.preventDefault();
         let that = this;
-        this.setState({errorMessage1: ''});
-        if(that.state.channelName === '' || that.state.channelName===''){}
+        this.setState({errorMessage1: '', uniqueName: true, successMessage: ''});
+        if(that.state.channelName === ''){
+            that.setState({errorMessage1: 'New Channel Must Be Named', uniqueName: false})
+        }
         else {
             this.state.channels.forEach(element => {
                 if (element.ChannelName === this.state.channelName) {
-                    this.setState({uniqueName: false})
+                    this.state.uniqueName = false;
                 }
             })
-            if (this.state.uniqueName) {
+            if ((this.state.uniqueName=== true) && (this.state.channelName.length < 21)) {
+                that.state.channelName = that.checkText(that.state.channelName);
                 axios.post(('/addChannel'), {
                     commID: that.props.communityData.CommunityID,
                     channelName: that.state.channelName,
@@ -64,10 +85,11 @@ class CreateChatChannel extends React.Component {
                     .catch(function (error) {
                         console.log(error);
                     });
+                this.setState({successMessage: 'Channel added successfully!', channelName: ''})
             }
             else
             {
-                if(!this.state.uniqueName)
+                if(this.state.uniqueName === false)
                     that.setState({errorMessage1: 'New Channel Name Must Be Unique', uniqueName: true})
                 else
                     that.setState({errorMessage1: '20 Character Channel Name Max'})
@@ -78,6 +100,7 @@ class CreateChatChannel extends React.Component {
     deleteChannel(event) {
         event.preventDefault();
         let that = this;
+        this.setState({successMessage:'', errorMessage: ''});
         if(this.state.channels.length > 1) {
             this.setState({errorMessage2:''});
             let channelsTemp = this.state.channels;
