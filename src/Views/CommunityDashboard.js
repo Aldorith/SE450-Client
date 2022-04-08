@@ -6,7 +6,7 @@ import Calendar from "../Components/Calendar";
 import Announcements from "../Components/Announcements";
 import ProfileEdit from "../Components/ProfileEdit";
 import AdminDashboard from "./AdminDashboard";
-import Directory from "../Components/Directory";
+import { useNavigate } from "react-router-dom";
 
 class CommunityDashboard extends React.Component {
     constructor(props) {
@@ -31,6 +31,8 @@ class CommunityDashboard extends React.Component {
         this.openAdminDash = this.openAdminDash.bind(this);
         this.getProfilePhoto = this.getProfilePhoto.bind(this);
         this.getHeaderImage = this.getHeaderImage.bind(this);
+
+        this.leaveCommunity = this.leaveCommunity.bind(this);
     }
 
     async componentDidMount() {
@@ -74,6 +76,7 @@ class CommunityDashboard extends React.Component {
 
         modal.style.display = "block";
     }
+
     closeAdminDash() {
         // Get the modal
         let modal = document.getElementById("adminModal");
@@ -116,6 +119,19 @@ class CommunityDashboard extends React.Component {
         });
     }
 
+    leaveCommunity() {
+        // Make API to get Community Data
+        axios.post(('/userLeaveCommunity'), {
+            communityID: this.props.communityID,
+            uid: this.props.userData.uid,
+        }).then((response) => {
+            console.log("Trying to reload page");
+            window.location.reload(false);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
     render() {
         if (this.state.isLoading) {
             return <div>Loading...</div>
@@ -131,14 +147,13 @@ class CommunityDashboard extends React.Component {
                     <img src={`${this.state.community.HeaderImage}?${this.state.community.HeaderImageHash}`} alt="Community Header" />
                     <div className="communityInfo">
                         <h2>{this.state.community.CommunityName}</h2>
-                        <p>X Members</p>
+                        <a onClick={this.leaveCommunity}>Leave Community</a>
                     </div>
                 </div>
                 <div className="communityDashContent">
                     <Calendar communityID={this.state.community.CommunityID } />
                     <Chat userData={this.props.userData } communityData={this.state.community} />
                     <Announcements communityID={this.state.community.CommunityID } />
-                    <Directory communityID = {this.state.community.CommunityID } />
                 </div>
 
                 <div id="profileModal" className="modal">

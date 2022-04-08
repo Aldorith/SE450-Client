@@ -31,6 +31,7 @@ class AdminDashboard extends React.Component {
         this.uploadIcon = this.uploadIcon.bind(this);
         this.uploadHeader = this.uploadHeader.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
+        this.deleteCommunity = this.deleteCommunity.bind(this);
     }
 
     componentDidMount() {
@@ -165,6 +166,17 @@ class AdminDashboard extends React.Component {
         modal.style.display = "none";
     }
 
+    deleteCommunity() {
+        axios.post(('/removeCommunity'), {
+            communityID: this.props.community.CommunityID,
+            uid: this.props.userData.uid,
+        }).then((response) => {
+            window.location.reload(false);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
     render() {
         return (
             <div className="adminDash">
@@ -198,7 +210,7 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div className="item2">
                     <h2>Post an Announcement</h2>
-                    <form id = {"announcementForm"} onSubmit={this.createAnnouncement} name="form-1" style={{padding: '10px'}}>
+                    <form id = {"announcementForm"} onSubmit={this.createAnnouncement} >
                         <label>Post Title</label>
                         <input value={this.state.announcementTitle} type="text" placeholder="Post Title" id="name-269c" name="announcementTitle" onChange={this.handleInputChange} required=""/>
                         <label>Post Content</label>
@@ -209,7 +221,7 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div className="item3">
                     <h2>Create an Event</h2>
-                    <form id = "eventForm" onSubmit={this.createCalendarEvent} name="form-2" style={{padding: '10px'}}>
+                    <form id = "eventForm" onSubmit={this.createCalendarEvent}>
                         <label>Event Title</label>
                         <input value={this.state.calendarEventName} type="text" placeholder="Event Title" id="name-8220" name="calendarEventName" onChange={this.handleInputChange} required=""/>
 
@@ -228,6 +240,12 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div className="item4">
                     <CreateChatChannel userData={this.props.userData} communityData={this.props.community} />
+                </div>
+
+                <div className="item5">
+                    <form onSubmit={this.deleteCommunity}>
+                        <input type="submit" id="redButton" value="Delete Community" />
+                    </form>
                 </div>
             </div>
         );
