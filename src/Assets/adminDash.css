@@ -2,8 +2,10 @@
   background-color: #282c34;
   display: grid;
   grid-template-areas:
+    'null close'
     'a b'
-    'a c';
+    'a c'
+    'd e';
   gap: 10px;
   padding: 10px;
     border-radius: 25px;
@@ -71,7 +73,20 @@
     max-height: 20em;
 }
 
+.adminDash h2 {
+    margin-top: 0;
+}
 /* Grid Stuff */
+.adminDash .closeButton {
+    grid-area: close;
+    text-align: right;
+    padding-right: 1em;
+    padding-top: 0.5em;
+    font-size: 1.5em;
+}
+.adminDash .closeButton a {
+    margin: 0;
+}
 .adminDash .item1 {
   grid-area: a;
 }
@@ -80,4 +95,10 @@
  }
  .adminDash .item3 {
    grid-area: c;
+ }
+ .adminDash .item4 {
+     grid-area: d;
+ }
+ .adminDash .item5 {
+     grid-area: e;
  }

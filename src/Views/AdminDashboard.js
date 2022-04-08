@@ -90,9 +90,19 @@ class AdminDashboard extends React.Component {
             });
     }
 
+    closeAdminDash() {
+        // Get the modal
+        let modal = document.getElementById("adminModal");
+
+        modal.style.display = "none";
+    }
+
     render() {
         return (
             <div className="adminDash">
+                <div className='closeButton'>
+                    <a onClick={this.closeAdminDash}>X</a>
+                </div>
                 <div className="item1">
                     <h2>Community Settings</h2>
                     <form onSubmit={this.updateRules}>
