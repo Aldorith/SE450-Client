@@ -136,7 +136,6 @@ class VertNavBar extends React.Component {
                 <Modal
                     isOpen={this.state.showModal}
                     contentLabel="Join Community"
-                    style="addOrJoinModal"
                 >
                     <div>
                         <h4>Join Community</h4>

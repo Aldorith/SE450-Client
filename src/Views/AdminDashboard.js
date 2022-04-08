@@ -224,9 +224,10 @@ class AdminDashboard extends React.Component {
 
                         <input type="submit" value="Post"/>
                     </form>
+
                 </div>
                 <div className="item4">
-                    <CreateChatChannel userData={this.props.userData} communityData={this.props.communityData} />
+                    <CreateChatChannel userData={this.props.userData} communityData={this.props.community} />
                 </div>
             </div>
         );
