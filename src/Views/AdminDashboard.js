@@ -30,6 +30,7 @@ class AdminDashboard extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.createAnnouncement = this.createAnnouncement.bind(this);
         this.createCalendarEvent = this.createCalendarEvent.bind(this);
+        this.updateCommunity = this.updateCommunity.bind(this);
     }
 
     componentDidMount() {
@@ -50,8 +51,20 @@ class AdminDashboard extends React.Component {
     }
 
     // this does nothing right now
-    updateRules(e) {
+    updateCommunity(e) {
         e.preventDefault(); // This prevents the page from refreshing
+
+        axios.post(('/updateCommunity'), {
+            communityID: this.props.community.CommunityID,
+            communityName: this.state.tempCommunityName,
+            communityDesc: this.state.tempCommunityDesc,
+            communityRules: this.state.tempCommunityRules
+        }).then(function (response) {
+            console.log(response.data[0]);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
 
         console.log("Attempting to Update Community: " + this.props.community.communityName);
 
@@ -105,17 +118,17 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div className="item1">
                     <h2>Community Settings</h2>
-                    <form onSubmit={this.updateRules}>
+                    <form onSubmit={this.updateCommunity}>
                         <label>Community Display Name</label>
-                        <input value={this.state.tempCommunityName} type="text" name="tempCommunityName"
+                        <input value={this.state.tempCommunityName} defaultValue={this.props.community.communityName} type="text" name="tempCommunityName"
                                onChange={this.handleInputChange} required=""/>
 
                         <label>Community Description</label>
-                        <textarea value={this.state.tempCommunityDesc} name="tempCommunityDesc"
+                        <textarea value={this.state.tempCommunityDesc} defaultValue={this.props.community.communityDesc} name="tempCommunityDesc"
                                onChange={this.handleInputChange} />
 
                         <label>Community Rules</label>
-                        <textarea id="rules" value={this.state.tempCommunityRules} name="tempCommunityRules"
+                        <textarea id="rules" value={this.state.tempCommunityRules} defaultValue={this.props.community.communityRules} name="tempCommunityRules"
                                onChange={this.handleInputChange}/>
 
                         <label>Community Header Image</label>
