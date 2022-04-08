@@ -46,6 +46,7 @@ class Announcements extends React.Component {
         });
     }
 
+    // These are never called -kyle
     createAnnouncement (e) {
         e.preventDefault(); // This prevents the page from refreshing
         console.log("Attempting to Create a New Announcement: " + this.state.announcementTitle);
@@ -54,7 +55,6 @@ class Announcements extends React.Component {
             communityID: this.props.communityID,
             announcementTitle: this.state.announcementTitle,
             announcementContents: this.state.announcementContents
-
         }).then(function (response) {
             console.log(response.data[0]);
         })

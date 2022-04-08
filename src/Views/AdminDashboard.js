@@ -125,14 +125,14 @@ class AdminDashboard extends React.Component {
         });
     }
 
-    createAnnouncement(e) {
-        console.log("1");
+    createAnnouncement (e) {
         e.preventDefault(); // This prevents the page from refreshing
+        console.log("Attempting to Create a New Announcement: " + this.state.announcementTitle);
 
         axios.post(('/createAnnouncement'), {
-            communityID: this.props.userData.communities[0].CommunityID,
+            communityID: this.props.community.CommunityID,
             announcementTitle: this.state.announcementTitle,
-            announcementContents: this.state.announcementDesc
+            announcementDesc: this.state.announcementDesc
         }).then(function (response) {
             console.log(response.data[0]);
         })
