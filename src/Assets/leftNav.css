@@ -1,17 +1,24 @@
 .vertNavBar {
-    height: 100%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
     background-color: #444e5c;
+    overflow: visible;
 }
 
 .vertNavBar .twoSides {
     display: grid;
     grid-template-columns: 5em auto;
-    height: 100%;
+    height: 91%;
 }
 
 .vertNavBar .options {
     text-align: left;
-    height: 100%;
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+}
+.vertNavBar .options p {
     padding-left: 10px;
 }
 
@@ -73,4 +80,64 @@
 
 .addOrJoinModal {
     background-color: #282c34;
+}
+
+#helper {
+    flex-grow: 1;
+}
+.profileBox {
+    padding-bottom: 10%;
+    padding-top: 5%;
+    background-color: #303133;
+}
+
+.profileInfo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.profileBox p {
+    margin: 0;
+}
+
+
+.logOutButton {
+    margin-bottom: 1em;
+    width: 100%;
+    text-align: center;
+}
+
+.profileInfo a {
+    flex: 1;
+}
+
+.logOutBlock {
+    position: absolute;
+    top:0;
+    padding: 1%;
+    background-color: #313742;
+    height: 100vh;
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    border-style: solid;
+    border-color: #00a4ff;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+}
+
+.logOutBlock a {
+    text-align: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-size: 2em;
+}
+
+#menuDots {
+    border: none;
+    height: 2em;
+    float: right;
 }

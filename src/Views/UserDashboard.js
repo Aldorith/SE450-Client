@@ -6,7 +6,6 @@ import CommunityDashboard from "./CommunityDashboard";
 import '../Assets/userDash.css';
 import CommunitySelect from "../Components/CommunitySelect";
 import CommunityCreator from "./CommunityCreator";
-import ProfileImageUpload from "../Components/ImageUpload/ProfileImageUpload";
 
 class userDashboard extends React.Component {
     constructor(props) {

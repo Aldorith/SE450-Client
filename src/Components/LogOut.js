@@ -1,4 +1,3 @@
-
 import '../App.css';
 import { getAuth, signOut } from "firebase/auth";
 
@@ -12,8 +11,8 @@ const LogOut = () => {
         });    }
 
     return (
-        <div>
-            <button className="button" onClick={logOut}><i className="fab fa-google"></i>Sign Out</button>
+        <div className="logOutButton">
+            <button onClick={logOut}>Sign Out</button>
         </div>
     )
 }

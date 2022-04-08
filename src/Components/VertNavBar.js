@@ -4,6 +4,8 @@ import axios from "axios";
 import Modal from 'react-modal';
 import addIcon from "../Assets/images/plusSign.svg";
 import CommunityCreator from "../Views/CommunityCreator";
+import LogOut from "./LogOut";
+import DotsImage from "../Assets/images/3dots.svg";
 
 class VertNavBar extends React.Component {
     constructor(props) {
@@ -12,8 +14,10 @@ class VertNavBar extends React.Component {
         this.state = {
             communityJoinCode: '',
             errorMessage: '',
-            showModal: false
-        }
+            showModal: false,
+            showSideBar: false,
+            communityOptions: <div id="helper"></div>
+            }
 
         this.setErrorMessage = this.setErrorMessage.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -21,6 +25,9 @@ class VertNavBar extends React.Component {
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
+
+        this.closeSideBar = this.closeSideBar.bind(this);
+        this.openSideBar = this.openSideBar.bind(this);
     }
 
     handleOpenModal () {
@@ -71,6 +78,19 @@ class VertNavBar extends React.Component {
         event.preventDefault();
     }
 
+    // Side Bar Functions
+    openSideBar() {
+        if (this.state.showSideBar) {
+            this.setState({showSideBar: false});
+        } else {
+            this.setState({showSideBar: true});
+        }
+    }
+
+    closeSideBar() {
+        this.setState({showSideBar: false});
+    }
+
     render() {
 
         return (
@@ -96,11 +116,22 @@ class VertNavBar extends React.Component {
                         </ul>
                     </div>
                     <div className="options">
-                        <p>> Home Page</p>
-                        <p>> User Directory</p>
-                        <p>> Admin Dashboard</p>
+                        {this.state.communityOptions}
+                          <div className="profileBox">
+                            <div className="profileInfo">
+                                <img src={"/profilePhotos/" + this.props.userData.uid + ".png"} alt="Profile Photo" />
+                                <p>{this.props.userData.username}</p>
+                                <a onClick={this.openSideBar}><img src={DotsImage} alt="Menu" id="menuDots"/></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                {this.state.showSideBar
+                    && <div className="logOutBlock">
+                        <a onClick={this.closeSideBar}>X</a>
+                        <LogOut/>
+                    </div>
+                }
 
                 <Modal
                     isOpen={this.state.showModal}
