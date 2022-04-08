@@ -15,12 +15,10 @@ class CommunityDashboard extends React.Component {
             community: {
                 CommunityID: undefined,
                 CommunityName: undefined,
-                LogoID: undefined,
-                HeaderID: undefined,
+                HeaderImage: undefined,
+                HeaderImageHash: Date.now(),
                 CommunityDescription: undefined,
                 CommunityJoinCode: undefined,
-                PrimaryColor: undefined,
-                SecondaryColor: undefined,
             },
             isLoading: true,
             showProfileEdit: false,
@@ -32,6 +30,7 @@ class CommunityDashboard extends React.Component {
         this.closeProfileEdit = this.closeProfileEdit.bind(this);
         this.openAdminDash = this.openAdminDash.bind(this);
         this.getProfilePhoto = this.getProfilePhoto.bind(this);
+        this.getHeaderImage = this.getHeaderImage.bind(this);
     }
 
     async componentDidMount() {
@@ -42,8 +41,18 @@ class CommunityDashboard extends React.Component {
         axios.post(('/getCommunityData'), {
             communityID: this.props.communityID,
         }).then((response) => {
-            this.setState({community: response.data[0]}, function() {
-                this.setState({isLoading: false})
+            this.setState({
+                community: {
+                    CommunityID: response.data[0].CommunityID,
+                    CommunityName: response.data[0].CommunityName,
+                    CommunityDescription: response.data[0].CommunityDescription,
+                    CommunityRules: response.data[0].CommunityRules,
+                    HeaderImage: "/communityHeaders/" + response.data[0].CommunityID + ".png",
+                    HeaderImageHash: Date.now()
+                }
+            }, function() {
+                // Fetch Header Image
+                this.getHeaderImage();
             });
         }).catch(function (error) {
             console.log(error);
@@ -79,6 +88,7 @@ class CommunityDashboard extends React.Component {
 
         modal.style.display = "block";
     }
+
     closeProfileEdit() {
         // Get the modal
         let modal = document.getElementById("profileModal");
@@ -95,6 +105,17 @@ class CommunityDashboard extends React.Component {
         });
     }
 
+    getHeaderImage() {
+        // Set path for profile photo
+        let imgUrl = "/communityHeaders/" + this.state.community.CommunityID + ".png";
+        console.log("X: " + imgUrl);
+        this.setState({
+            HeaderImage: imgUrl,
+            HeaderImageHash: Date.now(),
+            isLoading: false,
+        });
+    }
+
     render() {
         if (this.state.isLoading) {
             return <div>Loading...</div>
@@ -107,7 +128,7 @@ class CommunityDashboard extends React.Component {
                         <a onClick={this.openAdminDash}><p>Admin Dashboard</p></a>
                         <a onClick={this.openProfileEdit}><img className="profilePic" src={`${this.state.profilePhoto}?${this.state.profilePhotoHash}`} /></a>
                     </div>
-                    <img src="https://cmshelpfiles.com/sites/support/uploads/images/tools_resources/image_ratios/horizontal-landscape.jpg" alt="Community Header" />
+                    <img src={`${this.state.community.HeaderImage}?${this.state.community.HeaderImageHash}`} alt="Community Header" />
                     <div className="communityInfo">
                         <h2>{this.state.community.CommunityName}</h2>
                         <p>X Members</p>

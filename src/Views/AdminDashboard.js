@@ -10,14 +10,11 @@ class AdminDashboard extends React.Component {
         super(props);
         this.state = {
             // Can we delete this block?
-            CommunityName: undefined,
-            LogoID: undefined,
-            HeaderID: undefined,
-            CommunityDescription: undefined,
-            CommunityJoinCode: undefined,
-            CommunityRules: undefined,
-            PrimaryColor: undefined,
-            SecondaryColor: undefined,
+            tempCommunityName: '',
+            tempCommunityDesc: '',
+            tempCommunityRules: '',
+            tempIcon: '',
+            tempHeader: '',
 
             announcementTitle: undefined,
             announcementDesc: undefined,
@@ -31,6 +28,9 @@ class AdminDashboard extends React.Component {
         this.createAnnouncement = this.createAnnouncement.bind(this);
         this.createCalendarEvent = this.createCalendarEvent.bind(this);
         this.updateCommunity = this.updateCommunity.bind(this);
+        this.uploadIcon = this.uploadIcon.bind(this);
+        this.uploadHeader = this.uploadHeader.bind(this);
+        this.onFileChange = this.onFileChange.bind(this);
     }
 
     componentDidMount() {
@@ -47,7 +47,8 @@ class AdminDashboard extends React.Component {
     }
 
     onFileChange(e) {
-        this.setState({file:e.target.files[0]});
+        this.setState({[e.target.name]:e.target.files[0]});
+        console.log("Updated " + e.target.name);
     }
 
     // this does nothing right now
@@ -58,7 +59,7 @@ class AdminDashboard extends React.Component {
             communityID: this.props.community.CommunityID,
             communityName: this.state.tempCommunityName,
             communityDesc: this.state.tempCommunityDesc,
-            communityRules: this.state.tempCommunityRules
+            communityRules: this.state.tempCommunityRules,
         }).then(function (response) {
             console.log(response.data[0]);
         })
@@ -66,8 +67,62 @@ class AdminDashboard extends React.Component {
                 console.log(error);
             });
 
+        // Upload Icon if File Uploaded
+        if (this.state.tempIcon !== '') {
+            this.uploadIcon();
+        }
+
+        // Upload Header if File Uploaded
+        if (this.state.tempHeader !== '') {
+            this.uploadHeader();
+        }
+
         console.log("Attempting to Update Community: " + this.props.community.communityName);
 
+        // Reset Input Fields
+        this.setState({
+            tempIcon: '',
+            tempHeader: ''
+        })
+
+        // TODO Display Success Message
+
+    }
+
+    uploadIcon() {
+        console.log("Trying to Upload Icon");
+
+        const formData = new FormData();
+        formData.append('CommunityID', this.props.community.CommunityID);
+        formData.append('communityIcon',this.state.tempIcon);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios.post("/uploadCommunityIcon", formData, config)
+            .then((response) => {
+                alert("The file is successfully uploaded");
+            }).catch((error) => {
+            console.log("ERROR:  " + error);
+        });
+    }
+
+    uploadHeader() {
+        const formData = new FormData();
+        formData.append('CommunityID', this.props.community.CommunityID);
+        formData.append('communityHeader',this.state.tempHeader);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios.post("/uploadCommunityHeader", formData, config)
+            .then((response) => {
+                alert("The file is successfully uploaded");
+            }).catch((error) => {
+            console.log("ERROR:  " + error);
+        });
     }
 
     createAnnouncement(e) {
@@ -131,8 +186,11 @@ class AdminDashboard extends React.Component {
                         <textarea id="rules" value={this.state.tempCommunityRules} defaultValue={this.props.community.communityRules} name="tempCommunityRules"
                                onChange={this.handleInputChange}/>
 
+                        <label>Community Icon</label>
+                        <input type="file" name="tempIcon" onChange={this.onFileChange} />
+
                         <label>Community Header Image</label>
-                        <input type="file" onChange= {this.onFileChange} />
+                        <input type="file" name="tempHeader" onChange={this.onFileChange} />
 
                         <input type="Submit" value="Save"/>
 
