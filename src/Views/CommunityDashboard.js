@@ -138,6 +138,7 @@ class CommunityDashboard extends React.Component {
                     <Calendar communityID={this.state.community.CommunityID } />
                     <Chat userData={this.props.userData } communityData={this.state.community} />
                     <Announcements communityID={this.state.community.CommunityID } />
+                    <Directory communityID = {this.state.community.CommunityID } />
                 </div>
 
                 <div id="profileModal" className="modal">

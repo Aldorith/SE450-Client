@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import './../Assets/Announcements.css';
+import './../Assets/Directory.css';
 
 class Directory extends React.Component {
     constructor(props) {
@@ -16,45 +16,17 @@ class Directory extends React.Component {
 
     async componentDidMount(){
         console.log("Loading Directory Information for Community: " + this.communityID);
-        console.log("Loading General User Info");
-        axios.post(('/loadDirectoryUsers'), {
-            communityID: this.communityID,
-            userID: this.userID
+        axios.post(('/loadDirectory'), {
+            communityID: this.props.communityID,
         }).then((response) => {
             //This is where the response is handled from the server
             console.log(response.data[0]);
-            this.setState({generalUsers: response.data})
+            this.setState({generalUsers: response.data, isLoading: false})
         })
             .catch(function (error) {
                 console.log(error);
             });
-        /*
-        console.log("Loading Admin Users Info");
-        axios.post(('/loadDirectoryAdmin'), {
-            communityID: + this.communityID,
-        }).then((response) => {
-            //This is where the response is handled from the server
-            console.log(response.data[0]);
-            this.setState({adminUsers: response.data})
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-        console.log("Loading Banned Users Info");
-        axios.post(('/loadDirectoryBanned'), {
-            communityID: + this.communityID,
-        }).then((response) => {
-            //This is where the response is handled from the server
-            console.log(response.data[0]);
-            this.setState({bannedUsers: response.data, isLoading: false})
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
-            */
-
-    }
+          }
 
     render() {
         if(this.state.isLoading)
@@ -66,13 +38,14 @@ class Directory extends React.Component {
 
         return(
             <div className = "Directory">
-                <p className = "DirectoryTitle">Community Announcements</p>
+                <p className = "DirectoryTitle">Community Directory</p>
                         <ul className = "directoryList" ref = {this.directoryListRef}>
                             {this.state.generalUsers.map(generalUsers =>
-                                (<li className = "directoryListItem" key={generalUsers.CommunityID.toString()}>
+                                (<li className = "directoryListItem" >
                                         <div className = "directoryItemBox">
                                             <p className = "directoryItem">
-                                                <span className = "directoryMemberName">{generalUsers.UserID} </span>
+                                                <span className = "directoryMemberName">{generalUsers.UserName} </span>
+
                                             </p>
                                         </div>
                                     </li>

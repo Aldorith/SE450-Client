@@ -46,9 +46,17 @@ class CommunitySelect extends React.Component {
             communityJoinCode: this.state.communityJoinCode,
         }).then((response) => {
             console.log(response.data);
+
             if(response.data.length >= 1) {
                 that.setErrorMessage('');
                 this.props.switchCommunity(response.data[0].CommunityID);
+
+                axios.post(('/addToDirectory'), {
+                    userID: this.props.userData.uid,
+                    communityID: response.data[0].CommunityID,
+                }).then((response) => {
+                    console.log(response.data);
+                });
             }
             else
             {
@@ -58,6 +66,8 @@ class CommunitySelect extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+
+
 
         event.preventDefault();
     }

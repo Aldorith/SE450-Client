@@ -1,0 +1,43 @@
+.directoryTitle {
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    font-size: x-large;
+    margin: 1rem;
+}
+
+.directoryItemBox {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 120px;
+    text-align: center;
+    position: relative;
+    margin: 1rem;
+    min-height: 150px;
+}
+
+.directoryList {
+    list-style-type: none;
+    margin-left:0;
+    margin-bottom: 0;
+    text-align: left;
+    height: 10rem;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.directoryListItem {
+    list-style-type: none;
+    margin-left:0;
+    padding-left: 0;
+    margin-bottom:-10px;
+    text-align: left;
+    margin-top: -15px;
+}
+
+.directoryMemberName {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+}

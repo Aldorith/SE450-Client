@@ -10,7 +10,10 @@ class Announcements extends React.Component {
             announcementTitle: undefined,
             announcementContents: undefined,
             isLoading: true,
-            announcementEvents: []
+            announcementEvents: [],
+            selectChoice: "",
+            editState: "",
+            deleteState: ""
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -22,7 +25,7 @@ class Announcements extends React.Component {
     async componentDidMount() {
         console.log("Retrieving Announcement Data for Community: " + this.props.communityID);
         axios.post(('/loadAnnouncement'), {
-            communityID: + this.props.communityID,
+            communityID: this.props.communityID,
         }).then((response) => {
             //This is where the response is handled from the server
             console.log(response.data[0]);
@@ -80,8 +83,7 @@ class Announcements extends React.Component {
             });
     }
 
-    deleteAnnouncement(e, announcementID){
-        e.preventDefault();
+    deleteAnnouncement(announcementID){
         console.log("Deleting Announcement: " + announcementID);
 
         axios.post(('/deleteAnnouncement'), {
@@ -95,8 +97,16 @@ class Announcements extends React.Component {
             });
     }
 
-    openOptions(){
-        console.log("It worked");
+    openAnnouncementEditor(){
+    }
+
+    handleOption(announcementID, announcementTitle, announcementDescription){
+        console.log("Gettin some callin");
+        if(this.state.selectChoice === "delete")
+            this.deleteAnnouncement(announcementID);
+        if(this.state.selectChoice === "edit")
+            this.openAnnouncementEditor(announcementID, announcementTitle, announcementDescription)
+
     }
 
     render() {
@@ -119,7 +129,11 @@ class Announcements extends React.Component {
                                             <p className = "announcement">
                                                 <span className = "announcementTitle">{announcementEvents.AnnouncementTitle} </span>
                                                 <span className = "announcementDescription">{announcementEvents.AnnouncementText} </span>
-                                                <div className = "optionSelect" onClick={this.openOptions()}> ... </div>
+                                                <select className = "optionSelect" onSelect={this.handleOption(announcementEvents.AnnouncementID, announcementEvents.AnnouncementTitle, announcementEvents.AnnouncementDescription)}>
+                                                    <option hidden defaultValue={""}></option>
+                                                    <option name = {"selectChoice"} value = {"edit"} onChange={this.handleInputChange}>Edit</option>
+                                                    <option name = {"selectChoice"} value = {"delete"} onChange={this.handleInputChange}>Delete</option>
+                                                </select>
                                             </p>
                                         </div>
 
