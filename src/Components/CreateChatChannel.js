@@ -13,7 +13,8 @@ class CreateChatChannel extends React.Component {
             chanID: '',
             errorMessage1: '',
             errorMessage2: '',
-            successMessage: '',
+            successMessage1: '',
+            successMessage2: '',
             channelName:'',
             uniqueName: true,
             isLoading: true,
@@ -62,7 +63,7 @@ class CreateChatChannel extends React.Component {
     addChannel(event) {
         event.preventDefault();
         let that = this;
-        this.setState({errorMessage1: '', uniqueName: true, successMessage: ''});
+        this.setState({errorMessage1: '', uniqueName: true, successMessage1: ''});
         if(that.state.channelName === ''){
             that.setState({errorMessage1: 'New Channel Must Be Named', uniqueName: false})
         }
@@ -85,7 +86,7 @@ class CreateChatChannel extends React.Component {
                     .catch(function (error) {
                         console.log(error);
                     });
-                this.setState({successMessage: 'Channel added successfully!', channelName: ''})
+                this.setState({successMessage1: 'Channel added successfully!', channelName: ''})
             }
             else
             {
@@ -100,7 +101,7 @@ class CreateChatChannel extends React.Component {
     deleteChannel(event) {
         event.preventDefault();
         let that = this;
-        this.setState({successMessage:'', errorMessage: ''});
+        this.setState({successMessage2:'', errorMessage: ''});
         if(this.state.channels.length > 1) {
             this.setState({errorMessage2:''});
             let channelsTemp = this.state.channels;
@@ -115,7 +116,7 @@ class CreateChatChannel extends React.Component {
                 .catch(function (error) {
                     console.log(error);
                 });
-            this.setState({successMessage: 'Channel deleted successfully!', channelName: ''})
+            this.setState({successMessage2: 'Channel deleted successfully!', channelName: ''})
         }
         else{
             this.setState({errorMessage2: 'There must remain at least one channel'})
@@ -153,7 +154,8 @@ class CreateChatChannel extends React.Component {
                                    onChange={this.handleTextChange}/>
                         </label>
                         <div><input type="submit" value="Create" className="createButton"/>{this.state.errorMessage1 && (
-                            <p className="error"> {this.state.errorMessage1}</p>)}</div>
+                            <p className="error"> {this.state.errorMessage1}</p>)}{this.state.successMessage1 && (
+                            <p className="success"> {this.state.successMessage1}</p>)}</div>
                     </form>
                 </div>
                 <div className="channelDelete"><form className="deleteChannel" onSubmit={this.deleteChannel}><label className="channelSelect">Select a Channel to Delete: </label
@@ -161,8 +163,8 @@ class CreateChatChannel extends React.Component {
                     {this.state.channels.map(channel => (
                         <option value={channel.ChannelID} key={channel.ChannelID}>{channel.ChannelName}</option>))}
                 </select><input type="submit" value="Delete" className="deleteButton"/>{this.state.errorMessage2 && (
-                    <p className="error"> {this.state.errorMessage2}</p>)}{this.state.successMessage && (
-                    <p className="success"> {this.state.successMessage}</p>)}
+                    <p className="error"> {this.state.errorMessage2}</p>)}{this.state.successMessage2 && (
+                    <p className="success"> {this.state.successMessage2}</p>)}
                 </form></div>
             </div>
         )
