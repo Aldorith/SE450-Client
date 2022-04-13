@@ -267,6 +267,10 @@ class AdminDashboard extends React.Component {
                         <input type = "submit" value = "Open Community Post Editor" />
                     </form>
                 </div>
+                <div className = "tempEditor">
+                    <CommunityPostingEditor communityID={this.props.community.CommunityID} />
+                </div>
+
             </div>
         );
     }

@@ -10,11 +10,15 @@ class Directory extends React.Component {
             adminUsers: [],
             bannedUsers: [],
             generalUsers: [],
-            isLoading: true
+            isLoading: true,
+
+            profilePhoto: undefined,
+            profilePhotoHash: Date.now()
         };
     }
 
     async componentDidMount(){
+
         console.log("Loading Directory Information for Community: " + this.communityID);
         axios.post(('/loadDirectory'), {
             communityID: this.props.communityID,
@@ -27,6 +31,16 @@ class Directory extends React.Component {
                 console.log(error);
             });
           }
+
+    getProfilePhoto() {
+        // Set path for profile photo
+        let imgUrl = "/profilePhotos/" + this.props.userData.uid + ".png";
+        this.setState({
+            profilePhoto: imgUrl,
+            profilePhotoHash: Date.now()
+        });
+        return
+    }
 
     render() {
         if(this.state.isLoading)
@@ -45,7 +59,6 @@ class Directory extends React.Component {
                                         <div className = "directoryItemBox">
                                             <p className = "directoryItem">
                                                 <span className = "directoryMemberName">{generalUsers.UserName} </span>
-
                                             </p>
                                         </div>
                                     </li>
