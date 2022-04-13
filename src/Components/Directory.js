@@ -36,8 +36,7 @@ class Directory extends React.Component {
         // Set path for profile photo
         let imgUrl = "/profilePhotos/" + this.props.userData.uid + ".png";
         this.setState({
-            profilePhoto: imgUrl,
-            profilePhotoHash: Date.now()
+            profilePhoto: imgUrl
         });
         return
     }

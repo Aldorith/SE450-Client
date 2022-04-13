@@ -56,7 +56,8 @@ class CommunityPostingEditor extends React.Component {
             });
     }
 
-    deleteAnnouncement(announcementID){
+    deleteAnnouncement(e, announcementID){
+        e.preventDefault();
         console.log("Deleting Announcement: " + announcementID);
 
         axios.post(('/deleteAnnouncement'), {
@@ -94,17 +95,17 @@ class CommunityPostingEditor extends React.Component {
             <div className="editorDash">
                 <div className = "announcementEditor">
                     <h2> Announcement Delete </h2>
-                    <div className = "announcements" /*onClick={this.deleteAnnouncement(announcementEvents.AnnouncementID)}*/>
+                    <div className = "announcements">
                         <ul className = "announcementsList" ref = {this.announcementListRef}>
                             {this.state.announcementEvents.map(announcementEvents =>
                                 (<li className = "announcementsListItem" key={announcementEvents.AnnouncementID.toString()}>
-                                        <div>
+                                        <a onClick={(e) => {this.deleteAnnouncement(e, announcementEvents.AnnouncementID)}}>
                                             <p className = "announcement">
                                                 <span className = "announcementTitle">{announcementEvents.AnnouncementTitle} </span>
                                                 <span className = "announcementDescription">{announcementEvents.AnnouncementText} </span>
                                             </p>
 
-                                        </div>
+                                        </a>
 
                                     </li>
                                 ))}
