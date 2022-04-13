@@ -3,6 +3,7 @@ import axios from "axios";
 import '../Assets/adminDash.css';
 import announcements from "../Components/Announcements";
 import CreateChatChannel from "../Components/CreateChatChannel";
+import CommunityPostingEditor from "./CommunityPostingEditor";
 // Original adminDashboard.css here: https://pastebin.com/ckdnnSz1
 
 class AdminDashboard extends React.Component {
@@ -32,6 +33,7 @@ class AdminDashboard extends React.Component {
         this.uploadHeader = this.uploadHeader.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
         this.deleteCommunity = this.deleteCommunity.bind(this);
+        this.openEditor = this.openEditor.bind(this);
     }
 
     componentDidMount() {
@@ -177,6 +179,18 @@ class AdminDashboard extends React.Component {
         });
     }
 
+    openEditor() {
+        let modal = document.getElementById("editorModal");
+
+        modal.style.display = "block";
+    }
+
+    closeEditor() {
+        let modal = document.getElementById("editorModal");
+
+        modal.style.display = "none";
+    }
+
     render() {
         return (
             <div className="adminDash">
@@ -245,6 +259,12 @@ class AdminDashboard extends React.Component {
                 <div className="item5">
                     <form onSubmit={this.deleteCommunity}>
                         <input type="submit" id="redButton" value="Delete Community" />
+                    </form>
+                </div>
+
+                <div className="openCommunityEditor">
+                    <form onSubmit={this.openEditor}>
+                        <input type = "submit" value = "Open Community Post Editor" />
                     </form>
                 </div>
             </div>

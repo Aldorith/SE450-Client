@@ -129,11 +129,6 @@ class Announcements extends React.Component {
                                             <p className = "announcement">
                                                 <span className = "announcementTitle">{announcementEvents.AnnouncementTitle} </span>
                                                 <span className = "announcementDescription">{announcementEvents.AnnouncementText} </span>
-                                                <select className = "optionSelect" onSelect={this.handleOption(announcementEvents.AnnouncementID, announcementEvents.AnnouncementTitle, announcementEvents.AnnouncementDescription)}>
-                                                    <option hidden defaultValue={""}></option>
-                                                    <option name = {"selectChoice"} value = {"edit"} onChange={this.handleInputChange}>Edit</option>
-                                                    <option name = {"selectChoice"} value = {"delete"} onChange={this.handleInputChange}>Delete</option>
-                                                </select>
                                             </p>
 
                                         </div>
