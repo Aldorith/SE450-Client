@@ -23,8 +23,9 @@ class AdminDashboard extends React.Component {
             calendarEventName: undefined,
             calendarEventDesc: undefined,
             calendarEventDay: undefined,
-            calendarEventLocation: 'Unknown',
+            calendarEventLocation: undefined,
         }
+
         this.handleInputChange = this.handleInputChange.bind(this);
         this.createAnnouncement = this.createAnnouncement.bind(this);
         this.createCalendarEvent = this.createCalendarEvent.bind(this);
@@ -111,6 +112,22 @@ class AdminDashboard extends React.Component {
         });
     }
 
+    checkText(String) {
+        let i = 0;
+        let temp = '';
+        while(i < String.length)
+        {
+            if(String[i] === "'")
+            {
+                temp+="\\"
+            }
+            temp+=String[i];
+            i+=1;
+        }
+        String = temp;
+        return String;
+    }
+
     uploadHeader() {
         const formData = new FormData();
         formData.append('CommunityID', this.props.community.CommunityID);
@@ -142,11 +159,12 @@ class AdminDashboard extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+
+        this.setState({announcementTitle: "", announcementDesc: ""})
     }
 
     createCalendarEvent(e) {
         e.preventDefault(); // This prevents the page from refreshing
-
         axios.post(('/createCalendarEvent'), {
             communityID: this.props.community.CommunityID,
             eventTitle: this.state.calendarEventName,
@@ -159,7 +177,33 @@ class AdminDashboard extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+
+        this.setState({calendarEventName: "", calendarEventDesc: "", calendarEventDay: "", calendarEventLocation: ""})
     }
+
+    /*
+    tried getting the check text to work, but it didn't seem to like it for whatever reason.
+   createCalendarEvent(e) {
+       e.preventDefault(); // This prevents the page from refreshing
+           let tempCalendarEventName = this.checkText(this.props.community.calendarEventName);
+           let tempCalendarEventDesc = this.checkText(this.props.community.calendarEventDesc);
+           let tempCalendarEventLocation = this.checkText(this.props.community.calendarEventLocation);
+       axios.post(('/createCalendarEvent'), {
+           communityID: this.props.community.CommunityID,
+           eventTitle:  tempCalendarEventName,
+           eventDescription:  tempCalendarEventDesc,
+           eventDateTime:  this.props.calendarEventDay,
+           eventLocation:  tempCalendarEventLocation
+       }).then(function (response) {
+           console.log(response.data[0]);
+       })
+           .catch(function (error) {
+               console.log(error);
+           });
+
+       this.setState({calendarEventName: "", calendarEventDesc: "", calendarEventDay: "", calendarEventLocation: ""})
+   }
+   */
 
     closeAdminDash() {
         // Get the modal

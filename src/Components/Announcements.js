@@ -117,6 +117,18 @@ class Announcements extends React.Component {
                 </div>
             )
 
+        if(this.state.announcementEvents.length == 0)
+            return(
+                <div className = "communityAnnouncements">
+                    <p className = "announcementsTitle">Community Announcements</p>
+                    <div className= "announcementsBox">
+                        <div className = "announcementEmpty">
+                           No Current Community Announcements
+                        </div>
+                    </div>
+                </div>
+            )
+
         return(
             <div className = "communityAnnouncements">
                 <p className = "announcementsTitle">Community Announcements</p>

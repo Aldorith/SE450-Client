@@ -1,0 +1,26 @@
+
+.editorDash{
+    display: flex;
+}
+
+.calendarBox {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: left;
+    position: relative;
+    margin: 1rem;
+    height: 10rem;
+    min-height: 200px;
+}
+
+.announcementBox {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: left;
+    position: relative;
+    margin: 1rem;
+    height: 10rem;
+    min-height: 200px;
+}

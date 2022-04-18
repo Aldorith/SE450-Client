@@ -51,7 +51,7 @@ class Directory extends React.Component {
 
         return(
             <div className = "Directory">
-                <p className = "DirectoryTitle">Community Directory</p>
+                <p className = "directoryTitle">Community Directory</p>
                         <ul className = "directoryList" ref = {this.directoryListRef}>
                             {this.state.generalUsers.map(generalUsers =>
                                 (<li className = "directoryListItem" >

@@ -76,20 +76,22 @@ class Calendar extends React.Component {
             });
     }
 
-    clearForm(){
-        this.setState({
-            calendarEventName: "",
-            calendarEventDesc: "",
-            calendarEventDay: "",
-            calendarEventLocation: ""
-        })
-    }
-
     render() {
         if(this.state.isLoading)
             return(
                 <div>
                     Loading Calendar
+                </div>
+            )
+        if(this.state.calendarEvents.length == 0)
+            return(
+                <div className = "communityCalendar">
+                    <p className = "calendarTitle">Events Coming Up</p>
+                    <div className= "calendarBox">
+                        <div className = "calendarEmpty">
+                           No Upcoming Events
+                        </div>
+                    </div>
                 </div>
             )
 
