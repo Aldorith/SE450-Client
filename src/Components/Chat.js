@@ -25,29 +25,13 @@ class Chat extends React.Component {
         this.getDateTime = this.getDateTime.bind(this);
         this.checkText = this.checkText.bind(this);
         this.getChannelData = this.getChannelData.bind(this);
+        this.getMessageData = this.getMessageData.bind(this);
+
     }
 
     async componentDidMount() {
         this.getChannelData();
-
-        axios.post(('/getMessageData'), {
-            commID: this.props.communityData.CommunityID,
-            chanID: this.state.chanID,
-        }).then((response) => {
-            //This is where the response is handled from the server
-            console.log(response.data[0]);
-            let i = 0;
-            response.data.forEach(element => {
-                    element.uniqueID = i;
-                    i += 1;
-                }
-            );
-            this.setState({messages: response.data, isLoading: false})
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
-
+        this.getMessageData();
         /*
         const socket = io(':8900');
         console.log(socket);
@@ -66,6 +50,26 @@ class Chat extends React.Component {
             //This is where the response is handled from the server
             console.log(response.data[0]);
             this.setState({channels: response.data})
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    getMessageData() {
+        axios.post(('/getMessageData'), {
+            commID: this.props.communityData.CommunityID,
+            chanID: this.state.chanID,
+        }).then((response) => {
+            //This is where the response is handled from the server
+            console.log(response.data[0]);
+            let i = 0;
+            response.data.forEach(element => {
+                    element.uniqueID = i;
+                    i += 1;
+                }
+            );
+            this.setState({messages: response.data, isLoading: false})
         })
             .catch(function (error) {
                 console.log(error);
