@@ -15,6 +15,7 @@ class Chat extends React.Component {
             messageText: '',
             chanID: 1,
             errorMessage: '',
+            reloaded: true,
         }
 
         this.handleMessageChange = this.handleMessageChange.bind(this);
@@ -23,19 +24,11 @@ class Chat extends React.Component {
         //this.updateScroll = this.updateScroll.bind(this);
         this.getDateTime = this.getDateTime.bind(this);
         this.checkText = this.checkText.bind(this);
+        this.getChannelData = this.getChannelData.bind(this);
     }
 
     async componentDidMount() {
-        axios.post(('/getChannelData'), {
-            commID: this.props.communityData.CommunityID,
-        }).then((response) => {
-            //This is where the response is handled from the server
-            console.log(response.data[0]);
-            this.setState({channels: response.data})
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
+        this.getChannelData();
 
         axios.post(('/getMessageData'), {
             commID: this.props.communityData.CommunityID,
@@ -64,6 +57,19 @@ class Chat extends React.Component {
         });
          */
         //console.log("AFTER!!")
+    }
+
+    getChannelData() {
+        axios.post(('/getChannelData'), {
+            commID: this.props.communityData.CommunityID,
+        }).then((response) => {
+            //This is where the response is handled from the server
+            console.log(response.data[0]);
+            this.setState({channels: response.data})
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     checkText(String) {
