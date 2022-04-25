@@ -194,9 +194,9 @@ class CommunityDashboard extends React.Component {
                     </div>
                 </div>
                 <div className="communityDashContent">
-                    <Calendar communityID={this.state.community.CommunityID } key={this.state.eventsKey} />
+                    <Calendar communityID={this.state.community.CommunityID } key={this.state.eventsKey} isAdmin={this.props.isAdmin}/>
                     <Chat userData={this.props.userData } communityData={this.state.community} isAdmin={this.props.isAdmin} key={this.state.chatKey} />
-                    <Announcements communityID={this.state.community.CommunityID} key={this.state.aKey} />
+                    <Announcements communityID={this.state.community.CommunityID} key={this.state.aKey} isAdmin={this.props.isAdmin}/>
                     <Directory userData={this.props.userData} communityID = {this.state.community.CommunityID} />
                 </div>
                 <div id="profileModal" className="modal">

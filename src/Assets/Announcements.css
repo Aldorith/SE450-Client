@@ -21,6 +21,7 @@
     overflow: scroll;
     overflow-x: hidden;
     scroll-margin: 0;
+    height: 10rem;
 }
 .announcementList {
     list-style-type: none;
@@ -76,4 +77,7 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     text-align: center;
+}
+
+.deleteAnnouncementText {
 }

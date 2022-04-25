@@ -49,7 +49,7 @@ class Chat extends React.Component {
         }).then((response) => {
             //This is where the response is handled from the server
             console.log(response.data[0]);
-            this.setState({channels: response.data})
+            this.setState({channels: response.data, chanID: response.data[0].ChannelID});
         })
             .catch(function (error) {
                 console.log(error);
@@ -95,7 +95,8 @@ class Chat extends React.Component {
 
     getDateTime() {
         let nowDateTime = new Date();
-        return `${nowDateTime.getFullYear()}-${nowDateTime.getMonth() + 1}-${nowDateTime.getDate()} ${nowDateTime.getHours()}:${nowDateTime.getMinutes()}:${nowDateTime.getSeconds()}`;
+        let timeStamp = `${nowDateTime.getFullYear()}-${nowDateTime.getMonth() + 1}-${nowDateTime.getDate()} ${nowDateTime.getHours()}:${nowDateTime.getMinutes()}:${nowDateTime.getSeconds()}`;
+        return timeStamp.toString();
     }
 
     handleMessageChange(event) {
@@ -174,7 +175,24 @@ class Chat extends React.Component {
         const target = event.target;
         const value = target.value;
         this.setState({chanID: value});
-        this.getMessageData();
+        console.log("Trying To Get Messages: "+value + "not" +this.state.chanID);
+        axios.post(('/getMessageData'), {
+            commID: this.props.communityData.CommunityID,
+            chanID: value,
+        }).then((response) => {
+            //This is where the response is handled from the server
+            console.log(response.data[0]);
+            let i = 0;
+            response.data.forEach(element => {
+                    element.uniqueID = i;
+                    i += 1;
+                }
+            );
+            this.setState({messages: response.data, isLoading: false})
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
         //this.updateScroll();
     }
 
@@ -231,7 +249,7 @@ class Chat extends React.Component {
                         <ul className = "messageList" ref = {this.messageListRef}>
                                 {this.state.messages.map(message =>
                                     (<li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
-                        </span>    <span className = "timestamp">{message.MessageDateTime} {this.props.isAdmin && (<button className='deleteMessageText' value={message.MessageID} onClick={this.deleteMessage}>Delete Message</button>)}<br/></span>{message.MessageText}</p></div></li>
+                        </span>    <span className = "timestamp">{message.MessageDateTime} {this.props.isAdmin && (<button className='deleteMessageText' value={message.MessageID} onClick={this.deleteMessage}>Delete</button>)}<br/></span>{message.MessageText}</p></div></li>
                                     ))}
                         </ul>
                     </div>
