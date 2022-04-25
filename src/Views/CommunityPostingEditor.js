@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
+import Chat from "../Components/Chat";
 
 class CommunityPostingEditor extends React.Component {
     constructor(props) {
@@ -19,8 +20,7 @@ class CommunityPostingEditor extends React.Component {
             calendarEventName: undefined,
             calendarEventDesc: undefined,
             calendarEventDay: undefined,
-            calendarEventLocation: undefined
-
+            calendarEventLocation: undefined,
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -133,8 +133,7 @@ class CommunityPostingEditor extends React.Component {
                 </div>
                 <div className = "chatEditor">
                     <h2> Chat Delete </h2>
-
-                </div>
+                    </div>
             </div>
         );
     }
