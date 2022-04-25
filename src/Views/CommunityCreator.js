@@ -35,6 +35,7 @@ class CommunityCreator extends React.Component {
             communityDesc: this.state.communityDesc
         }).then(function (response) {
             console.log(response.data[0]);
+            this.
         })
         .catch(function (error) {
             console.log(error);
