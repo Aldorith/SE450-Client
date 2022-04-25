@@ -301,27 +301,11 @@ class AdminDashboard extends React.Component {
                     <CreateChatChannel userData={this.props.userData} communityData={this.props.community} />
                 </div>
                 <div className="item5">
-                    <button className = "editorModalButton" onClick={this.handleOpenModal}>Open Community Editor</button>
-                    <br />
-                    <br/>
+                    <br/><br/><br/>
                     <button id="redButton" className="deleteCommunityButton" onClick={this.deleteCommunity}>
                         Delete Community
                     </button>
                 </div>
-
-                <Modal
-                    className = "editorModal"
-                    isOpen={this.state.showEditorModal}
-                    contentLabel="Community Post Manager"
-                    style={customStyles}
-                >
-                    <div className = "editorModalContent">
-                        <button className="editorModalCloseButton" onClick={this.handleCloseModal}>X</button>
-                        <br />
-                        <CommunityPostingEditor communityID={this.props.community.CommunityID} />
-                    </div>
-                </Modal>
-
             </div>
         );
     }

@@ -106,13 +106,5 @@
 }
 
 .deleteMessageText {
-    color:red;
-    font-weight: bold;
-    font-size: 10px;
-    font-style: italic;
-    vertical-align: super;
-    background-color: white;
-    margin: 0px;
-    padding-left: 2px;
 }
 

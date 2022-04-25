@@ -30,11 +30,11 @@
     padding-left: 10px;
     padding-right: 10px;
     scroll-margin: 0;
-    scroll-margin: 0;
 }
 .calendarEvents{
     overflow: scroll;
     overflow-x: hidden;
+    height: 10rem;
 }
 .calendarListItem {
     list-style-type: none;
@@ -83,4 +83,7 @@
     font-size: 12px;
     color: #000000;
     margin-left: 0;
+}
+
+.deleteCalendarEventText {
 }

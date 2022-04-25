@@ -61,15 +61,21 @@ class Calendar extends React.Component {
             });
     }
 
-    deleteCalendarEvent(e, eventID){
-        e.preventDefault();
-        console.log("Deleting a Calendar Event: " + eventID);
+    deleteCalendarEvent(event){
+        event.preventDefault();
+        let that = this;
+        const target = event.target;
+        const value = target.value;
+        console.log("Deleting a Calendar Event: " + value);
+        console.log("CommunityID: " + that.props.communityID);
+        console.log("Deleting a Calendar Event: " + value);
 
         axios.post(('/deleteCalendarEvent'), {
-            eventID: eventID
-
+            eventID: value,
+            commID: that.props.communityID,
         }).then(function (response) {
             console.log(response.data[0]);
+            that.setState({calendarEvents: response.data});
         })
             .catch(function (error) {
                 console.log(error);
@@ -83,7 +89,7 @@ class Calendar extends React.Component {
                     Loading Calendar
                 </div>
             )
-        if(this.state.calendarEvents.length == 0)
+        if(this.state.calendarEvents.length === 0)
             return(
                 <div className = "communityCalendar">
                     <p className = "calendarTitle">Events Coming Up</p>
@@ -106,7 +112,7 @@ class Calendar extends React.Component {
                                      <div>
                                          <p className = "event">
                                              <span className = "eventTitle">{calendarEvents.EventTitle}   </span>
-                                             <span className = "eventDateTime">{calendarEvents.EventDateTime}   </span>
+                                             <span className = "eventDateTime">{calendarEvents.EventDateTime}   {this.props.isAdmin && (<button className='deleteCalendarEventText' value={calendarEvents.EventID} onClick={this.deleteCalendarEvent}>Delete</button>)}</span>
                                              <span className = "eventLocation">{calendarEvents.EventLocation}</span><br/>
                                              <span className = "eventDescription">{calendarEvents.EventDescription}</span>
                                          </p>
