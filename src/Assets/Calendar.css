@@ -17,6 +17,10 @@
     min-height: 200px;
 }
 
+.calendarBox ul {
+    padding: 0;
+}
+
 .calendarList {
     list-style-type: none;
     margin-left:0;

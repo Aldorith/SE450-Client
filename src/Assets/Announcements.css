@@ -28,10 +28,12 @@
     margin-bottom: 0;
     text-align: left;
     height: 10rem;
-    padding-left: 10px;
-    padding-right: 10px;
-
 }
+
+.announcements ul {
+    padding: 0;
+}
+
 
 .announcementsListItem {
     list-style-type: none;
