@@ -171,7 +171,7 @@ class CommunityDashboard extends React.Component {
                 </div>
                 <div className="communityDashContent">
                     <Calendar communityID={this.state.community.CommunityID } />
-                    <Chat userData={this.props.userData } communityData={this.state.community} isAdmin={this.props.AdminTrue} />
+                    <Chat userData={this.props.userData } communityData={this.state.community} isAdmin={this.props.isAdmin} />
                     <Announcements communityID={this.state.community.CommunityID } />
                     <Directory userData={this.props.userData} communityID = {this.state.community.CommunityID} />
                 </div>
