@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 // Components
 import Login from './Components/Login';
-import CommunitySelect from './Components/CommunitySelect';
 
 // Firebase
 import firebase from './firebase';
@@ -12,6 +11,7 @@ import 'firebase/auth';
 // Assets
 import './App.css';
 import axios from "axios";
+import communityIcon from "./Assets/images/noun-community-2134463-FFFFFF.svg";
 
 // Views
 import UserDashboard from "./Views/UserDashboard";
@@ -85,8 +85,14 @@ function App() {
     // If not signed in this is what renders
     return (
         <div className="app">
-            <h1>IfyIfy</h1>
-            <Login/>
+            <div>
+                <h1>IfyIfy</h1>
+                <h3>Making Connections Easier</h3>
+                <Login/>
+            </div>
+            <div className="right">
+                <img alt="Community Icon" src={communityIcon} />
+            </div>
         </div>
     );
 }
