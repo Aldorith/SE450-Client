@@ -16,7 +16,6 @@ class VertNavBar extends React.Component {
             errorMessage: '',
             showModal: false,
             showSideBar: false,
-            communityOptions: <div id="helper"></div>
             }
 
         this.setErrorMessage = this.setErrorMessage.bind(this);
@@ -116,7 +115,7 @@ class VertNavBar extends React.Component {
                         </ul>
                     </div>
                     <div className="options">
-                        {this.state.communityOptions}
+                        {this.props.communitySideBar}
                           <div className="profileBox">
                             <div className="profileInfo">
                                 <img src={"/profilePhotos/" + this.props.userData.uid + ".png"} alt="Profile Photo" />

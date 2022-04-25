@@ -12,30 +12,13 @@ class userDashboard extends React.Component {
         super(props);
         this.state = {
             componentToRender: null,
+            communitySideBar: <div id="helper"></div>,
+            sideBarHash: Date.now()
         }
 
         this.switchCommunity = this.switchCommunity.bind(this);
         this.loadCommunityCreator = this.loadCommunityCreator.bind(this);
-    }
-
-    loadCommunityCreator() {
-        let component = <CommunityCreator userData={this.props.userData} />;
-        this.setState({componentToRender: component});
-    }
-
-
-    // Switch Community
-    switchCommunity(CommunityID) {
-        console.log("Trying to Load Community #" + CommunityID);
-
-        // Get CommunityDashboard Component
-        let component = <CommunityDashboard key={CommunityID} userData={this.props.userData} communityID={CommunityID} />;
-
-        // Update State
-        this.setState(state => ({
-            componentToRender: component
-        }));
-
+        this.handleCommunitySideBar = this.handleCommunitySideBar.bind(this);
     }
 
     componentDidMount() {
@@ -52,7 +35,11 @@ class userDashboard extends React.Component {
                 />;
         } else {
             console.log("Loading Community: #" + this.props.userData.communities[0].CommunityID);
-            component = <CommunityDashboard userData={this.props.userData} communityID={this.props.userData.communities[0].CommunityID} />;
+            component = <CommunityDashboard
+                userData={this.props.userData}
+                communityID={this.props.userData.communities[0].CommunityID}
+                isAdmin={this.props.userData.communities[0].AdminTrue}
+                updateSide={this.handleCommunitySideBar} />;
         }
 
         // Update State
@@ -66,12 +53,42 @@ class userDashboard extends React.Component {
         };
     }
 
+    // Handle Vert Nav Side Bar Data
+    handleCommunitySideBar(component) {
+        this.setState({
+            communitySideBar: component,
+            sideBarHash: Date.now()
+        });
+    }
+
+    // Switch Community
+    switchCommunity(CommunityID) {
+        console.log("Trying to Load Community #" + CommunityID);
+
+        // Get CommunityDashboard Component
+        let component = <CommunityDashboard key={CommunityID} userData={this.props.userData} communityID={CommunityID} updateSide={this.handleCommunitySideBar} isAdmin={this.props.userData.communities[0].AdminTrue} />;
+
+        // Update State
+        this.setState(state => ({
+            componentToRender: component
+        }));
+
+    }
+
+    // Load Community Creator
+    loadCommunityCreator() {
+        let component = <CommunityCreator userData={this.props.userData} />;
+        this.setState({componentToRender: component});
+    }
+
     render() {
         return (
             <div className="rootUserDashDiv">
                 <VertNavBar
                     userData={this.props.userData}
                     switchCommunity={this.switchCommunity}
+                    communitySideBar={this.state.communitySideBar}
+                    key={this.state.sideBarHash}
                 />
                 <div className="userDash">
                     {this.state.componentToRender}

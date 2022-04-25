@@ -54,7 +54,6 @@ function App() {
                 //Get User Community Data
                 axios.post(('/getUserCommunityData'), {
                     uid: user.uid,
-                    communities: [],
                 }).then(function (response) {
                     tempData.communities = response.data;
                     setUserData(tempData);
