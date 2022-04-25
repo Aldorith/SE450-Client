@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
-import './../Assets/CommunityPostingEditor.css';
+import Chat from "../Components/Chat";
 
 class CommunityPostingEditor extends React.Component {
     constructor(props) {
@@ -20,8 +20,7 @@ class CommunityPostingEditor extends React.Component {
             calendarEventName: undefined,
             calendarEventDesc: undefined,
             calendarEventDay: undefined,
-            calendarEventLocation: undefined
-
+            calendarEventLocation: undefined,
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -72,8 +71,7 @@ class CommunityPostingEditor extends React.Component {
             });
     }
 
-    deleteCalendarEvent(e, eventID){
-        e.preventDefault();
+    deleteCalendarEvent(eventID){
         console.log("Deleting a Calendar Event: " + eventID);
 
         axios.post(('/deleteCalendarEvent'), {
@@ -97,7 +95,6 @@ class CommunityPostingEditor extends React.Component {
             <div className="editorDash">
                 <div className = "announcementEditor">
                     <h2> Announcement Delete </h2>
-                    <div className = "announcementBox">
                     <div className = "announcements">
                         <ul className = "announcementsList" ref = {this.announcementListRef}>
                             {this.state.announcementEvents.map(announcementEvents =>
@@ -107,39 +104,36 @@ class CommunityPostingEditor extends React.Component {
                                                 <span className = "announcementTitle">{announcementEvents.AnnouncementTitle} </span>
                                                 <span className = "announcementDescription">{announcementEvents.AnnouncementText} </span>
                                             </p>
+
                                         </a>
 
                                     </li>
                                 ))}
                         </ul>
                     </div>
-                    </div>
                 </div>
                 <div className = "calendarEditor">
                     <h2> Calendar Event Delete</h2>
-                    <div className = "calendarBox">
                     <div className = "calendarEvents">
                         <ul className = "calendarEventList" ref = {this.calendarListRef}>
                             {this.state.calendarEvents.map(calendarEvents =>
                                 (<li className = "calendarListItem" key={calendarEvents.EventID.toString()}>
-                                        <a onClick={(e) => {this.deleteCalendarEvent(e, calendarEvents.EventID)}}>
+                                        <div /*onClick={this.deleteCalendarEvent(calendarEvents.EventID)}*/>
                                             <p className = "event">
                                                 <span className = "eventTitle">{calendarEvents.EventTitle}   </span>
                                                 <span className = "eventDateTime">{calendarEvents.EventDateTime}   </span>
                                                 <span className = "eventLocation">{calendarEvents.EventLocation}</span><br/>
                                                 <span className = "eventDescription">{calendarEvents.EventDescription}</span>
                                             </p>
-                                        </a>
+                                        </div>
                                     </li>
                                 ))}
                         </ul>
                     </div>
-                    </div>
                 </div>
                 <div className = "chatEditor">
                     <h2> Chat Delete </h2>
-
-                </div>
+                    </div>
             </div>
         );
     }

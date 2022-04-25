@@ -212,15 +212,18 @@ class AdminDashboard extends React.Component {
         modal.style.display = "none";
     }
 
-    deleteCommunity() {
-        axios.post(('/removeCommunity'), {
-            communityID: this.props.community.CommunityID,
-            uid: this.props.userData.uid,
-        }).then((response) => {
-            window.location.reload(false);
-        }).catch(function (error) {
-            console.log(error);
-        });
+    deleteCommunity(e) {
+        e.preventDefault();
+        if (window.confirm("Are you sure you want to delete this community?")) {
+            axios.post(('/removeCommunity'), {
+                communityID: this.props.community.CommunityID,
+                uid: this.props.userData.uid,
+            }).then((response) => {
+                window.location.reload(false);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
     }
 
     openEditor() {

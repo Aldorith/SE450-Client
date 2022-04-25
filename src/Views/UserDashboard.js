@@ -64,9 +64,17 @@ class userDashboard extends React.Component {
     // Switch Community
     switchCommunity(CommunityID) {
         console.log("Trying to Load Community #" + CommunityID);
+        let admin = false;
+
+        for (let i = 0; i < this.props.userData.communities.length; i++) {
+            if (this.props.userData.communities[i].CommunityID === CommunityID) {
+                admin = this.props.userData.communities[i].AdminTrue;
+                break;
+            }
+        }
 
         // Get CommunityDashboard Component
-        let component = <CommunityDashboard key={CommunityID} userData={this.props.userData} communityID={CommunityID} updateSide={this.handleCommunitySideBar} isAdmin={this.props.userData.communities[0].AdminTrue} />;
+        let component = <CommunityDashboard key={CommunityID} userData={this.props.userData} communityID={CommunityID} updateSide={this.handleCommunitySideBar} isAdmin={admin} />;
 
         // Update State
         this.setState(state => ({
