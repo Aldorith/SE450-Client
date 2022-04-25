@@ -21,13 +21,13 @@ class AdminDashboard extends React.Component {
             tempIcon: '',
             tempHeader: '',
 
-            announcementTitle: undefined,
-            announcementDesc: undefined,
+            announcementTitle: '',
+            announcementDesc: '',
 
-            calendarEventName: undefined,
-            calendarEventDesc: undefined,
-            calendarEventDay: undefined,
-            calendarEventLocation: undefined,
+            calendarEventName: '',
+            calendarEventDesc: '',
+            calendarEventDay: '',
+            calendarEventLocation: '',
 
             showEditorModal: false,
         }
