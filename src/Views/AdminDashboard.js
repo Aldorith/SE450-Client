@@ -4,6 +4,10 @@ import '../Assets/adminDash.css';
 import CreateChatChannel from "../Components/CreateChatChannel";
 import CommunityPostingEditor from "./CommunityPostingEditor";
 import Modal from "react-modal";
+import Calendar from "../Components/Calendar";
+import Chat from "../Components/Chat";
+import Announcements from "../Components/Announcements";
+import Directory from "../Components/Directory";
 // Original adminDashboard.css here: https://pastebin.com/ckdnnSz1
 
 class AdminDashboard extends React.Component {
@@ -211,7 +215,6 @@ class AdminDashboard extends React.Component {
     closeAdminDash() {
         // Get the modal
         let modal = document.getElementById("adminModal");
-
         modal.style.display = "none";
     }
 

@@ -112,7 +112,7 @@ class CreateChatChannel extends React.Component {
             }).then((response) => {
                 //This is where the response is handled from the server
                 console.log(response.data[0]);
-                this.setState({channels: response.data})
+                that.setState({channels: response.data, chanID: response.data[0].ChannelID})
             })
                 .catch(function (error) {
                     console.log(error);
