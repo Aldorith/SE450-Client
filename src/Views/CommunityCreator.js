@@ -7,7 +7,8 @@ class CommunityCreator extends React.Component {
 
         this.state = {
             communityName: undefined,
-            communityDesc: undefined
+            communityDesc: undefined,
+            error: false,
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -33,12 +34,13 @@ class CommunityCreator extends React.Component {
             uid: this.props.userData.uid,
             communityName: this.state.communityName,
             communityDesc: this.state.communityDesc
-        }).then(function (response) {
-            console.log(response.data[0]);
-            this.
+        }).then((response) => {
+            console.log("Created Community with ID: " + response.data[0].CommunityID);
+            this.props.switchCommunity(response.data[0].CommunityID);
         })
         .catch(function (error) {
             console.log(error);
+            this.setState({error: true})
         });
     }
 
@@ -55,6 +57,9 @@ class CommunityCreator extends React.Component {
                     <br />
                     <input type="submit" value="Submit" />
                 </form>
+                { this.state.error &&
+                    <p>There has been an error, please check parameters and try again</p>
+                }
             </div>
         )
     }

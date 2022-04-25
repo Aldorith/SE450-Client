@@ -154,7 +154,7 @@ class VertNavBar extends React.Component {
                             )}
                         </form>
                         <br />
-                        <CommunityCreator userData={this.props.userData}/>
+                        <CommunityCreator userData={this.props.userData} switchCommunity={this.props.switchCommunity} />
                     </div>
                 </Modal>
             </div>

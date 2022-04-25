@@ -78,14 +78,15 @@ class userDashboard extends React.Component {
 
         // Update State
         this.setState(state => ({
-            componentToRender: component
+            componentToRender: component,
+            sideBarHash: Date.now()
         }));
 
     }
 
     // Load Community Creator
     loadCommunityCreator() {
-        let component = <CommunityCreator userData={this.props.userData} />;
+        let component = <CommunityCreator userData={this.props.userData} switchCommunity={this.switchCommunity}/>;
         this.setState({componentToRender: component});
     }
 
