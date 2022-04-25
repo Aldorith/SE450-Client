@@ -98,3 +98,10 @@
     background-color: white;
     font-family: Arial, serif;
 }
+
+.deleteMessageText {
+    color:red;
+    font-weight: bold;
+    font-style: normal;
+
+}

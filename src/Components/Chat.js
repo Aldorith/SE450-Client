@@ -16,6 +16,7 @@ class Chat extends React.Component {
             chanID: 1,
             errorMessage: '',
             reloaded: true,
+            adminTrue: true,
         }
 
         this.handleMessageChange = this.handleMessageChange.bind(this);
@@ -26,7 +27,7 @@ class Chat extends React.Component {
         this.checkText = this.checkText.bind(this);
         this.getChannelData = this.getChannelData.bind(this);
         this.getMessageData = this.getMessageData.bind(this);
-
+        this.deleteMessage = this.deleteMessage.bind(this);
     }
 
     async componentDidMount() {
@@ -57,6 +58,7 @@ class Chat extends React.Component {
     }
 
     getMessageData() {
+        let that = this;
         axios.post(('/getMessageData'), {
             commID: this.props.communityData.CommunityID,
             chanID: this.state.chanID,
@@ -126,7 +128,7 @@ class Chat extends React.Component {
                     UserName: that.props.userData.username,
                     MessageText: this.state.messageText,
                     MessageDateTime: that.getDateTime(),
-                    messageID: 0,
+                    MessageID: 0,
                     uniqueID: -1,
                 }
                 console.log(that.state.messages[0]);
@@ -136,7 +138,7 @@ class Chat extends React.Component {
                     UserName: that.props.userData.username,
                     MessageText: this.state.messageText,
                     MessageDateTime: that.getDateTime(),
-                    messageID: 0,
+                    MessageID: 0,
                     uniqueID: that.state.messages[that.state.messages.length-1].uniqueID + 1,
                 })
             }
@@ -173,10 +175,21 @@ class Chat extends React.Component {
         const target = event.target;
         const value = target.value;
         this.setState({chanID: value});
+        this.getMessageData();
+        //this.updateScroll();
+    }
 
-        axios.post(('/getMessageData'), {
-            commID: this.props.communityData.CommunityID,
-            chanID: value,
+    deleteMessage(event) {
+        event.preventDefault();
+        let that = this;
+        const target = event.target;
+        const value = target.value;
+        console.log("Value: "+value);
+
+        axios.post(('/deleteMessage'), {
+            commID: that.props.communityData.CommunityID,
+            chanID: that.state.chanID,
+            messID: value,
         }).then((response) => {
             //This is where the response is handled from the server
             console.log(response.data[0]);
@@ -186,12 +199,11 @@ class Chat extends React.Component {
                     i += 1;
                 }
             );
-            this.setState({messages: response.data})
+            that.setState({messages: response.data})
         })
             .catch(function (error) {
                 console.log(error);
             });
-        //this.updateScroll();
     }
 /*
     updateScroll = () => {
@@ -218,11 +230,10 @@ class Chat extends React.Component {
                         </select><div className = "messages"><ul className = "messageList" ref = {this.messageListRef}>
                                 {this.state.messages.map(message =>
                                     (<li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
-                        </span>    <span className = "timestamp">{message.MessageDateTime}<br/></span>{message.MessageText}</p></div></li>
+                        </span>    <span className = "timestamp">{message.MessageDateTime} {this.props.userData.isAdmin && (<button className='deleteMessageText' value={message.MessageID} onClick={this.deleteMessage}>Delete Message {message.MessageID}</button>)}<br/></span>{message.MessageText}</p></div></li>
                                     ))}
                     </ul></div><div className= "sendMessageSection"><form className = "messageEntry" onSubmit={this.handleMessageSubmit}
-                ><label className = "submitLabelText"> Enter Message: <input type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/>
-                                </label><div><input type="submit" value="Send" className = "messageSendButton" />{this.state.errorMessage&&(<p className="error"> {this.state.errorMessage}</p>)}</div>
+                ><label className = "submitLabelText"> Enter Message: <input type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/></label><div><input type="submit" value="Send" className = "messageSendButton" />{this.state.errorMessage&&(<p className="error"> {this.state.errorMessage}</p>)}</div>
                 </form></div></div></div></div>
         )
     }
