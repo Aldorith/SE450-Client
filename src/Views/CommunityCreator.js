@@ -34,8 +34,7 @@ class CommunityCreator extends React.Component {
             uid: this.props.userData.uid,
             communityName: this.state.communityName,
             communityDesc: this.state.communityDesc
-        }).then(function (response) {
-            console.log(response.data[0]);
+        }).then((response) => {
             console.log("Created Community with ID: " + response.data[0].CommunityID);
             this.props.switchCommunity(response.data[0].CommunityID);
         })

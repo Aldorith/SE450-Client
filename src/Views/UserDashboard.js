@@ -78,7 +78,8 @@ class userDashboard extends React.Component {
 
         // Update State
         this.setState(state => ({
-            componentToRender: component
+            componentToRender: component,
+            sideBarHash: Date.now()
         }));
 
     }
