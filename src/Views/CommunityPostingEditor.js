@@ -83,6 +83,7 @@ class CommunityPostingEditor extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+
     }
 
     // simple updater
@@ -104,6 +105,7 @@ class CommunityPostingEditor extends React.Component {
                                             <p className = "announcement">
                                                 <span className = "announcementTitle">{announcementEvents.AnnouncementTitle} </span>
                                                 <span className = "announcementDescription">{announcementEvents.AnnouncementText} </span>
+                                                <span> {announcementEvents.AnnouncementID}</span>
                                             </p>
                                         </a>
                                     </li>
