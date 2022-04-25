@@ -91,6 +91,11 @@ class VertNavBar extends React.Component {
     }
 
     render() {
+        const customStyles = {
+            content: {
+                background: "#282c34",
+            },
+        };
 
         return (
             <div className="vertNavBar">
@@ -135,9 +140,12 @@ class VertNavBar extends React.Component {
                 <Modal
                     isOpen={this.state.showModal}
                     contentLabel="Join Community"
+                    style={customStyles}
                 >
-                    <div>
-                        <h4>Join Community</h4>
+                    <div className="joinOrCreateModal">
+                        <button onClick={this.handleCloseModal}>X</button>
+                        <br />
+                        <h2>Join Community</h2>
                         <form onSubmit={this.joinCommunity}>
                             <input type="text" value={this.state.communityJoinCode} name="communityJoinCode" placeholder={"Join Code"} onChange={this.handleChange}/>
                             <input type="submit" value="Join" />
@@ -145,13 +153,9 @@ class VertNavBar extends React.Component {
                                 <p className="error"> {this.state.errorMessage}</p>
                             )}
                         </form>
-                    </div>
-                    <div>
-                        <h4>Create Community</h4>
+                        <br />
                         <CommunityCreator userData={this.props.userData}/>
                     </div>
-
-                    <button onClick={this.handleCloseModal}>Close Modal</button>
                 </Modal>
             </div>
         )

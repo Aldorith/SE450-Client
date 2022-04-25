@@ -145,3 +145,7 @@
 #sideA {
     font-size: 1em;
 }
+
+.joinOrCreateModal button {
+    float: right;
+}
