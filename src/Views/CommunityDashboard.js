@@ -36,6 +36,8 @@ class CommunityDashboard extends React.Component {
 
         this.updateSideBar = this.updateSideBar.bind(this);
         this.leaveCommunity = this.leaveCommunity.bind(this);
+
+        this.refreshComponents = this.refreshComponents.bind(this);
     }
 
     async componentDidMount() {
@@ -99,6 +101,13 @@ class CommunityDashboard extends React.Component {
         let modal = document.getElementById("adminModal");
 
         modal.style.display = "none";
+        console.log("BeforeRefresh");
+        this.refreshComponents();
+        console.log("AfterRefresh");
+    }
+
+    refreshComponents(){
+        Chat.state.reloaded = true;
     }
 
     // Profile Modal
@@ -184,7 +193,7 @@ class CommunityDashboard extends React.Component {
 
                 <div id="adminModal" className="modal">
                     <div className="admin-modal-content" >
-                        <AdminDashboard userData={this.props.userData} community={this.state.community} />
+                        <AdminDashboard userData={this.props.userData} onClose = {this.refreshComponents} community={this.state.community} />
                     </div>
                 </div>
             </div>
