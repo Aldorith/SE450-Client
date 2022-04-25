@@ -16,7 +16,6 @@ class Chat extends React.Component {
             chanID: 1,
             errorMessage: '',
             reloaded: true,
-            AdminTrue: true,
         }
 
         this.handleMessageChange = this.handleMessageChange.bind(this);
@@ -230,10 +229,10 @@ class Chat extends React.Component {
                         </select><div className = "messages"><ul className = "messageList" ref = {this.messageListRef}>
                                 {this.state.messages.map(message =>
                                     (<li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
-                        </span>    <span className = "timestamp">{message.MessageDateTime} {this.state.AdminTrue && (<button className='deleteMessageText' value={message.MessageID} onClick={this.deleteMessage}>X</button>)}<br/></span>{message.MessageText}</p></div></li>
+                        </span>    <span className = "timestamp">{message.MessageDateTime} {this.props.isAdmin && (<button className='deleteMessageText' value={message.MessageID} onClick={this.deleteMessage}>Delete Message</button>)}<br/></span>{message.MessageText}</p></div></li>
                                     ))}
                     </ul></div><div className= "sendMessageSection"><form className = "messageEntry" onSubmit={this.handleMessageSubmit}
-                ><label className = "submitLabelText"> Enter Message: <input type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/></label><div><input type="submit" value="Send" className = "messageSendButton" />{this.state.errorMessage&&(<p className="error"> {this.state.errorMessage}</p>)}</div>
+                ><label className = "submitLabelText"> Enter Message: <input className = "messageEntryText" type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/></label><div><input type="submit" value="Send" className = "messageSendButton" />{this.state.errorMessage&&(<p className="error"> {this.state.errorMessage}</p>)}</div>
                 </form></div></div></div></div>
         )
     }

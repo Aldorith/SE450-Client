@@ -81,6 +81,11 @@
     font-weight: bold;
 }
 
+.messageEntryText {
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+}
+
 .submitLabelText {
     color: #000000;
     font-family: Arial, serif;
@@ -102,6 +107,10 @@
 .deleteMessageText {
     color:red;
     font-weight: bold;
-    font-style: normal;
-
+    font-size: 10px;
+    font-style: italic;
+    vertical-align: super;
+    background-color: white;
+    margin: 0px;
+    padding-left: 2px;
 }
