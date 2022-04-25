@@ -44,10 +44,14 @@ class CommunityCreator extends React.Component {
     render() {
         return (
             <div className="communityCreator">
-               <h2> Create Community </h2>
+               <h2>Create Community</h2>
                 <form onSubmit={this.createCommunity}>
-                    <label> Community Name: <input type="text" name="communityName" value={this.state.communityName} onChange={this.handleInputChange} /></label>
-                    <label> Community Description: <input type="text" name="communityDesc" value={this.state.communityDesc} onChange={this.handleInputChange} /></label>
+                    <label>Community Name <br /> <input type="text" name="communityName" value={this.state.communityName} onChange={this.handleInputChange} /></label>
+                    <br />
+                    <br />
+                    <label>Community Description<br /> <input type="text" name="communityDesc" value={this.state.communityDesc} onChange={this.handleInputChange} /></label>
+                    <br />
+                    <br />
                     <input type="submit" value="Submit" />
                 </form>
             </div>
