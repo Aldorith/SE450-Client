@@ -302,10 +302,11 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div className="item5">
                     <button className = "editorModalButton" onClick={this.handleOpenModal}>Open Community Editor</button>
-
-                    <form className = "deleteCommunityButton" onSubmit={this.deleteCommunity}>
-                        <input type="submit" id="redButton" value="Delete Community" />
-                    </form>
+                    <br />
+                    <br/>
+                    <button id="redButton" className="deleteCommunityButton" onClick={this.deleteCommunity}>
+                        Delete Community
+                    </button>
                 </div>
 
                 <Modal
@@ -326,7 +327,3 @@ class AdminDashboard extends React.Component {
     }
 }
 export default AdminDashboard;
-
-//  <div className = "tempEditor">
-//                     <CommunityPostingEditor communityID={this.props.community.CommunityID} />
-//                 </div>
