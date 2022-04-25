@@ -32,15 +32,6 @@ class Directory extends React.Component {
             });
           }
 
-    getProfilePhoto() {
-        // Set path for profile photo
-        let imgUrl = "/profilePhotos/" + this.props.userData.uid + ".png";
-        this.setState({
-            profilePhoto: imgUrl
-        });
-        return
-    }
-
     render() {
         if(this.state.isLoading)
             return(
@@ -54,9 +45,10 @@ class Directory extends React.Component {
                 <p className = "directoryTitle">Community Directory</p>
                         <ul className = "directoryList" ref = {this.directoryListRef}>
                             {this.state.generalUsers.map(generalUsers =>
-                                (<li className = "directoryListItem" >
+                                (<li className = "directoryListItem" key={generalUsers.uid}>
                                         <div className = "directoryItemBox">
                                             <p className = "directoryItem">
+                                                <img src={"/profilePhotos/" + generalUsers.uid + ".png"}/>
                                                 <span className = "directoryMemberName">{generalUsers.UserName} </span>
                                             </p>
                                         </div>

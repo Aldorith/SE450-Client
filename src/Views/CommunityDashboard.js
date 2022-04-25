@@ -15,16 +15,17 @@ class CommunityDashboard extends React.Component {
         this.state = {
             community: {
                 CommunityID: undefined,
-                CommunityName: undefined,
+                CommunityName: '',
                 HeaderImage: undefined,
                 HeaderImageHash: Date.now(),
-                CommunityDescription: undefined,
-                CommunityJoinCode: undefined,
+                CommunityDescription: '',
+                CommunityJoinCode: '',
             },
             isLoading: true,
             showProfileEdit: false,
             profilePhoto: undefined,
-            profilePhotoHash: Date.now()
+            profilePhotoHash: Date.now(),
+            sideBarComp: undefined,
         }
 
         this.openProfileEdit = this.openProfileEdit.bind(this);
@@ -33,6 +34,7 @@ class CommunityDashboard extends React.Component {
         this.getProfilePhoto = this.getProfilePhoto.bind(this);
         this.getHeaderImage = this.getHeaderImage.bind(this);
 
+        this.updateSideBar = this.updateSideBar.bind(this);
         this.leaveCommunity = this.leaveCommunity.bind(this);
     }
 
@@ -50,12 +52,16 @@ class CommunityDashboard extends React.Component {
                     CommunityName: response.data[0].CommunityName,
                     CommunityDescription: response.data[0].CommunityDescription,
                     CommunityRules: response.data[0].CommunityRules,
+                    CommunityJoinCode: response.data[0].communityJoinCode,
                     HeaderImage: "/communityHeaders/" + response.data[0].CommunityID + ".png",
                     HeaderImageHash: Date.now()
                 }
             }, function() {
                 // Fetch Header Image
                 this.getHeaderImage();
+
+                // Update Side Bar
+                this.updateSideBar();
             });
         }).catch(function (error) {
             console.log(error);
@@ -67,6 +73,16 @@ class CommunityDashboard extends React.Component {
         this.setState = (state,callback)=>{
             return;
         };
+    }
+
+    //
+    updateSideBar() {
+        let component =
+            <div id="helper">
+                { this.props.isAdmin ? <a onClick={this.openAdminDash}><p>Admin Dashboard</p></a> : <p></p> }
+                <a onClick={this.leaveCommunity}><p>Leave Community</p></a>
+            </div>;
+        this.props.updateSide(component);
     }
 
     // Admin Modal
@@ -121,34 +137,36 @@ class CommunityDashboard extends React.Component {
     }
 
     leaveCommunity() {
-        // Make API to get Community Data
-        axios.post(('/userLeaveCommunity'), {
-            communityID: this.props.communityID,
-            uid: this.props.userData.uid,
-        }).then((response) => {
-            console.log("Trying to reload page");
-            window.location.reload(false);
-        }).catch(function (error) {
-            console.log(error);
-        });
+        if (window.confirm("Are you sure you want to leave " + this.state.community.CommunityName + "?")) {
+            // Make API to get Community Data
+            axios.post(('/userLeaveCommunity'), {
+                communityID: this.props.communityID,
+                uid: this.props.userData.uid,
+            }).then((response) => {
+                console.log("Trying to reload page");
+                window.location.reload(false);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
     }
 
     render() {
         if (this.state.isLoading) {
             return <div>Loading...</div>
         }
+        console.log(this.state.community);
 
         return (
             <div className="communityDash">
                 <div className="communityHeader">
                     <div className="communityNav">
-                        <a onClick={this.openAdminDash}><p>Admin Dashboard</p></a>
                         <a onClick={this.openProfileEdit}><img className="profilePic" src={`${this.state.profilePhoto}?${this.state.profilePhotoHash}`} /></a>
                     </div>
                     <img src={`${this.state.community.HeaderImage}?${this.state.community.HeaderImageHash}`} alt="Community Header" />
                     <div className="communityInfo">
                         <h2>{this.state.community.CommunityName}</h2>
-                        <a onClick={this.leaveCommunity}>Leave Community</a>
+                        <p>Join Code: {this.state.community.CommunityJoinCode}</p>
                     </div>
                 </div>
                 <div className="communityDashContent">

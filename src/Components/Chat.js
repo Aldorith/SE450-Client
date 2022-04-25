@@ -15,6 +15,7 @@ class Chat extends React.Component {
             messageText: '',
             chanID: 1,
             errorMessage: '',
+            reloaded: true,
         }
 
         this.handleMessageChange = this.handleMessageChange.bind(this);
@@ -23,9 +24,26 @@ class Chat extends React.Component {
         //this.updateScroll = this.updateScroll.bind(this);
         this.getDateTime = this.getDateTime.bind(this);
         this.checkText = this.checkText.bind(this);
+        this.getChannelData = this.getChannelData.bind(this);
+        this.getMessageData = this.getMessageData.bind(this);
+
     }
 
     async componentDidMount() {
+        this.getChannelData();
+        this.getMessageData();
+        /*
+        const socket = io(':8900');
+        console.log(socket);
+        console.log("BEFORE!!")
+        socket.on("connect", () => {
+            console.log(socket.id);
+        });
+         */
+        //console.log("AFTER!!")
+    }
+
+    getChannelData() {
         axios.post(('/getChannelData'), {
             commID: this.props.communityData.CommunityID,
         }).then((response) => {
@@ -36,7 +54,9 @@ class Chat extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+    }
 
+    getMessageData() {
         axios.post(('/getMessageData'), {
             commID: this.props.communityData.CommunityID,
             chanID: this.state.chanID,
@@ -54,16 +74,6 @@ class Chat extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
-
-        /*
-        const socket = io(':8900');
-        console.log(socket);
-        console.log("BEFORE!!")
-        socket.on("connect", () => {
-            console.log(socket.id);
-        });
-         */
-        //console.log("AFTER!!")
     }
 
     checkText(String) {

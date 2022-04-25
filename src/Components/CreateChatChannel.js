@@ -2,6 +2,7 @@ import React from "react";
 import CommunityCreator from "../Views/CommunityCreator";
 import UserDashboard from "../Views/UserDashboard";
 import AdminDashboard from "../Views/AdminDashboard";
+import Chat from "../Components/Chat"
 import axios from "axios";
 
 class CreateChatChannel extends React.Component {
@@ -65,7 +66,7 @@ class CreateChatChannel extends React.Component {
         let that = this;
         this.setState({errorMessage1: '', uniqueName: true, successMessage1: ''});
         if(that.state.channelName === ''){
-            that.setState({errorMessage1: 'New Channel Must Be Named', uniqueName: false})
+            that.setState({errorMessage1: 'New Channel Must Be Named'})
         }
         else {
             this.state.channels.forEach(element => {
@@ -111,12 +112,12 @@ class CreateChatChannel extends React.Component {
             }).then((response) => {
                 //This is where the response is handled from the server
                 console.log(response.data[0]);
-                that.channelsTemp = response.data
+                this.setState({channels: response.data})
             })
                 .catch(function (error) {
                     console.log(error);
                 });
-            this.setState({successMessage2: 'Channel deleted successfully!', channelName: ''})
+            this.setState({successMessage2: 'Channel deleted successfully!', channelName: ''});
         }
         else{
             this.setState({errorMessage2: 'There must remain at least one channel'})
