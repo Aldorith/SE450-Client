@@ -13,7 +13,7 @@ class userDashboard extends React.Component {
         this.state = {
             componentToRender: null,
             communitySideBar: <div id="helper"></div>,
-            sideBarHash: Date.now()
+            sideBarHash: Date.now(),
         }
 
         this.switchCommunity = this.switchCommunity.bind(this);
@@ -62,7 +62,12 @@ class userDashboard extends React.Component {
     }
 
     // Switch Community
-    switchCommunity(CommunityID) {
+    switchCommunity(CommunityID, newlyCreated) {
+        // Update Vert Nav Bar
+        this.setState({
+            sideBarHash: Date.now() + "vert"
+        });
+
         console.log("Trying to Load Community #" + CommunityID);
         let admin = false;
 
@@ -73,6 +78,10 @@ class userDashboard extends React.Component {
             }
         }
 
+        if (newlyCreated === 1) {
+            admin = true;
+        }
+
         // Get CommunityDashboard Component
         let component = <CommunityDashboard key={CommunityID} userData={this.props.userData} communityID={CommunityID} updateSide={this.handleCommunitySideBar} isAdmin={admin} />;
 
@@ -81,7 +90,6 @@ class userDashboard extends React.Component {
             componentToRender: component,
             sideBarHash: Date.now()
         }));
-
     }
 
     // Load Community Creator

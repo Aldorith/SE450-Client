@@ -107,7 +107,7 @@ class VertNavBar extends React.Component {
                         <ul>
                             {this.props.userData.communities.map((community) =>
                                 <li key={community.CommunityID.toString()}>
-                                    <a onClick={() => this.props.switchCommunity(community.CommunityID)}>
+                                    <a onClick={() => this.props.switchCommunity(community.CommunityID, 0)}>
                                         <img src={'/communityIcons/'+community.CommunityID+'.png'} alt={community.CommunityName + " Logo"}/>
                                     </a>
                                 </li>
