@@ -26,6 +26,9 @@ class CommunityDashboard extends React.Component {
             profilePhoto: undefined,
             profilePhotoHash: Date.now(),
             sideBarComp: undefined,
+            eventsKey: Date.now()+"events",
+            aKey: Date.now()+"announcements",
+            chatKey: Date.now()+"chat"
         }
 
         this.openProfileEdit = this.openProfileEdit.bind(this);
@@ -38,6 +41,7 @@ class CommunityDashboard extends React.Component {
         this.leaveCommunity = this.leaveCommunity.bind(this);
 
         this.refreshComponents = this.refreshComponents.bind(this);
+        this.update = this.update.bind(this);
     }
 
     async componentDidMount() {
@@ -160,6 +164,17 @@ class CommunityDashboard extends React.Component {
         }
     }
 
+    // Refresh Components
+    update() {
+        console.log("trying to update");
+        console.log("Is Admin: " + this.props.isAdmin);
+        this.setState({
+            eventsKey: Date.now()+"events",
+            aKey: Date.now()+"announcements",
+            chatKey: Date.now()+"chat"
+        })
+    }
+
     render() {
         if (this.state.isLoading) {
             return <div>Loading...</div>
@@ -179,9 +194,9 @@ class CommunityDashboard extends React.Component {
                     </div>
                 </div>
                 <div className="communityDashContent">
-                    <Calendar communityID={this.state.community.CommunityID } />
-                    <Chat userData={this.props.userData } communityData={this.state.community} isAdmin={this.props.isAdmin} />
-                    <Announcements communityID={this.state.community.CommunityID } />
+                    <Calendar communityID={this.state.community.CommunityID } key={this.state.eventsKey} />
+                    <Chat userData={this.props.userData } communityData={this.state.community} isAdmin={this.props.isAdmin} key={this.state.chatKey} />
+                    <Announcements communityID={this.state.community.CommunityID} key={this.state.aKey} />
                     <Directory userData={this.props.userData} communityID = {this.state.community.CommunityID} />
                 </div>
                 <div id="profileModal" className="modal">
@@ -193,7 +208,7 @@ class CommunityDashboard extends React.Component {
 
                 <div id="adminModal" className="modal">
                     <div className="admin-modal-content" >
-                        <AdminDashboard userData={this.props.userData} onClose = {this.refreshComponents} community={this.state.community} />
+                        <AdminDashboard userData={this.props.userData} onClose = {this.refreshComponents} community={this.state.community} update={this.update}/>
                     </div>
                 </div>
             </div>

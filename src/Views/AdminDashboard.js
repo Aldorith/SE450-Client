@@ -42,6 +42,7 @@ class AdminDashboard extends React.Component {
         this.deleteCommunity = this.deleteCommunity.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.closeAdminDash = this.closeAdminDash.bind(this);
     }
 
     componentDidMount() {
@@ -188,31 +189,10 @@ class AdminDashboard extends React.Component {
         this.setState({calendarEventName: "", calendarEventDesc: "", calendarEventDay: "", calendarEventLocation: ""})
     }
 
-    /*
-    tried getting the check text to work, but it didn't seem to like it for whatever reason.
-   createCalendarEvent(e) {
-       e.preventDefault(); // This prevents the page from refreshing
-           let tempCalendarEventName = this.checkText(this.props.community.calendarEventName);
-           let tempCalendarEventDesc = this.checkText(this.props.community.calendarEventDesc);
-           let tempCalendarEventLocation = this.checkText(this.props.community.calendarEventLocation);
-       axios.post(('/createCalendarEvent'), {
-           communityID: this.props.community.CommunityID,
-           eventTitle:  tempCalendarEventName,
-           eventDescription:  tempCalendarEventDesc,
-           eventDateTime:  this.props.calendarEventDay,
-           eventLocation:  tempCalendarEventLocation
-       }).then(function (response) {
-           console.log(response.data[0]);
-       })
-           .catch(function (error) {
-               console.log(error);
-           });
-
-       this.setState({calendarEventName: "", calendarEventDesc: "", calendarEventDay: "", calendarEventLocation: ""})
-   }
-   */
-
     closeAdminDash() {
+        // Refresh
+        this.props.update();
+
         // Get the modal
         let modal = document.getElementById("adminModal");
         modal.style.display = "none";
