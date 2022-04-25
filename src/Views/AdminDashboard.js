@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 import '../Assets/adminDash.css';
-import announcements from "../Components/Announcements";
 import CreateChatChannel from "../Components/CreateChatChannel";
 import CommunityPostingEditor from "./CommunityPostingEditor";
+import Modal from "react-modal";
 // Original adminDashboard.css here: https://pastebin.com/ckdnnSz1
 
 class AdminDashboard extends React.Component {
@@ -24,6 +24,8 @@ class AdminDashboard extends React.Component {
             calendarEventDesc: undefined,
             calendarEventDay: undefined,
             calendarEventLocation: undefined,
+
+            showEditorModal: false,
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -34,7 +36,8 @@ class AdminDashboard extends React.Component {
         this.uploadHeader = this.uploadHeader.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
         this.deleteCommunity = this.deleteCommunity.bind(this);
-        this.openEditor = this.openEditor.bind(this);
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
     }
 
     componentDidMount() {
@@ -212,6 +215,7 @@ class AdminDashboard extends React.Component {
         modal.style.display = "none";
     }
 
+
     deleteCommunity(e) {
         e.preventDefault();
         if (window.confirm("Are you sure you want to delete this community?")) {
@@ -226,21 +230,32 @@ class AdminDashboard extends React.Component {
         }
     }
 
-    openEditor() {
-        let modal = document.getElementById("editorModal");
+    handleOpenModal () {
+        this.setState({ showEditorModal: true });
 
-        modal.style.display = "block";
-    }
-
-    closeEditor() {
-        let modal = document.getElementById("editorModal");
+        let modal = document.getElementById("adminModal");
 
         modal.style.display = "none";
     }
 
+    handleCloseModal () {
+        this.setState({ showEditorModal: false });
+
+        let modal = document.getElementById("adminModal");
+
+        modal.style.display = "block";
+    }
+
     render() {
+        const customStyles = {
+            content: {
+                background: "#282c34",
+            },
+        };
+
         return (
             <div className="adminDash">
+                <div className="adminDashTitle"> Admin Dashboard </div>
                 <div className='closeButton'>
                     <a onClick={this.closeAdminDash}>X</a>
                 </div>
@@ -302,24 +317,33 @@ class AdminDashboard extends React.Component {
                 <div className="item4">
                     <CreateChatChannel userData={this.props.userData} communityData={this.props.community} />
                 </div>
-
                 <div className="item5">
-                    <form onSubmit={this.deleteCommunity}>
+                    <button className = "editorModalButton" onClick={this.handleOpenModal}>Open Community Editor</button>
+
+                    <form className = "deleteCommunityButton" onSubmit={this.deleteCommunity}>
                         <input type="submit" id="redButton" value="Delete Community" />
                     </form>
                 </div>
 
-                <div className="openCommunityEditor">
-                    <form onSubmit={this.openEditor}>
-                        <input type = "submit" value = "Open Community Post Editor" />
-                    </form>
-                </div>
-                <div className = "tempEditor">
-                    <CommunityPostingEditor communityID={this.props.community.CommunityID} />
-                </div>
+                <Modal
+                    className = "editorModal"
+                    isOpen={this.state.showEditorModal}
+                    contentLabel="Community Post Manager"
+                    style={customStyles}
+                >
+                    <div className = "editorModalContent">
+                        <button className="editorModalCloseButton" onClick={this.handleCloseModal}>X</button>
+                        <br />
+                        <CommunityPostingEditor communityID={this.props.community.CommunityID} />
+                    </div>
+                </Modal>
 
             </div>
         );
     }
 }
 export default AdminDashboard;
+
+//  <div className = "tempEditor">
+//                     <CommunityPostingEditor communityID={this.props.community.CommunityID} />
+//                 </div>

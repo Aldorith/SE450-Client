@@ -90,23 +90,97 @@
 }
 .adminDash .item1 {
   grid-area: a;
+    background-color: #444e5c;
+    padding: 10px;
+    border-radius: 25px;
 }
  .adminDash .item2 {
    grid-area: b;
+     background-color: #444e5c;
+     padding: 10px;
+     border-radius: 25px;
+
  }
  .adminDash .item3 {
    grid-area: c;
+     background-color: #444e5c;
+     padding: 10px;
+     border-radius: 25px;
  }
  .adminDash .item4 {
      grid-area: d;
+     background-color: #444e5c;
+     padding: 10px;
+     border-radius: 25px;
  }
  .adminDash .item5 {
      grid-area: e;
  }
 
+ .adminDash .editorModalButton {
+     grid-area: f;
+
+ }
+
  #redButton {
      background-color: #e13b38;
+     float: none;
      cursor: pointer;
      padding: 5%;
-     margin-top: 3.5em;
+     width: 45%;
+ }
+
+
+ .editorModalButton {
+     padding: 5%;
+     font-size: 1em;
+     min-width: 25%;
+     background-color: #00a4ff;
+     color: white;
+     border-style: none;
+     border-radius: 5px;
+     width: 45%;
+
+ }
+
+ .editorModal {
+     position: fixed; /* Stay in place */
+     z-index: 1; /* Sit on top */
+     padding-top: 50px; /* Location of the box */
+     padding-bottom: 50px;
+     left: 0;
+     top: 0;
+     width: 100%; /* Full width */
+     height: 100%; /* Full height */
+     overflow:auto;
+     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+ }
+
+ .editorModalContent {
+     margin: auto;
+     padding: 20px;
+     width: 50%;
+     border-radius: 25px;
+     background-color: #444e5c;
+ }
+
+ .adminDashTitle {
+     font-weight: bold;
+     font-size: 30px;
+     color: #000000;
+     text-align: center;
+     background-color: white;
+     border-radius: 10px;
+     padding: 10px;
+ }
+
+ .editorModalCloseButton{
+     grid-area: close;
+     text-align: right;
+     padding-right: 1em;
+     padding-top: 0.5em;
+     font-size: 1.5em;
+     color: #fefefe;
+     float: right;
+     background-color: #444e5c;
  }

@@ -175,7 +175,6 @@ class CommunityDashboard extends React.Component {
                     <Announcements communityID={this.state.community.CommunityID } />
                     <Directory userData={this.props.userData} communityID = {this.state.community.CommunityID} />
                 </div>
-
                 <div id="profileModal" className="modal">
                     <div className="modal-content">
                         <a onClick={this.closeProfileEdit}><span className="close">&times;</span></a>
