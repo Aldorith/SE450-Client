@@ -78,7 +78,7 @@ class CommunitySelect extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="cSelect">
                 <h1>Looks like you aren't a part of any communities yet!</h1>
                 <h2>Let's Fix that!</h2>
                 <ul>

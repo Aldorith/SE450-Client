@@ -145,14 +145,16 @@ class VertNavBar extends React.Component {
                     <div className="joinOrCreateModal">
                         <button onClick={this.handleCloseModal}>X</button>
                         <br />
-                        <h2>Join Community</h2>
-                        <form onSubmit={this.joinCommunity}>
-                            <input type="text" value={this.state.communityJoinCode} name="communityJoinCode" placeholder={"Join Code"} onChange={this.handleChange}/>
-                            <input type="submit" value="Join" />
-                            {this.state.errorMessage && (
-                                <p className="error"> {this.state.errorMessage}</p>
-                            )}
-                        </form>
+                        <div className="communityCreator">
+                            <h2>Join Community</h2>
+                            <form onSubmit={this.joinCommunity}>
+                                <input type="text" value={this.state.communityJoinCode} name="communityJoinCode" placeholder={"Join Code"} onChange={this.handleChange}/>
+                                <input type="submit" value="Join" />
+                                {this.state.errorMessage && (
+                                    <p className="error"> {this.state.errorMessage}</p>
+                                )}
+                            </form>
+                        </div>
                         <br />
                         <CommunityCreator userData={this.props.userData} switchCommunity={this.props.switchCommunity} />
                     </div>

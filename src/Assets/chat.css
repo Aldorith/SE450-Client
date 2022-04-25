@@ -74,16 +74,17 @@
     color: #000000;
 }
 
-.sendMessageSection {
-}
-
 .messageEntry {
+    display: flex;
+    align-content: center;
+    align-items: center;
     font-weight: bold;
+    width: 95%;
 }
 
-.messageEntryText {
+.messageEntry input[type="text"] {
     border: 3px solid #ccc;
-    -webkit-transition: 0.5s;
+    width: 50%;
 }
 
 .submitLabelText {
@@ -114,3 +115,4 @@
     margin: 0px;
     padding-left: 2px;
 }
+

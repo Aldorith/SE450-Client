@@ -86,7 +86,7 @@ class userDashboard extends React.Component {
 
     // Load Community Creator
     loadCommunityCreator() {
-        let component = <CommunityCreator userData={this.props.userData} switchCommunity={this.switchCommunity}/>;
+        let component = <CommunityCreator userData={this.props.userData} switchCommunity={this.switchCommunity} />;
         this.setState({componentToRender: component});
     }
 
