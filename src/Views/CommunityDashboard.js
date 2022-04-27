@@ -131,7 +131,7 @@ class CommunityDashboard extends React.Component {
 
     getProfilePhoto() {
         // Set path for profile photo
-        let imgUrl = "/profilePhotos/" + this.props.userData.uid + ".png";
+        let imgUrl = "https://trivia.skybounddev.com/profilePhotos/" + this.props.userData.uid + ".png";
         this.setState({
             profilePhoto: imgUrl,
             profilePhotoHash: Date.now()
@@ -140,7 +140,7 @@ class CommunityDashboard extends React.Component {
 
     getHeaderImage() {
         // Set path for profile photo
-        let imgUrl = "/communityHeaders/" + this.state.community.CommunityID + ".png";
+        let imgUrl = "https://trivia.skybounddev.com/communityHeaders/" + this.state.community.CommunityID + ".png";
         console.log("X: " + imgUrl);
         this.setState({
             HeaderImage: imgUrl,

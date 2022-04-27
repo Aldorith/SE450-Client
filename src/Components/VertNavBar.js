@@ -108,7 +108,7 @@ class VertNavBar extends React.Component {
                             {this.props.userData.communities.map((community) =>
                                 <li key={community.CommunityID.toString()}>
                                     <a onClick={() => this.props.switchCommunity(community.CommunityID, 0)}>
-                                        <img src={'/communityIcons/'+community.CommunityID+'.png'} alt={community.CommunityName + " Logo"}/>
+                                        <img src={'https://trivia.skybounddev.com/communityIcons/'+community.CommunityID+'.png'} alt={community.CommunityName + " Logo"}/>
                                     </a>
                                 </li>
                             )}
@@ -123,7 +123,7 @@ class VertNavBar extends React.Component {
                         {this.props.communitySideBar}
                           <div className="profileBox">
                             <div className="profileInfo">
-                                <img src={"/profilePhotos/" + this.props.userData.uid + ".png"} alt="Profile Photo" />
+                                <img src={"https://trivia.skybounddev.com/profilePhotos/" + this.props.userData.uid + ".png"} alt="Profile Photo" />
                                 <p>{this.props.userData.username}</p>
                                 <a onClick={this.openSideBar}><img src={DotsImage} alt="Menu" id="menuDots"/></a>
                             </div>
