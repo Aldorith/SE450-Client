@@ -19,7 +19,7 @@ class ProfileImageUpload extends React.Component {
 
     getProfilePhoto() {
         // Set path for profile photo
-        let imgUrl = "/profilePhotos/" + this.props.userData.uid + ".png";
+        let imgUrl = "https://trivia.skybounddev.com/profilePhotos/" + this.props.userData.uid + ".png";
         this.setState({
             profilePhoto: imgUrl,
             profilePhotoHash: Date.now()

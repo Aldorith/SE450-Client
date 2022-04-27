@@ -59,7 +59,7 @@ class CommunityDashboard extends React.Component {
                     CommunityDescription: response.data[0].CommunityDescription,
                     CommunityRules: response.data[0].CommunityRules,
                     CommunityJoinCode: response.data[0].communityJoinCode,
-                    HeaderImage: "/communityHeaders/" + response.data[0].CommunityID + ".png",
+                    HeaderImage: "https://trivia.skybounddev.com/communityHeaders/" + response.data[0].CommunityID + ".png",
                     HeaderImageHash: Date.now()
                 }
             }, function() {

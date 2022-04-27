@@ -48,7 +48,7 @@ class Directory extends React.Component {
                                 (<li className = "directoryListItem" key={generalUsers.uid}>
                                         <div className = "directoryItemBox">
                                             <p className = "directoryItem">
-                                                <img src={"/profilePhotos/" + generalUsers.uid + ".png"}/>
+                                                <img src={"https://trivia.skybounddev.com/profilePhotos/" + generalUsers.uid + ".png"}/>
                                                 <span className = "directoryMemberName">{generalUsers.UserName} </span>
                                             </p>
                                         </div>
