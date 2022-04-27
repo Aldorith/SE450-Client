@@ -149,7 +149,7 @@ class Announcements extends React.Component {
                                 (<li className = "announcementsListItem" key={announcementEvents.AnnouncementID.toString()}>
                                         <div>
                                             <p className = "announcement">
-                                                <span className = "announcementTitle">{announcementEvents.AnnouncementTitle} </span>{this.props.isAdmin && (<button className='deleteAnnouncementText' value={announcementEvents.AnnouncementID} onClick={this.deleteAnnouncement}>Delete</button>)}<br/>
+                                                <span className = "announcementTitle">{announcementEvents.AnnouncementTitle} </span>{this.props.isAdmin ? (<button className='deleteAnnouncementText' value={announcementEvents.AnnouncementID} onClick={this.deleteAnnouncement}>Delete</button>) : null}<br/>
                                                 <span className = "announcementDescription">{announcementEvents.AnnouncementText} </span>
                                             </p>
 

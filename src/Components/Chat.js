@@ -249,7 +249,7 @@ class Chat extends React.Component {
                         <ul className = "messageList" ref = {this.messageListRef}>
                                 {this.state.messages.map(message =>
                                     (<li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
-                        </span>    <span className = "timestamp">{new Date(message.MessageDateTime).toLocaleString()} {this.props.isAdmin && (<button className='deleteMessageText' value={message.MessageID} onClick={this.deleteMessage}>Delete</button>)}<br/></span>{message.MessageText}</p></div></li>
+                        </span>    <span className = "timestamp">{new Date(message.MessageDateTime).toLocaleString()} {this.props.isAdmin ? (<button className='deleteMessageText' value={message.MessageID} onClick={this.deleteMessage}>Delete</button>) : null}<br/></span>{message.MessageText}</p></div></li>
                                     ))}
                         </ul>
                     </div>
@@ -258,7 +258,7 @@ class Chat extends React.Component {
                                 <label className = "submitLabelText"> Enter Message: </label>
                                 <input className = "messageEntryText" type="text" value={this.state.messageText} name="messageText" onChange={this.handleMessageChange}/>
                                 <div>
-                                    <input type="submit" value="Send" className = "messageSendButton" />{this.state.errorMessage&&(<p className="error"> {this.state.errorMessage}</p>)}
+                                    <input type="submit" value="Send" className = "messageSendButton" /> <input type="submit" value="Reload" className="messageSendButton" onClick={this.getMessageData}/>{this.state.errorMessage&&(<p className="error"> {this.state.errorMessage}</p>)}
                                 </div>
                             </form>
                         </div>
