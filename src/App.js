@@ -27,7 +27,7 @@ function App() {
             await setUser(user);
             if (user) {
                 // If User Load Data for Database
-                axios.post(('https://trivia.skybounddev.comhttps://trivia.skybounddev.com/getUserData'), {
+                axios.post(('https://trivia.skybounddev.com/getUserData'), {
                     uid: user.uid,
                     email: user.email,
                     username: user.displayName, //temp
