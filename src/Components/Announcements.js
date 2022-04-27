@@ -25,7 +25,7 @@ class Announcements extends React.Component {
     async componentDidMount() {
         this.setState({isLoading: true});
         console.log("Retrieving Announcement Data for Community: " + this.props.communityID);
-        axios.post(('/loadAnnouncement'), {
+        axios.post(('https://trivia.skybounddev.com/loadAnnouncement'), {
             communityID: this.props.communityID,
         }).then((response) => {
             //This is where the response is handled from the server
@@ -53,7 +53,7 @@ class Announcements extends React.Component {
         e.preventDefault(); // This prevents the page from refreshing
         console.log("Attempting to Create a New Announcement: " + this.state.announcementTitle);
 
-        axios.post(('/createAnnouncement'), {
+        axios.post(('https://trivia.skybounddev.com/createAnnouncement'), {
             communityID: this.props.communityID,
             announcementTitle: this.state.announcementTitle,
             announcementContents: this.state.announcementContents
@@ -71,7 +71,7 @@ class Announcements extends React.Component {
 
         console.log("Editing a Announcement: " + announcementID);
 
-        axios.post(('/editAnnouncement'), {
+        axios.post(('https://trivia.skybounddev.com/editAnnouncement'), {
             announcementID: announcementID,
             communityID: this.props.communityID,
             announcementTitle: this.state.announcementTitle,
@@ -94,7 +94,7 @@ class Announcements extends React.Component {
         console.log("Value: "+value);
         console.log("Deleting Announcement: " + value);
 
-        axios.post(('/deleteAnnouncement'), {
+        axios.post(('https://trivia.skybounddev.com/deleteAnnouncement'), {
             announcementID: value,
             communityID: this.props.communityID,
         }).then(function (response) {

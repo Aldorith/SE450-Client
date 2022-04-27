@@ -44,7 +44,7 @@ class Chat extends React.Component {
     }
 
     getChannelData() {
-        axios.post(('/getChannelData'), {
+        axios.post(('https://trivia.skybounddev.com/getChannelData'), {
             commID: this.props.communityData.CommunityID,
         }).then((response) => {
             //This is where the response is handled from the server
@@ -58,7 +58,7 @@ class Chat extends React.Component {
 
     getMessageData() {
         let that = this;
-        axios.post(('/getMessageData'), {
+        axios.post(('https://trivia.skybounddev.com/getMessageData'), {
             commID: this.props.communityData.CommunityID,
             chanID: this.state.chanID,
         }).then((response) => {
@@ -144,7 +144,7 @@ class Chat extends React.Component {
             }
             //Store Message on Server, and display new message
             // Make API call to web server
-            axios.post(('/sendMessage'), {
+            axios.post(('https://trivia.skybounddev.com/sendMessage'), {
                 messageID: that.state.messages[that.state.messages.length - 1].uniqueID + 1,
                 chanID: that.state.chanID,
                 commID: that.props.communityData.CommunityID,
@@ -176,7 +176,7 @@ class Chat extends React.Component {
         const value = target.value;
         this.setState({chanID: value});
         console.log("Trying To Get Messages: "+value + "not" +this.state.chanID);
-        axios.post(('/getMessageData'), {
+        axios.post(('https://trivia.skybounddev.com/getMessageData'), {
             commID: this.props.communityData.CommunityID,
             chanID: value,
         }).then((response) => {
@@ -203,7 +203,7 @@ class Chat extends React.Component {
         const value = target.value;
         console.log("Value: "+value);
 
-        axios.post(('/deleteMessage'), {
+        axios.post(('https://trivia.skybounddev.com/deleteMessage'), {
             commID: that.props.communityData.CommunityID,
             chanID: that.state.chanID,
             messID: value,

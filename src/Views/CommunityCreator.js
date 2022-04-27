@@ -30,7 +30,7 @@ class CommunityCreator extends React.Component {
 
         console.log("Attempting to Create Community: " + this.state.communityName);
 
-        axios.post(('/createCommunity'), {
+        axios.post(('https://trivia.skybounddev.com/createCommunity'), {
             uid: this.props.userData.uid,
             communityName: this.state.communityName,
             communityDesc: this.state.communityDesc

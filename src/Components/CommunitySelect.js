@@ -41,7 +41,7 @@ class CommunitySelect extends React.Component {
         let that = this;
         //Have User Join Community
         // Make API call to web server
-        axios.post(('/userJoinCommunity'), {
+        axios.post(('https://trivia.skybounddev.com/userJoinCommunity'), {
             uid: this.props.userData.uid,
             communityJoinCode: this.state.communityJoinCode,
         }).then((response) => {
@@ -51,7 +51,7 @@ class CommunitySelect extends React.Component {
                 that.setErrorMessage('');
                 this.props.switchCommunity(response.data[0].CommunityID);
 
-                axios.post(('/addToDirectory'), {
+                axios.post(('https://trivia.skybounddev.com/addToDirectory'), {
                     userID: this.props.userData.uid,
                     communityID: response.data[0].CommunityID,
                 }).then((response) => {

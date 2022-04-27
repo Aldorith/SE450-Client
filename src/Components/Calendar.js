@@ -18,7 +18,7 @@ class Calendar extends React.Component {
 
     async componentDidMount() {
         console.log("Retrieving Calendar Data for Community: " + this.props.communityID);
-        axios.post(('/loadCalendar'), {
+        axios.post(('https://trivia.skybounddev.com/loadCalendar'), {
             communityID: + this.props.communityID,
         }).then((response) => {
             //This is where the response is handled from the server
@@ -45,7 +45,7 @@ class Calendar extends React.Component {
 
         console.log("Editing a Calendar Event: " + eventID);
 
-        axios.post(('/editCalendarEvent'), {
+        axios.post(('https://trivia.skybounddev.com/editCalendarEvent'), {
             eventID: eventID,
             communityID: this.props.communityID,
             calendarEventName: this.state.calendarEventName,
@@ -70,7 +70,7 @@ class Calendar extends React.Component {
         console.log("CommunityID: " + that.props.communityID);
         console.log("Deleting a Calendar Event: " + value);
 
-        axios.post(('/deleteCalendarEvent'), {
+        axios.post(('https://trivia.skybounddev.com/deleteCalendarEvent'), {
             eventID: value,
             commID: that.props.communityID,
         }).then(function (response) {

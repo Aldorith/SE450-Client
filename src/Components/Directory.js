@@ -20,7 +20,7 @@ class Directory extends React.Component {
     async componentDidMount(){
 
         console.log("Loading Directory Information for Community: " + this.communityID);
-        axios.post(('/loadDirectory'), {
+        axios.post(('https://trivia.skybounddev.com/loadDirectory'), {
             communityID: this.props.communityID,
         }).then((response) => {
             //This is where the response is handled from the server

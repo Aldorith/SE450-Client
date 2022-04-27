@@ -67,7 +67,7 @@ class AdminDashboard extends React.Component {
     updateCommunity(e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        axios.post(('/updateCommunity'), {
+        axios.post(('https://trivia.skybounddev.com/updateCommunity'), {
             communityID: this.props.community.CommunityID,
             communityName: this.state.tempCommunityName,
             communityDesc: this.state.tempCommunityDesc,
@@ -155,7 +155,7 @@ class AdminDashboard extends React.Component {
         e.preventDefault(); // This prevents the page from refreshing
         console.log("Attempting to Create a New Announcement: " + this.state.announcementTitle);
 
-        axios.post(('/createAnnouncement'), {
+        axios.post(('https://trivia.skybounddev.com/createAnnouncement'), {
             communityID: this.props.community.CommunityID,
             announcementTitle: this.state.announcementTitle,
             announcementDesc: this.state.announcementDesc
@@ -171,7 +171,7 @@ class AdminDashboard extends React.Component {
 
     createCalendarEvent(e) {
         e.preventDefault(); // This prevents the page from refreshing
-        axios.post(('/createCalendarEvent'), {
+        axios.post(('https://trivia.skybounddev.com/createCalendarEvent'), {
             communityID: this.props.community.CommunityID,
             eventTitle: this.state.calendarEventName,
             eventDescription: this.state.calendarEventDesc,
@@ -201,7 +201,7 @@ class AdminDashboard extends React.Component {
     deleteCommunity(e) {
         e.preventDefault();
         if (window.confirm("Are you sure you want to delete this community?")) {
-            axios.post(('/removeCommunity'), {
+            axios.post(('https://trivia.skybounddev.com/removeCommunity'), {
                 communityID: this.props.community.CommunityID,
                 uid: this.props.userData.uid,
             }).then((response) => {

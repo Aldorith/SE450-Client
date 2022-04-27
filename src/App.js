@@ -27,7 +27,7 @@ function App() {
             await setUser(user);
             if (user) {
                 // If User Load Data for Database
-                axios.post(('/getUserData'), {
+                axios.post(('https://trivia.skybounddev.comhttps://trivia.skybounddev.com/getUserData'), {
                     uid: user.uid,
                     email: user.email,
                     username: user.displayName, //temp
@@ -52,7 +52,7 @@ function App() {
                 }
 
                 //Get User Community Data
-                axios.post(('/getUserCommunityData'), {
+                axios.post(('https://trivia.skybounddev.com/getUserCommunityData'), {
                     uid: user.uid,
                 }).then(function (response) {
                     tempData.communities = response.data;

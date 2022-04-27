@@ -32,7 +32,7 @@ class CreateChatChannel extends React.Component {
         this.state.successMessage = '';
         let that = this;
         console.log('Getting Channel Data For '+this.props.communityData.CommunityID);
-        axios.post(('/getChannelData'), {
+        axios.post(('https://trivia.skybounddev.com/getChannelData'), {
             commID: this.props.communityData.CommunityID,
         }).then((response) => {
             //This is where the response is handled from the server
@@ -76,7 +76,7 @@ class CreateChatChannel extends React.Component {
             })
             if ((this.state.uniqueName=== true) && (this.state.channelName.length < 21)) {
                 that.state.channelName = that.checkText(that.state.channelName);
-                axios.post(('/addChannel'), {
+                axios.post(('https://trivia.skybounddev.com/addChannel'), {
                     commID: that.props.communityData.CommunityID,
                     channelName: that.state.channelName,
                 }).then((response) => {
@@ -106,7 +106,7 @@ class CreateChatChannel extends React.Component {
         if(this.state.channels.length > 1) {
             this.setState({errorMessage2:''});
             let channelsTemp = this.state.channels;
-            axios.post(('/deleteChannel'), {
+            axios.post(('https://trivia.skybounddev.com/deleteChannel'), {
                 commID: that.props.communityData.CommunityID,
                 chanID: that.state.chanID,
             }).then((response) => {

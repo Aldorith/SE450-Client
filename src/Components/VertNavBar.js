@@ -57,7 +57,7 @@ class VertNavBar extends React.Component {
         let that = this;
         //Have User Join Community
         // Make API call to web server
-        axios.post(('/userJoinCommunity'), {
+        axios.post(('https://trivia.skybounddev.com/userJoinCommunity'), {
             uid: this.props.userData.uid,
             communityJoinCode: this.state.communityJoinCode,
         }).then(function (response) {

@@ -49,7 +49,7 @@ class CommunityDashboard extends React.Component {
         this.getProfilePhoto();
 
         // Make API to get Community Data
-        axios.post(('/getCommunityData'), {
+        axios.post(('https://trivia.skybounddev.com/getCommunityData'), {
             communityID: this.props.communityID,
         }).then((response) => {
             this.setState({
@@ -154,7 +154,7 @@ class CommunityDashboard extends React.Component {
     leaveCommunity() {
         if (window.confirm("Are you sure you want to leave " + this.state.community.CommunityName + "?")) {
             // Make API to get Community Data
-            axios.post(('/userLeaveCommunity'), {
+            axios.post(('https://trivia.skybounddev.com/userLeaveCommunity'), {
                 communityID: this.props.communityID,
                 uid: this.props.userData.uid,
             }).then((response) => {
