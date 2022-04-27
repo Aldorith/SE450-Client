@@ -147,6 +147,8 @@ class CommunityDashboard extends React.Component {
             HeaderImageHash: Date.now(),
             isLoading: false,
         });
+
+        console.log("Upated Header");
     }
 
     leaveCommunity() {
@@ -172,7 +174,9 @@ class CommunityDashboard extends React.Component {
             eventsKey: Date.now()+"events",
             aKey: Date.now()+"announcements",
             chatKey: Date.now()+"chat"
-        })
+        });
+
+        this.getHeaderImage();
     }
 
     render() {

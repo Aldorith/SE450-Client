@@ -96,9 +96,7 @@ class AdminDashboard extends React.Component {
             tempIcon: '',
             tempHeader: ''
         })
-
-        // TODO Display Success Message
-
+        
     }
 
     uploadIcon() {
@@ -190,6 +188,7 @@ class AdminDashboard extends React.Component {
     }
 
     closeAdminDash() {
+        console.log("Closing Admin Dash");
         // Refresh
         this.props.update();
 
