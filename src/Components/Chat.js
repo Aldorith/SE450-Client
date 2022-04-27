@@ -249,7 +249,7 @@ class Chat extends React.Component {
                         <ul className = "messageList" ref = {this.messageListRef}>
                                 {this.state.messages.map(message =>
                                     (<li className = "messageListItem" key={message.uniqueID.toString()}><div><p className = "messageText"><span className = "username">{message.UserName}
-                        </span>    <span className = "timestamp">{message.MessageDateTime} {this.props.isAdmin && (<button className='deleteMessageText' value={message.MessageID} onClick={this.deleteMessage}>Delete</button>)}<br/></span>{message.MessageText}</p></div></li>
+                        </span>    <span className = "timestamp">{new Date(message.MessageDateTime).toLocaleString()} {this.props.isAdmin && (<button className='deleteMessageText' value={message.MessageID} onClick={this.deleteMessage}>Delete</button>)}<br/></span>{message.MessageText}</p></div></li>
                                     ))}
                         </ul>
                     </div>

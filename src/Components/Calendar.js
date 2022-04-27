@@ -112,7 +112,7 @@ class Calendar extends React.Component {
                                      <div>
                                          <p className = "event">
                                              <span className = "eventTitle">{calendarEvents.EventTitle}   </span>
-                                             <span className = "eventDateTime">{calendarEvents.EventDateTime}   {this.props.isAdmin && (<button className='deleteCalendarEventText' value={calendarEvents.EventID} onClick={this.deleteCalendarEvent}>Delete</button>)}</span>
+                                             <span className = "eventDateTime">{new Date(calendarEvents.EventDateTime).toLocaleString()}   {this.props.isAdmin && (<button className='deleteCalendarEventText' value={calendarEvents.EventID} onClick={this.deleteCalendarEvent}>Delete</button>)}</span>
                                              <span className = "eventLocation">{calendarEvents.EventLocation}</span><br/>
                                              <span className = "eventDescription">{calendarEvents.EventDescription}</span>
                                          </p>
