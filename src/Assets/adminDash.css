@@ -2,12 +2,12 @@
   background-color: #282c34;
   display: grid;
   grid-template-areas:
-    'null close'
+    'title close'
     'a b'
     'a c'
     'd e';
-  gap: 10px;
-  padding: 10px;
+    gap: 10px;
+    padding: 10px;
     border-radius: 25px;
     border-color: white;
     border-style: solid;
@@ -95,11 +95,10 @@
     border-radius: 25px;
 }
  .adminDash .item2 {
-   grid-area: b;
-     background-color: #444e5c;
-     padding: 10px;
-     border-radius: 25px;
-
+    grid-area: b;
+    background-color: #444e5c;
+    padding: 10px;
+    border-radius: 25px;
  }
  .adminDash .item3 {
    grid-area: c;
@@ -119,17 +118,18 @@
 
  .adminDash .editorModalButton {
      grid-area: f;
-
  }
 
  #redButton {
      background-color: #e13b38;
-     float: none;
-     cursor: pointer;
      padding: 5%;
+     font-size: 1em;
+     min-width: 25%;
+     color: white;
+     border-style: none;
+     border-radius: 5px;
      width: 45%;
  }
-
 
  .editorModalButton {
      padding: 5%;
@@ -140,7 +140,6 @@
      border-style: none;
      border-radius: 5px;
      width: 45%;
-
  }
 
  .editorModal {
@@ -172,6 +171,7 @@
      background-color: white;
      border-radius: 10px;
      padding: 10px;
+     grid-area: title;
  }
 
  .editorModalCloseButton{

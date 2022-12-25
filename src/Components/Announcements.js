@@ -23,8 +23,9 @@ class Announcements extends React.Component {
     }
 
     async componentDidMount() {
+        this.setState({isLoading: true});
         console.log("Retrieving Announcement Data for Community: " + this.props.communityID);
-        axios.post(('/loadAnnouncement'), {
+        axios.post(('https://trivia.skybounddev.com/loadAnnouncement'), {
             communityID: this.props.communityID,
         }).then((response) => {
             //This is where the response is handled from the server
@@ -34,6 +35,7 @@ class Announcements extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+        this.setState({isLoading: false});
     }
 
     handleInputChange(event) {
@@ -51,7 +53,7 @@ class Announcements extends React.Component {
         e.preventDefault(); // This prevents the page from refreshing
         console.log("Attempting to Create a New Announcement: " + this.state.announcementTitle);
 
-        axios.post(('/createAnnouncement'), {
+        axios.post(('https://trivia.skybounddev.com/createAnnouncement'), {
             communityID: this.props.communityID,
             announcementTitle: this.state.announcementTitle,
             announcementContents: this.state.announcementContents
@@ -69,7 +71,7 @@ class Announcements extends React.Component {
 
         console.log("Editing a Announcement: " + announcementID);
 
-        axios.post(('/editAnnouncement'), {
+        axios.post(('https://trivia.skybounddev.com/editAnnouncement'), {
             announcementID: announcementID,
             communityID: this.props.communityID,
             announcementTitle: this.state.announcementTitle,
@@ -83,31 +85,39 @@ class Announcements extends React.Component {
             });
     }
 
-    deleteAnnouncement(announcementID){
-        console.log("Deleting Announcement: " + announcementID);
+    deleteAnnouncement(event){
+        event.preventDefault();
+        this.setState({isLoading: true});
+        let that = this;
+        const target = event.target;
+        const value = target.value;
+        console.log("Value: "+value);
+        console.log("Deleting Announcement: " + value);
 
-        axios.post(('/deleteAnnouncement'), {
-            announcementID: announcementID
-
+        axios.post(('https://trivia.skybounddev.com/deleteAnnouncement'), {
+            announcementID: value,
+            communityID: this.props.communityID,
         }).then(function (response) {
             console.log(response.data[0]);
+            that.setState({announcementEvents: response.data});
         })
             .catch(function (error) {
                 console.log(error);
             });
+        this.setState({isLoading: false});
     }
 
     openAnnouncementEditor(){
     }
-
+/*
     handleOption(announcementID, announcementTitle, announcementDescription){
         console.log("Gettin some callin");
         if(this.state.selectChoice === "delete")
             this.deleteAnnouncement(announcementID);
         if(this.state.selectChoice === "edit")
             this.openAnnouncementEditor(announcementID, announcementTitle, announcementDescription)
-
     }
+ */
 
     render() {
         if(this.state.isLoading)
@@ -117,7 +127,7 @@ class Announcements extends React.Component {
                 </div>
             )
 
-        if(this.state.announcementEvents.length == 0)
+        else if(this.state.announcementEvents.length === 0)
             return(
                 <div className = "communityAnnouncements">
                     <p className = "announcementsTitle">Community Announcements</p>
@@ -129,7 +139,7 @@ class Announcements extends React.Component {
                 </div>
             )
 
-        return(
+        else return(
             <div className = "communityAnnouncements">
                 <p className = "announcementsTitle">Community Announcements</p>
                 <div className= "announcementsBox">
@@ -139,7 +149,7 @@ class Announcements extends React.Component {
                                 (<li className = "announcementsListItem" key={announcementEvents.AnnouncementID.toString()}>
                                         <div>
                                             <p className = "announcement">
-                                                <span className = "announcementTitle">{announcementEvents.AnnouncementTitle} </span>
+                                                <span className = "announcementTitle">{announcementEvents.AnnouncementTitle} </span>{this.props.isAdmin ? (<button className='deleteAnnouncementText' value={announcementEvents.AnnouncementID} onClick={this.deleteAnnouncement}>Delete</button>) : null}<br/>
                                                 <span className = "announcementDescription">{announcementEvents.AnnouncementText} </span>
                                             </p>
 

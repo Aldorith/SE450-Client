@@ -57,7 +57,7 @@ class VertNavBar extends React.Component {
         let that = this;
         //Have User Join Community
         // Make API call to web server
-        axios.post(('/userJoinCommunity'), {
+        axios.post(('https://trivia.skybounddev.com/userJoinCommunity'), {
             uid: this.props.userData.uid,
             communityJoinCode: this.state.communityJoinCode,
         }).then(function (response) {
@@ -107,8 +107,8 @@ class VertNavBar extends React.Component {
                         <ul>
                             {this.props.userData.communities.map((community) =>
                                 <li key={community.CommunityID.toString()}>
-                                    <a onClick={() => this.props.switchCommunity(community.CommunityID)}>
-                                        <img src={'/communityIcons/'+community.CommunityID+'.png'} alt={community.CommunityName + " Logo"}/>
+                                    <a onClick={() => this.props.switchCommunity(community.CommunityID, 0)}>
+                                        <img src={'https://trivia.skybounddev.com/communityIcons/'+community.CommunityID+'.png'} alt={community.CommunityName + " Logo"}/>
                                     </a>
                                 </li>
                             )}
@@ -123,7 +123,7 @@ class VertNavBar extends React.Component {
                         {this.props.communitySideBar}
                           <div className="profileBox">
                             <div className="profileInfo">
-                                <img src={"/profilePhotos/" + this.props.userData.uid + ".png"} alt="Profile Photo" />
+                                <img src={"https://trivia.skybounddev.com/profilePhotos/" + this.props.userData.uid + ".png"} alt="Profile Photo" />
                                 <p>{this.props.userData.username}</p>
                                 <a onClick={this.openSideBar}><img src={DotsImage} alt="Menu" id="menuDots"/></a>
                             </div>
@@ -145,14 +145,16 @@ class VertNavBar extends React.Component {
                     <div className="joinOrCreateModal">
                         <button onClick={this.handleCloseModal}>X</button>
                         <br />
-                        <h2>Join Community</h2>
-                        <form onSubmit={this.joinCommunity}>
-                            <input type="text" value={this.state.communityJoinCode} name="communityJoinCode" placeholder={"Join Code"} onChange={this.handleChange}/>
-                            <input type="submit" value="Join" />
-                            {this.state.errorMessage && (
-                                <p className="error"> {this.state.errorMessage}</p>
-                            )}
-                        </form>
+                        <div className="communityCreator">
+                            <h2>Join Community</h2>
+                            <form onSubmit={this.joinCommunity}>
+                                <input type="text" value={this.state.communityJoinCode} name="communityJoinCode" placeholder={"Join Code"} onChange={this.handleChange}/>
+                                <input type="submit" value="Join" />
+                                {this.state.errorMessage && (
+                                    <p className="error"> {this.state.errorMessage}</p>
+                                )}
+                            </form>
+                        </div>
                         <br />
                         <CommunityCreator userData={this.props.userData} switchCommunity={this.props.switchCommunity} />
                     </div>

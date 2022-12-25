@@ -31,7 +31,7 @@ class CommunityPostingEditor extends React.Component {
         });
 
         console.log("Retrieving Calendar Data for Community: " + this.props.communityID);
-        axios.post(('/loadCalendar'), {
+        axios.post(('https://trivia.skybounddev.com/loadCalendar'), {
             communityID: + this.props.communityID,
         }).then((response) => {
             //This is where the response is handled from the server
@@ -43,7 +43,7 @@ class CommunityPostingEditor extends React.Component {
             });
 
         console.log("Retrieving Announcement Data for Community: " + this.props.communityID);
-        axios.post(('/loadAnnouncement'), {
+        axios.post(('https://trivia.skybounddev.com/loadAnnouncement'), {
             communityID: this.props.communityID,
         }).then((response) => {
             //This is where the response is handled from the server
@@ -59,7 +59,7 @@ class CommunityPostingEditor extends React.Component {
         e.preventDefault();
         console.log("Deleting Announcement: " + announcementID);
 
-        axios.post(('/deleteAnnouncement'), {
+        axios.post(('https://trivia.skybounddev.com/deleteAnnouncement'), {
             announcementID: announcementID
 
         }).then(function (response) {
@@ -74,7 +74,7 @@ class CommunityPostingEditor extends React.Component {
     deleteCalendarEvent(eventID){
         console.log("Deleting a Calendar Event: " + eventID);
 
-        axios.post(('/deleteCalendarEvent'), {
+        axios.post(('https://trivia.skybounddev.com/deleteCalendarEvent'), {
             eventID: eventID
 
         }).then(function (response) {

@@ -4,6 +4,10 @@ import '../Assets/adminDash.css';
 import CreateChatChannel from "../Components/CreateChatChannel";
 import CommunityPostingEditor from "./CommunityPostingEditor";
 import Modal from "react-modal";
+import Calendar from "../Components/Calendar";
+import Chat from "../Components/Chat";
+import Announcements from "../Components/Announcements";
+import Directory from "../Components/Directory";
 // Original adminDashboard.css here: https://pastebin.com/ckdnnSz1
 
 class AdminDashboard extends React.Component {
@@ -17,13 +21,13 @@ class AdminDashboard extends React.Component {
             tempIcon: '',
             tempHeader: '',
 
-            announcementTitle: undefined,
-            announcementDesc: undefined,
+            announcementTitle: '',
+            announcementDesc: '',
 
-            calendarEventName: undefined,
-            calendarEventDesc: undefined,
-            calendarEventDay: undefined,
-            calendarEventLocation: undefined,
+            calendarEventName: '',
+            calendarEventDesc: '',
+            calendarEventDay: '',
+            calendarEventLocation: '',
 
             showEditorModal: false,
         }
@@ -38,6 +42,7 @@ class AdminDashboard extends React.Component {
         this.deleteCommunity = this.deleteCommunity.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.closeAdminDash = this.closeAdminDash.bind(this);
     }
 
     componentDidMount() {
@@ -62,7 +67,7 @@ class AdminDashboard extends React.Component {
     updateCommunity(e) {
         e.preventDefault(); // This prevents the page from refreshing
 
-        axios.post(('/updateCommunity'), {
+        axios.post(('https://trivia.skybounddev.com/updateCommunity'), {
             communityID: this.props.community.CommunityID,
             communityName: this.state.tempCommunityName,
             communityDesc: this.state.tempCommunityDesc,
@@ -91,9 +96,7 @@ class AdminDashboard extends React.Component {
             tempIcon: '',
             tempHeader: ''
         })
-
-        // TODO Display Success Message
-
+        
     }
 
     uploadIcon() {
@@ -152,7 +155,7 @@ class AdminDashboard extends React.Component {
         e.preventDefault(); // This prevents the page from refreshing
         console.log("Attempting to Create a New Announcement: " + this.state.announcementTitle);
 
-        axios.post(('/createAnnouncement'), {
+        axios.post(('https://trivia.skybounddev.com/createAnnouncement'), {
             communityID: this.props.community.CommunityID,
             announcementTitle: this.state.announcementTitle,
             announcementDesc: this.state.announcementDesc
@@ -168,7 +171,7 @@ class AdminDashboard extends React.Component {
 
     createCalendarEvent(e) {
         e.preventDefault(); // This prevents the page from refreshing
-        axios.post(('/createCalendarEvent'), {
+        axios.post(('https://trivia.skybounddev.com/createCalendarEvent'), {
             communityID: this.props.community.CommunityID,
             eventTitle: this.state.calendarEventName,
             eventDescription: this.state.calendarEventDesc,
@@ -184,34 +187,13 @@ class AdminDashboard extends React.Component {
         this.setState({calendarEventName: "", calendarEventDesc: "", calendarEventDay: "", calendarEventLocation: ""})
     }
 
-    /*
-    tried getting the check text to work, but it didn't seem to like it for whatever reason.
-   createCalendarEvent(e) {
-       e.preventDefault(); // This prevents the page from refreshing
-           let tempCalendarEventName = this.checkText(this.props.community.calendarEventName);
-           let tempCalendarEventDesc = this.checkText(this.props.community.calendarEventDesc);
-           let tempCalendarEventLocation = this.checkText(this.props.community.calendarEventLocation);
-       axios.post(('/createCalendarEvent'), {
-           communityID: this.props.community.CommunityID,
-           eventTitle:  tempCalendarEventName,
-           eventDescription:  tempCalendarEventDesc,
-           eventDateTime:  this.props.calendarEventDay,
-           eventLocation:  tempCalendarEventLocation
-       }).then(function (response) {
-           console.log(response.data[0]);
-       })
-           .catch(function (error) {
-               console.log(error);
-           });
-
-       this.setState({calendarEventName: "", calendarEventDesc: "", calendarEventDay: "", calendarEventLocation: ""})
-   }
-   */
-
     closeAdminDash() {
+        console.log("Closing Admin Dash");
+        // Refresh
+        this.props.update();
+
         // Get the modal
         let modal = document.getElementById("adminModal");
-
         modal.style.display = "none";
     }
 
@@ -219,7 +201,7 @@ class AdminDashboard extends React.Component {
     deleteCommunity(e) {
         e.preventDefault();
         if (window.confirm("Are you sure you want to delete this community?")) {
-            axios.post(('/removeCommunity'), {
+            axios.post(('https://trivia.skybounddev.com/removeCommunity'), {
                 communityID: this.props.community.CommunityID,
                 uid: this.props.userData.uid,
             }).then((response) => {
@@ -318,32 +300,13 @@ class AdminDashboard extends React.Component {
                     <CreateChatChannel userData={this.props.userData} communityData={this.props.community} />
                 </div>
                 <div className="item5">
-                    <button className = "editorModalButton" onClick={this.handleOpenModal}>Open Community Editor</button>
-
-                    <form className = "deleteCommunityButton" onSubmit={this.deleteCommunity}>
-                        <input type="submit" id="redButton" value="Delete Community" />
-                    </form>
+                    <br/><br/><br/>
+                    <button id="redButton" className="deleteCommunityButton" onClick={this.deleteCommunity}>
+                        Delete Community
+                    </button>
                 </div>
-
-                <Modal
-                    className = "editorModal"
-                    isOpen={this.state.showEditorModal}
-                    contentLabel="Community Post Manager"
-                    style={customStyles}
-                >
-                    <div className = "editorModalContent">
-                        <button className="editorModalCloseButton" onClick={this.handleCloseModal}>X</button>
-                        <br />
-                        <CommunityPostingEditor communityID={this.props.community.CommunityID} />
-                    </div>
-                </Modal>
-
             </div>
         );
     }
 }
 export default AdminDashboard;
-
-//  <div className = "tempEditor">
-//                     <CommunityPostingEditor communityID={this.props.community.CommunityID} />
-//                 </div>

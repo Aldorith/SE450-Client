@@ -21,6 +21,7 @@
     overflow: scroll;
     overflow-x: hidden;
     scroll-margin: 0;
+    height: 10rem;
 }
 .announcementList {
     list-style-type: none;
@@ -28,10 +29,12 @@
     margin-bottom: 0;
     text-align: left;
     height: 10rem;
-    padding-left: 10px;
-    padding-right: 10px;
-
 }
+
+.announcements ul {
+    padding: 0;
+}
+
 
 .announcementsListItem {
     list-style-type: none;
@@ -74,4 +77,7 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     text-align: center;
+}
+
+.deleteAnnouncementText {
 }

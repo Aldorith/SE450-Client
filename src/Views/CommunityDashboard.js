@@ -26,6 +26,9 @@ class CommunityDashboard extends React.Component {
             profilePhoto: undefined,
             profilePhotoHash: Date.now(),
             sideBarComp: undefined,
+            eventsKey: Date.now()+"events",
+            aKey: Date.now()+"announcements",
+            chatKey: Date.now()+"chat"
         }
 
         this.openProfileEdit = this.openProfileEdit.bind(this);
@@ -36,6 +39,9 @@ class CommunityDashboard extends React.Component {
 
         this.updateSideBar = this.updateSideBar.bind(this);
         this.leaveCommunity = this.leaveCommunity.bind(this);
+
+        this.refreshComponents = this.refreshComponents.bind(this);
+        this.update = this.update.bind(this);
     }
 
     async componentDidMount() {
@@ -43,7 +49,7 @@ class CommunityDashboard extends React.Component {
         this.getProfilePhoto();
 
         // Make API to get Community Data
-        axios.post(('/getCommunityData'), {
+        axios.post(('https://trivia.skybounddev.com/getCommunityData'), {
             communityID: this.props.communityID,
         }).then((response) => {
             this.setState({
@@ -53,7 +59,7 @@ class CommunityDashboard extends React.Component {
                     CommunityDescription: response.data[0].CommunityDescription,
                     CommunityRules: response.data[0].CommunityRules,
                     CommunityJoinCode: response.data[0].communityJoinCode,
-                    HeaderImage: "/communityHeaders/" + response.data[0].CommunityID + ".png",
+                    HeaderImage: "https://trivia.skybounddev.com/communityHeaders/" + response.data[0].CommunityID + ".png",
                     HeaderImageHash: Date.now()
                 }
             }, function() {
@@ -99,6 +105,13 @@ class CommunityDashboard extends React.Component {
         let modal = document.getElementById("adminModal");
 
         modal.style.display = "none";
+        console.log("BeforeRefresh");
+        this.refreshComponents();
+        console.log("AfterRefresh");
+    }
+
+    refreshComponents(){
+        Chat.state.reloaded = true;
     }
 
     // Profile Modal
@@ -118,7 +131,7 @@ class CommunityDashboard extends React.Component {
 
     getProfilePhoto() {
         // Set path for profile photo
-        let imgUrl = "/profilePhotos/" + this.props.userData.uid + ".png";
+        let imgUrl = "https://trivia.skybounddev.com/profilePhotos/" + this.props.userData.uid + ".png";
         this.setState({
             profilePhoto: imgUrl,
             profilePhotoHash: Date.now()
@@ -127,19 +140,21 @@ class CommunityDashboard extends React.Component {
 
     getHeaderImage() {
         // Set path for profile photo
-        let imgUrl = "/communityHeaders/" + this.state.community.CommunityID + ".png";
+        let imgUrl = "https://trivia.skybounddev.com/communityHeaders/" + this.state.community.CommunityID + ".png";
         console.log("X: " + imgUrl);
         this.setState({
             HeaderImage: imgUrl,
             HeaderImageHash: Date.now(),
             isLoading: false,
         });
+
+        console.log("Upated Header");
     }
 
     leaveCommunity() {
         if (window.confirm("Are you sure you want to leave " + this.state.community.CommunityName + "?")) {
             // Make API to get Community Data
-            axios.post(('/userLeaveCommunity'), {
+            axios.post(('https://trivia.skybounddev.com/userLeaveCommunity'), {
                 communityID: this.props.communityID,
                 uid: this.props.userData.uid,
             }).then((response) => {
@@ -149,6 +164,19 @@ class CommunityDashboard extends React.Component {
                 console.log(error);
             });
         }
+    }
+
+    // Refresh Components
+    update() {
+        console.log("trying to update");
+        console.log("Is Admin: " + this.props.isAdmin);
+        this.setState({
+            eventsKey: Date.now()+"events",
+            aKey: Date.now()+"announcements",
+            chatKey: Date.now()+"chat"
+        });
+
+        this.getHeaderImage();
     }
 
     render() {
@@ -170,9 +198,9 @@ class CommunityDashboard extends React.Component {
                     </div>
                 </div>
                 <div className="communityDashContent">
-                    <Calendar communityID={this.state.community.CommunityID } />
-                    <Chat userData={this.props.userData } communityData={this.state.community} isAdmin={this.props.isAdmin} />
-                    <Announcements communityID={this.state.community.CommunityID } />
+                    <Calendar communityID={this.state.community.CommunityID } key={this.state.eventsKey} isAdmin={this.props.isAdmin}/>
+                    <Chat userData={this.props.userData } communityData={this.state.community} isAdmin={this.props.isAdmin} key={this.state.chatKey} />
+                    <Announcements communityID={this.state.community.CommunityID} key={this.state.aKey} isAdmin={this.props.isAdmin}/>
                     <Directory userData={this.props.userData} communityID = {this.state.community.CommunityID} />
                 </div>
                 <div id="profileModal" className="modal">
@@ -184,7 +212,7 @@ class CommunityDashboard extends React.Component {
 
                 <div id="adminModal" className="modal">
                     <div className="admin-modal-content" >
-                        <AdminDashboard userData={this.props.userData} community={this.state.community} />
+                        <AdminDashboard userData={this.props.userData} onClose = {this.refreshComponents} community={this.state.community} update={this.update}/>
                     </div>
                 </div>
             </div>

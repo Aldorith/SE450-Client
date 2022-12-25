@@ -18,7 +18,7 @@ class Calendar extends React.Component {
 
     async componentDidMount() {
         console.log("Retrieving Calendar Data for Community: " + this.props.communityID);
-        axios.post(('/loadCalendar'), {
+        axios.post(('https://trivia.skybounddev.com/loadCalendar'), {
             communityID: + this.props.communityID,
         }).then((response) => {
             //This is where the response is handled from the server
@@ -45,7 +45,7 @@ class Calendar extends React.Component {
 
         console.log("Editing a Calendar Event: " + eventID);
 
-        axios.post(('/editCalendarEvent'), {
+        axios.post(('https://trivia.skybounddev.com/editCalendarEvent'), {
             eventID: eventID,
             communityID: this.props.communityID,
             calendarEventName: this.state.calendarEventName,
@@ -61,15 +61,21 @@ class Calendar extends React.Component {
             });
     }
 
-    deleteCalendarEvent(e, eventID){
-        e.preventDefault();
-        console.log("Deleting a Calendar Event: " + eventID);
+    deleteCalendarEvent(event){
+        event.preventDefault();
+        let that = this;
+        const target = event.target;
+        const value = target.value;
+        console.log("Deleting a Calendar Event: " + value);
+        console.log("CommunityID: " + that.props.communityID);
+        console.log("Deleting a Calendar Event: " + value);
 
-        axios.post(('/deleteCalendarEvent'), {
-            eventID: eventID
-
+        axios.post(('https://trivia.skybounddev.com/deleteCalendarEvent'), {
+            eventID: value,
+            commID: that.props.communityID,
         }).then(function (response) {
             console.log(response.data[0]);
+            that.setState({calendarEvents: response.data});
         })
             .catch(function (error) {
                 console.log(error);
@@ -83,7 +89,7 @@ class Calendar extends React.Component {
                     Loading Calendar
                 </div>
             )
-        if(this.state.calendarEvents.length == 0)
+        if(this.state.calendarEvents.length === 0)
             return(
                 <div className = "communityCalendar">
                     <p className = "calendarTitle">Events Coming Up</p>
@@ -106,7 +112,7 @@ class Calendar extends React.Component {
                                      <div>
                                          <p className = "event">
                                              <span className = "eventTitle">{calendarEvents.EventTitle}   </span>
-                                             <span className = "eventDateTime">{calendarEvents.EventDateTime}   </span>
+                                             <span className = "eventDateTime">{new Date(calendarEvents.EventDateTime).toLocaleString()}   {this.props.isAdmin ? (<button className='deleteCalendarEventText' value={calendarEvents.EventID} onClick={this.deleteCalendarEvent}>Delete</button>) : null}</span>
                                              <span className = "eventLocation">{calendarEvents.EventLocation}</span><br/>
                                              <span className = "eventDescription">{calendarEvents.EventDescription}</span>
                                          </p>

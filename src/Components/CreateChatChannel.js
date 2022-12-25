@@ -32,7 +32,7 @@ class CreateChatChannel extends React.Component {
         this.state.successMessage = '';
         let that = this;
         console.log('Getting Channel Data For '+this.props.communityData.CommunityID);
-        axios.post(('/getChannelData'), {
+        axios.post(('https://trivia.skybounddev.com/getChannelData'), {
             commID: this.props.communityData.CommunityID,
         }).then((response) => {
             //This is where the response is handled from the server
@@ -76,7 +76,7 @@ class CreateChatChannel extends React.Component {
             })
             if ((this.state.uniqueName=== true) && (this.state.channelName.length < 21)) {
                 that.state.channelName = that.checkText(that.state.channelName);
-                axios.post(('/addChannel'), {
+                axios.post(('https://trivia.skybounddev.com/addChannel'), {
                     commID: that.props.communityData.CommunityID,
                     channelName: that.state.channelName,
                 }).then((response) => {
@@ -106,13 +106,13 @@ class CreateChatChannel extends React.Component {
         if(this.state.channels.length > 1) {
             this.setState({errorMessage2:''});
             let channelsTemp = this.state.channels;
-            axios.post(('/deleteChannel'), {
+            axios.post(('https://trivia.skybounddev.com/deleteChannel'), {
                 commID: that.props.communityData.CommunityID,
                 chanID: that.state.chanID,
             }).then((response) => {
                 //This is where the response is handled from the server
                 console.log(response.data[0]);
-                this.setState({channels: response.data})
+                that.setState({channels: response.data, chanID: response.data[0].ChannelID})
             })
                 .catch(function (error) {
                     console.log(error);
@@ -148,18 +148,18 @@ class CreateChatChannel extends React.Component {
     render() {
         return (
             <div className="channelAdmin">
-                <label className= "channelMainHeader">Modify Community Channels</label>
-                <div className="channelCreator">
-                    <form className="newChannel" onSubmit={this.addChannel}>
-                        <label className="newChannelTextLabel">Enter a Name for a New Channel: <input type="text" value={this.state.channelName} name="channelName"
+                <h2>Modify Community Channels</h2>
+                <div>
+                    <form onSubmit={this.addChannel}>
+                        <label>Enter a Name for a New Channel: <input type="text" value={this.state.channelName} name="channelName"
                                    onChange={this.handleTextChange}/>
                         </label>
-                        <div><input type="submit" value="Create" className="createButton"/>{this.state.errorMessage1 && (
+                        <div><input type="submit" value="Create"/>{this.state.errorMessage1 && (
                             <p className="error"> {this.state.errorMessage1}</p>)}{this.state.successMessage1 && (
                             <p className="success"> {this.state.successMessage1}</p>)}</div>
                     </form>
                 </div>
-                <div className="channelDelete"><form className="deleteChannel" onSubmit={this.deleteChannel}><label className="channelSelect">Select a Channel to Delete: </label
+                <div className="channelDelete"><form className="deleteChannel" onSubmit={this.deleteChannel}><label>Select a Channel to Delete: </label
                 ><select name="channels" id="channels" className="channelSelect" onChange={this.selectChat}>
                     {this.state.channels.map(channel => (
                         <option value={channel.ChannelID} key={channel.ChannelID}>{channel.ChannelName}</option>))}
